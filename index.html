@@ -224,6 +224,27 @@
       transform: translateY(-10px) translateZ(20px) rotate(5deg);
     }
 
+    /* Position title */
+    .position-title {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      transform: translateY(-20px);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      padding: 0.4rem 1.2rem;
+      display: inline-block;
+    }
+
+    .position-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     /* Japanese name */
     .name-jp {
       font-family: 'Noto Sans JP', sans-serif;
@@ -724,12 +745,259 @@
       opacity: 0.7;
     }
 
+    .contact-cta {
+      margin-top: 3rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contact-cta.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact-lead {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .line-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #06C755;
+      color: #fff;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(6, 199, 85, 0.3);
+    }
+
+    .line-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(6, 199, 85, 0.4);
+      background: #05b34c;
+    }
+
+    .line-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Connect Section */
+    .connect-section {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 4rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      overflow-y: auto;
+    }
+
+    .connect-section.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .connect-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .connect-section .section-title {
+      color: #fff;
+    }
+
+    .connect-section .section-label {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .connect-section .back-button {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .connect-section .back-button:hover {
+      color: #fff;
+    }
+
+    .connect-intro {
+      text-align: center;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .connect-intro.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .connect-intro p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.8;
+    }
+
+    .connect-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .connect-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .connect-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .connect-card:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-5px);
+    }
+
+    .connect-card-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .connect-card-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .connect-card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .connect-card-desc {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .connect-card-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .connect-card-features li {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+      padding: 0.4rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .connect-card-features li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #06C755;
+    }
+
+    .connect-card-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #06C755;
+      color: #fff;
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .connect-card-button:hover {
+      background: #05b34c;
+      transform: translateX(5px);
+    }
+
+    .connect-card-button svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .connect-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+    }
+
+    .connect-note.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .profile-section,
       .policy-section,
+      .connect-section,
       .contact-section {
         padding: 5rem 1.5rem 2rem;
+      }
+
+      .connect-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .connect-card {
+        padding: 2rem;
+      }
+
+      .connect-card-title {
+        font-size: 1.2rem;
       }
 
       .section-header {
@@ -854,6 +1122,7 @@
 
   <!-- Main Container -->
   <div class="container" id="mainContainer">
+    <p class="position-title" id="positionTitle">三郷市議会議員</p>
     <h1 class="logo" id="logo"></h1>
     <p class="name-jp" id="nameJp">鈴木 優作</p>
 
@@ -888,6 +1157,7 @@
     <nav class="nav-section" id="navSection">
       <a href="#" class="nav-link" data-section="profile">Profile →</a>
       <a href="#" class="nav-link" data-section="policy">Vision →</a>
+      <a href="#" class="nav-link" data-section="connect">Connect →</a>
       <a href="#" class="nav-link" data-section="contact">Contact →</a>
     </nav>
   </div>
@@ -995,6 +1265,65 @@
     </div>
   </section>
 
+  <!-- Connect Section -->
+  <section class="connect-section" id="connectSection">
+    <div class="back-button" id="connectBack">Back</div>
+    <div class="connect-inner">
+      <div class="section-header" style="justify-content: center; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
+        <div>
+          <h2 class="section-title" data-connect>CONNECT</h2>
+          <span class="section-label" data-connect style="display: block; margin-top: 0.5rem;">つながる</span>
+        </div>
+      </div>
+
+      <div class="connect-intro" data-connect data-delay="0">
+        <p>三郷市の情報を「届ける」LINEと、<br>「話せる」対話室。2つの運用をスタートします。</p>
+      </div>
+
+      <div class="connect-cards">
+        <div class="connect-card" data-connect data-delay="1">
+          <div class="connect-card-icon">📰</div>
+          <div class="connect-card-label">Receive News</div>
+          <h3 class="connect-card-title">三郷市最新ニュース<br>LINE公式アカウント</h3>
+          <p class="connect-card-desc">市のホームページの更新情報が自動で届くシステム。忙しい毎日でも、三郷の最新情報をキャッチできます。</p>
+          <ul class="connect-card-features">
+            <li>毎日12:00頃に最新情報をお届け</li>
+            <li>ニュースがない日は通知なし</li>
+            <li>ランチタイムにサクッと確認</li>
+          </ul>
+          <a href="https://line.me/R/ti/p/@963tbayc" target="_blank" rel="noopener noreferrer" class="connect-card-button">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+            </svg>
+            ニュースを受け取る
+          </a>
+        </div>
+
+        <div class="connect-card" data-connect data-delay="2">
+          <div class="connect-card-icon">💬</div>
+          <div class="connect-card-label">Join Dialogue</div>
+          <h3 class="connect-card-title">対話室<br>オープンチャット</h3>
+          <p class="connect-card-desc">匿名で気軽に参加できるコミュニティ。地域の課題や未来について、ざっくばらんに意見交換できる場です。</p>
+          <ul class="connect-card-features">
+            <li>ニックネームで匿名参加OK</li>
+            <li>鈴木優作と直接対話</li>
+            <li>地域の声を市政に届ける</li>
+          </ul>
+          <a href="https://line.me/ti/g2/hrLKGQYP-HSgxYZws7mUZ1AZ4XRBQ7U2etM_Hw" target="_blank" rel="noopener noreferrer" class="connect-card-button">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+            </svg>
+            対話室に参加する
+          </a>
+        </div>
+      </div>
+
+      <p class="connect-note" data-connect data-delay="3">
+        ※ 本アカウント群は鈴木優作個人の政治活動の一環として運用しており、三郷市役所の公式アカウントではありません。
+      </p>
+    </div>
+  </section>
+
   <!-- Contact Section -->
   <section class="contact-section" id="contactSection">
     <div class="back-button" id="contactBack">Back</div>
@@ -1006,15 +1335,14 @@
         </div>
       </div>
 
-      <div class="contact-grid">
-        <div class="contact-item" data-contact data-delay="0">
-          <div class="contact-label">LINE</div>
-          <div class="contact-value">お気軽にLINEから<br>ご連絡ください</div>
-        </div>
-        <div class="contact-item" data-contact data-delay="1">
-          <div class="contact-label">Residence</div>
-          <div class="contact-value">埼玉県三郷市三郷</div>
-        </div>
+      <div class="contact-cta" data-contact data-delay="0">
+        <p class="contact-lead">ご意見・ご相談はLINEで<br>お気軽にお送りください</p>
+        <a href="https://lin.ee/6YDZSsO" target="_blank" rel="noopener noreferrer" class="line-button">
+          <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+          </svg>
+          LINE で相談する
+        </a>
       </div>
     </div>
   </section>
@@ -1023,6 +1351,7 @@
     // Logo assembly animation (like SOUZOUDO)
     const logoText = 'YUSAKU SUZUKI';
     const logo = document.getElementById('logo');
+    const positionTitle = document.getElementById('positionTitle');
     const nameJp = document.getElementById('nameJp');
     const status = document.getElementById('status');
     const visionBox = document.getElementById('visionBox');
@@ -1206,6 +1535,7 @@
           });
 
           // Show other elements
+          positionTitle.classList.add('visible');
           nameJp.classList.add('visible');
           status.classList.add('visible');
           visionBox.classList.add('visible');
@@ -1357,6 +1687,7 @@
     // Section navigation
     const profileSection = document.getElementById('profileSection');
     const policySection = document.getElementById('policySection');
+    const connectSection = document.getElementById('connectSection');
     const contactSection = document.getElementById('contactSection');
 
     function showSection(section) {
@@ -1365,7 +1696,7 @@
 
       // Animate elements
       setTimeout(() => {
-        const elements = section.querySelectorAll('[data-profile], [data-policy], [data-contact]');
+        const elements = section.querySelectorAll('[data-profile], [data-policy], [data-connect], [data-contact]');
         elements.forEach((el, index) => {
           const delay = el.dataset.delay || index;
           setTimeout(() => {
@@ -1392,6 +1723,7 @@
         const sectionName = link.dataset.section;
         if (sectionName === 'profile') showSection(profileSection);
         if (sectionName === 'policy') showSection(policySection);
+        if (sectionName === 'connect') showSection(connectSection);
         if (sectionName === 'contact') showSection(contactSection);
       });
     });
@@ -1399,6 +1731,7 @@
     // Back buttons
     document.getElementById('profileBack').addEventListener('click', () => hideSection(profileSection));
     document.getElementById('policyBack').addEventListener('click', () => hideSection(policySection));
+    document.getElementById('connectBack').addEventListener('click', () => hideSection(connectSection));
     document.getElementById('contactBack').addEventListener('click', () => hideSection(contactSection));
 
     // ESC key to close sections
@@ -1406,6 +1739,7 @@
       if (e.key === 'Escape') {
         hideSection(profileSection);
         hideSection(policySection);
+        hideSection(connectSection);
         hideSection(contactSection);
       }
     });
