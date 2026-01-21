@@ -800,7 +800,7 @@
       width: 100%;
       height: 100%;
       padding: 4rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--bg);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -822,22 +822,6 @@
       width: 100%;
     }
 
-    .connect-section .section-title {
-      color: #fff;
-    }
-
-    .connect-section .section-label {
-      color: rgba(255,255,255,0.7);
-    }
-
-    .connect-section .back-button {
-      color: rgba(255,255,255,0.7);
-    }
-
-    .connect-section .back-button:hover {
-      color: #fff;
-    }
-
     .connect-intro {
       text-align: center;
       margin-bottom: 3rem;
@@ -852,23 +836,21 @@
     }
 
     .connect-intro p {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      color: var(--text-light);
       line-height: 1.8;
     }
 
     .connect-cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      gap: 0;
     }
 
     .connect-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 20px;
-      padding: 2.5rem;
+      padding: 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      border-right: 1px solid rgba(0,0,0,0.06);
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -879,64 +861,60 @@
       transform: translateY(0);
     }
 
-    .connect-card:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-5px);
+    .connect-card:nth-child(2n) {
+      border-right: none;
+    }
+
+    .connect-card:nth-last-child(-n+2) {
+      border-bottom: none;
     }
 
     .connect-card-icon {
-      width: 60px;
-      height: 60px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .connect-card-label {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: var(--text-light);
       margin-bottom: 0.5rem;
     }
 
     .connect-card-title {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 600;
-      color: #fff;
-      margin-bottom: 1rem;
+      color: var(--text);
+      margin-bottom: 0.75rem;
       line-height: 1.4;
     }
 
     .connect-card-desc {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.8);
+      font-size: 0.85rem;
+      color: var(--text-light);
       line-height: 1.8;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .connect-card-features {
       list-style: none;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .connect-card-features li {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
-      padding: 0.4rem 0;
-      padding-left: 1.2rem;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      padding: 0.3rem 0;
+      padding-left: 1rem;
       position: relative;
     }
 
     .connect-card-features li::before {
-      content: '•';
+      content: '—';
       position: absolute;
       left: 0;
-      color: #06C755;
+      color: var(--text-light);
     }
 
     .connect-card-button {
@@ -945,29 +923,29 @@
       gap: 0.5rem;
       background: #06C755;
       color: #fff;
-      padding: 0.8rem 1.8rem;
-      border-radius: 50px;
+      padding: 0.7rem 1.5rem;
+      border-radius: 2px;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 500;
       transition: all 0.3s ease;
     }
 
     .connect-card-button:hover {
       background: #05b34c;
-      transform: translateX(5px);
+      transform: translateY(-2px);
     }
 
     .connect-card-button svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
 
     .connect-note {
       text-align: center;
-      margin-top: 2.5rem;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.5);
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: var(--text-light);
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
@@ -989,15 +967,19 @@
 
       .connect-cards {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
       }
 
       .connect-card {
-        padding: 2rem;
+        padding: 1.5rem 0;
+        border-right: none;
+      }
+
+      .connect-card:last-child {
+        border-bottom: none;
       }
 
       .connect-card-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
 
       .section-header {
@@ -1197,8 +1179,8 @@
         </div>
 
         <div class="profile-item" data-profile data-delay="4">
-          <span class="profile-label">Education</span>
-          <div class="profile-value">都立科学技術高等学校<br>日本大学理工学部（中退）</div>
+          <span class="profile-label">Specialty</span>
+          <div class="profile-value">Webデザイン・開発<br>地域ブランディング</div>
         </div>
 
         <div class="profile-item" data-profile data-delay="5">
@@ -1269,11 +1251,9 @@
   <section class="connect-section" id="connectSection">
     <div class="back-button" id="connectBack">Back</div>
     <div class="connect-inner">
-      <div class="section-header" style="justify-content: center; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
-        <div>
-          <h2 class="section-title" data-connect>CONNECT</h2>
-          <span class="section-label" data-connect style="display: block; margin-top: 0.5rem;">つながる</span>
-        </div>
+      <div class="section-header">
+        <h2 class="section-title" data-connect>CONNECT</h2>
+        <span class="section-label" data-connect>つながる</span>
       </div>
 
       <div class="connect-intro" data-connect data-delay="0">
