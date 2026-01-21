@@ -1029,82 +1029,331 @@
     const visionBox = document.getElementById('visionBox');
     const navSection = document.getElementById('navSection');
     const container = document.getElementById('mainContainer');
+    const corners = document.querySelectorAll('.corner');
+    const lines = document.querySelectorAll('.line');
+    const shapes = document.querySelectorAll('.shape');
 
-    // Create character spans
-    logoText.split('').forEach((char, index) => {
+    // Character tracking
+    const chars = [];
+    let isAssembled = false;
+    let charFloatTime = 0;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    // Create individual character elements - append to body like SOUZOUDO
+    logoText.split('').forEach((char, i) => {
       const span = document.createElement('span');
-      span.className = 'logo-char';
+      span.className = 'logo-char floating';
       span.textContent = char === ' ' ? '\u00A0' : char;
-      span.style.opacity = '0';
-      logo.appendChild(span);
+      span.dataset.index = i;
+
+      // Random starting position with margin from edges
+      const margin = 100;
+      const startX = margin + Math.random() * (window.innerWidth - margin * 2);
+      const startY = margin + Math.random() * (window.innerHeight - margin * 2);
+      const startRotation = Math.random() * 360 - 180;
+
+      // Random size for depth perception - extreme range for impact
+      // Scale from tiny (0.15x) to massive (8x) - largest fills ~half the screen
+      const depthScale = 0.15 + Math.random() * 7.85;
+      const logoFontSize = Math.min(window.innerWidth * 0.08, 80);
+      const floatingFontSize = logoFontSize * depthScale;
+
+      // Adjust opacity based on depth - far = faint, close = bold
+      const opacity = depthScale < 1
+        ? 0.15 + depthScale * 0.4  // Small letters: 0.15 - 0.55
+        : Math.min(0.9, 0.5 + (depthScale - 1) * 0.06); // Large letters: 0.5 - 0.9
+
+      span.style.left = startX + 'px';
+      span.style.top = startY + 'px';
+      span.style.transform = `rotate(${startRotation}deg)`;
+      span.style.fontSize = floatingFontSize + 'px';
+      span.style.opacity = opacity;
+      span.dataset.depthScale = depthScale;
+
+      // Store initial random values for floating animation
+      span.dataset.offsetX = Math.random() * 2 - 1;
+      span.dataset.offsetY = Math.random() * 2 - 1;
+      span.dataset.speed = 0.3 + Math.random() * 0.4;
+      span.dataset.rotSpeed = (Math.random() - 0.5) * 1.5;
+
+      chars.push({
+        el: span,
+        x: startX,
+        y: startY,
+        targetX: startX,
+        targetY: startY,
+        rotation: startRotation,
+        targetRotation: startRotation,
+        vx: 0,
+        vy: 0
+      });
+
+      document.body.appendChild(span);
     });
 
-    const chars = document.querySelectorAll('.logo-char');
+    // Floating animation for scattered chars
+    function animateFloatingChars() {
+      if (isAssembled) return;
 
-    // Random positions for floating effect
-    function getRandomPosition() {
-      return {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        rotation: Math.random() * 360 - 180,
-        scale: 0.3 + Math.random() * 0.7
-      };
+      charFloatTime += 0.02;
+
+      chars.forEach((char, i) => {
+        const offsetX = parseFloat(char.el.dataset.offsetX);
+        const offsetY = parseFloat(char.el.dataset.offsetY);
+        const speed = parseFloat(char.el.dataset.speed);
+        const rotSpeed = parseFloat(char.el.dataset.rotSpeed);
+
+        // Gentle floating movement
+        char.x += Math.sin(charFloatTime * speed + i) * 0.5 * offsetX;
+        char.y += Math.cos(charFloatTime * speed * 0.7 + i) * 0.5 * offsetY;
+        char.rotation += rotSpeed * 0.3;
+
+        // Mouse repulsion during floating
+        const dx = mouseX - char.x;
+        const dy = mouseY - char.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const repelDist = 120;
+
+        if (dist < repelDist && dist > 0) {
+          const force = (1 - dist / repelDist) * 8;
+          const angle = Math.atan2(dy, dx);
+          char.x -= Math.cos(angle) * force;
+          char.y -= Math.sin(angle) * force;
+          char.rotation += (Math.random() - 0.5) * force * 0.5;
+        }
+
+        // Keep within bounds
+        if (char.x < 50) char.x = 50;
+        if (char.x > window.innerWidth - 50) char.x = window.innerWidth - 50;
+        if (char.y < 50) char.y = 50;
+        if (char.y > window.innerHeight - 50) char.y = window.innerHeight - 50;
+
+        char.el.style.left = char.x + 'px';
+        char.el.style.top = char.y + 'px';
+        char.el.style.transform = `rotate(${char.rotation}deg)`;
+      });
+
+      requestAnimationFrame(animateFloatingChars);
     }
 
-    // Initialize floating positions
-    chars.forEach((char) => {
-      const pos = getRandomPosition();
-      char.classList.add('floating');
-      char.style.left = pos.x + 'px';
-      char.style.top = pos.y + 'px';
-      char.style.transform = `rotate(${pos.rotation}deg) scale(${pos.scale})`;
-      char.style.opacity = '1';
+    animateFloatingChars();
+
+    // Assemble characters to center after delay
+    function assembleChars() {
+      isAssembled = true;
+
+      // Get the final assembled font size
+      const computedStyle = getComputedStyle(logo);
+      const fontSize = parseFloat(computedStyle.fontSize);
+      const letterSpacing = -0.03 * fontSize;
+      const charWidth = fontSize * 0.6; // Approximate char width
+
+      // Calculate total logo width
+      const totalLogoWidth = (charWidth * logoText.length) + (letterSpacing * (logoText.length - 1));
+
+      // Center of screen
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      // Starting X position (leftmost character)
+      const startX = centerX - (totalLogoWidth / 2);
+
+      chars.forEach((char, i) => {
+        // Target position - true center of screen
+        const targetX = startX + (i * (charWidth + letterSpacing)) + (charWidth / 2);
+        const targetY = centerY;
+
+        // Animate to position with size normalization
+        char.el.style.transition = `left 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
+                                    top 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
+                                    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
+                                    font-size 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
+                                    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s`;
+
+        char.el.style.left = targetX + 'px';
+        char.el.style.top = targetY + 'px';
+        char.el.style.transform = 'rotate(0deg) translate(-50%, -50%)';
+        char.el.style.fontSize = fontSize + 'px';
+        char.el.style.opacity = '1';
+      });
+
+      // After assembly, move chars into logo element
+      setTimeout(() => {
+        // Hide all chars first
+        chars.forEach((char) => {
+          char.el.style.opacity = '0';
+        });
+
+        // Short delay then move to logo
+        setTimeout(() => {
+          chars.forEach((char, i) => {
+            char.el.classList.remove('floating');
+            char.el.classList.add('assembled');
+            char.el.style.transition = '';
+            char.el.style.left = '';
+            char.el.style.top = '';
+            char.el.style.transform = '';
+            char.el.style.fontSize = '';
+            logo.appendChild(char.el);
+          });
+
+          // Fade in the assembled logo
+          requestAnimationFrame(() => {
+            chars.forEach((char) => {
+              char.el.style.transition = 'opacity 0.3s ease';
+              char.el.style.opacity = '1';
+            });
+          });
+
+          // Show other elements
+          nameJp.classList.add('visible');
+          status.classList.add('visible');
+          visionBox.classList.add('visible');
+          navSection.classList.add('visible');
+
+          // Start interactive mode
+          startInteractiveMode();
+        }, 50);
+      }, 1500);
+    }
+
+    // Start assembly after 2.5 seconds
+    setTimeout(assembleChars, 2500);
+
+    // Interactive mode - chars respond to mouse
+    function startInteractiveMode() {
+      function animateInteractive() {
+        const logoRect = logo.getBoundingClientRect();
+
+        chars.forEach((char, i) => {
+          const charRect = char.el.getBoundingClientRect();
+          const charCenterX = charRect.left + charRect.width / 2;
+          const charCenterY = charRect.top + charRect.height / 2;
+
+          // Distance from mouse to char
+          const dx = mouseX - charCenterX;
+          const dy = mouseY - charCenterY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Repel effect when mouse is close
+          const maxDist = 150;
+          if (dist < maxDist) {
+            const force = (1 - dist / maxDist) * 20;
+            const angle = Math.atan2(dy, dx);
+            const offsetX = -Math.cos(angle) * force;
+            const offsetY = -Math.sin(angle) * force;
+            const rotation = (offsetX * 0.5);
+
+            char.el.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
+          } else {
+            char.el.style.transform = '';
+          }
+        });
+
+        requestAnimationFrame(animateInteractive);
+      }
+
+      animateInteractive();
+    }
+
+    // Track mouse/touch position
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
 
-    // Assembly animation
-    setTimeout(() => {
-      chars.forEach((char, index) => {
-        setTimeout(() => {
-          char.style.transition = 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
-          char.style.left = '50%';
-          char.style.top = '50%';
-          char.style.transform = 'translate(-50%, -50%) rotate(0deg) scale(1)';
-        }, index * 50);
+    document.addEventListener('touchmove', (e) => {
+      mouseX = e.touches[0].clientX;
+      mouseY = e.touches[0].clientY;
+    });
+
+    // 3D tilt effect variables
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    // Mouse movement (desktop) for 3D effect
+    document.addEventListener('mousemove', (e) => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      targetX = (e.clientX - centerX) / centerX;
+      targetY = (e.clientY - centerY) / centerY;
+    });
+
+    // Touch movement (mobile)
+    document.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      targetX = (touch.clientX - centerX) / centerX;
+      targetY = (touch.clientY - centerY) / centerY;
+    });
+
+    // Device orientation (mobile tilt)
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', (e) => {
+        if (e.gamma !== null && e.beta !== null) {
+          targetX = Math.max(-1, Math.min(1, e.gamma / 30));
+          targetY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+        }
       });
-    }, 500);
+    }
 
-    // Final assembly
-    setTimeout(() => {
-      chars.forEach((char) => {
-        char.classList.remove('floating');
-        char.classList.add('assembled');
-        char.style.transform = '';
-      });
+    // 3D animation loop
+    function animate3D() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
 
-      // Show other elements
-      nameJp.classList.add('visible');
-      status.classList.add('visible');
-      visionBox.classList.add('visible');
-      navSection.classList.add('visible');
-    }, 2500);
-
-    // 3D tilt effect
-    container.addEventListener('mousemove', (e) => {
-      const rect = container.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-
-      const rotateX = (mouseY - centerY) / centerY * -5;
-      const rotateY = (mouseX - centerX) / centerX * 5;
+      const rotateY = currentX * 8;
+      const rotateX = -currentY * 5;
 
       container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
 
-    container.addEventListener('mouseleave', () => {
-      container.style.transform = 'rotateX(0) rotateY(0)';
-    });
+      corners.forEach((corner, i) => {
+        const factor = 0.5;
+        const offsetX = -currentX * 15 * factor;
+        const offsetY = -currentY * 10 * factor;
+        corner.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+
+      lines.forEach((line, i) => {
+        const isHorizontal = line.classList.contains('line-h');
+        if (isHorizontal) {
+          line.style.transform = `translateY(${currentY * 3}px)`;
+        } else {
+          line.style.transform = `translateX(${currentX * 3}px)`;
+        }
+      });
+
+      shapes.forEach((shape, i) => {
+        const depth = (i + 1) * 0.3;
+        const rotationBase = [15, -10, 25, -20, 5][i];
+        const offsetX = currentX * 30 * depth;
+        const offsetY = currentY * 20 * depth;
+        const rotation = rotationBase + currentX * 5;
+        shape.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
+      });
+
+      requestAnimationFrame(animate3D);
+    }
+
+    animate3D();
+
+    // Auto floating animation for shapes
+    let floatTime = 0;
+    function floatShapes() {
+      floatTime += 0.015;
+      shapes.forEach((shape, i) => {
+        const baseY = Math.sin(floatTime + i * 1.5) * 15;
+        const baseX = Math.cos(floatTime * 0.7 + i) * 10;
+        shape.style.setProperty('--float-x', baseX + 'px');
+        shape.style.setProperty('--float-y', baseY + 'px');
+      });
+      requestAnimationFrame(floatShapes);
+    }
+    floatShapes();
 
     // Section navigation
     const profileSection = document.getElementById('profileSection');
