@@ -354,9 +354,47 @@
       color: var(--text);
     }
 
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .social-links.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--text);
+      border-radius: 50%;
+      color: var(--bg);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+    }
+
     /* Navigation Links */
     .nav-section {
-      margin-top: 3rem;
+      margin-top: 2rem;
       display: flex;
       gap: 2rem;
       opacity: 0;
@@ -1136,6 +1174,19 @@
       </p>
     </div>
 
+    <div class="social-links" id="socialLinks">
+      <a href="https://x.com/yuu_misato" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="https://note.com/souzoudo" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="note">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M22.79 2.966c-.73-.733-1.752-1.063-2.756-.993l-6.81.47c-.59.042-1.146.32-1.528.77L3.59 12.855c-.624.737-.776 1.778-.39 2.67l1.14 2.62c.208.478.577.867 1.04 1.1l2.63 1.306c.894.444 1.96.313 2.717-.333l9.18-7.82c.448-.382.726-.938.768-1.528l.47-6.81c.07-1.004-.34-2.027-1.073-2.76-.003-.003-.007-.006-.01-.01zM15.95 8.05a1.5 1.5 0 11-2.121 2.121 1.5 1.5 0 012.121-2.121zM6.256 15.91l5.89-6.952 5.085 5.086-6.95 5.89-1.855-.92-.92-1.855-1.25-1.25z"/>
+        </svg>
+      </a>
+    </div>
+
     <nav class="nav-section" id="navSection">
       <a href="#" class="nav-link" data-section="profile">Profile →</a>
       <a href="#" class="nav-link" data-section="policy">Vision →</a>
@@ -1519,6 +1570,7 @@
           nameJp.classList.add('visible');
           status.classList.add('visible');
           visionBox.classList.add('visible');
+          document.getElementById('socialLinks').classList.add('visible');
           navSection.classList.add('visible');
 
           // Start interactive mode
