@@ -136,7 +136,11 @@
       animation: fadeIn 1s ease 0.6s forwards;
       z-index: 100;
       pointer-events: none;
-      transition: color 0.5s ease;
+      transition: color 0.5s ease, opacity 0.5s ease;
+    }
+
+    .corner.hidden-on-mobile {
+      opacity: 0 !important;
     }
 
     .corner-tl { top: 1.5rem; left: 1.5rem; }
@@ -273,7 +277,11 @@
       opacity: 0;
       animation: fadeIn 1s ease 1s forwards;
       z-index: 100;
-      transition: color 0.5s ease;
+      transition: color 0.5s ease, opacity 0.5s ease;
+    }
+
+    .book-hint.hidden-on-mobile {
+      opacity: 0 !important;
     }
 
     body.dark-mode .book-hint {
@@ -1474,11 +1482,18 @@
     const pages = document.querySelectorAll('.page');
     const pageDots = document.querySelectorAll('.page-dot');
     const scrollHint = document.getElementById('scrollHint');
+    const corners = document.querySelectorAll('.corner');
+    const bookHint = document.querySelector('.book-hint');
     let currentPage = 0;
     const totalPages = 5;
     let isTransitioning = false;
     let scrollAccumulator = 0;
     const scrollThreshold = 50;
+
+    // Check if mobile device
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
 
     // Set initial z-index for pages (like a stack of papers)
     function updatePageStack() {
@@ -1533,6 +1548,22 @@
         scrollHint.classList.add('hidden');
       } else {
         scrollHint.classList.remove('hidden');
+      }
+
+      // Hide corners and book hint on mobile when not on first or last page
+      if (isMobile()) {
+        // Corners: hide on middle pages (2-4), show on first and last
+        if (currentPage > 0 && currentPage < totalPages - 1) {
+          corners.forEach(corner => corner.classList.add('hidden-on-mobile'));
+        } else {
+          corners.forEach(corner => corner.classList.remove('hidden-on-mobile'));
+        }
+        // Book hint: always hide on mobile after first navigation
+        if (currentPage > 0) {
+          bookHint.classList.add('hidden-on-mobile');
+        } else {
+          bookHint.classList.remove('hidden-on-mobile');
+        }
       }
 
       // Dark mode for contact page
