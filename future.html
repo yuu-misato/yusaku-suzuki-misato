@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>未来都市三郷 - 可能性に満ちた街</title>
-    <meta name="description" content="三郷市の未来は可能性に満ちている。TX延伸、人口増加、商業集積...データで見る三郷の成長ポテンシャル">
+    <title>未来都市三郷 - AI時代の最適解</title>
+    <meta name="description" content="AGI到来、人口減少、物流需要増大。すべての変化が三郷市に追い風となる理由。">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;400;600;900&display=swap');
 
@@ -15,18 +15,17 @@
         }
 
         :root {
-            --black: #1d1d1f;
-            --gray-dark: #424245;
+            --black: #0a0a0a;
+            --gray-dark: #1a1a1a;
             --gray: #6e6e73;
             --gray-light: #d2d2d7;
             --white: #fbfbfd;
             --navy: #1e3a5f;
-            --navy-light: #2a4a73;
-            --accent: #0071e3;
-            --green: #34c759;
-            --orange: #ff9500;
-            --gradient-future: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-growth: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --green: #10b981;
+            --orange: #f59e0b;
+            --pink: #ec4899;
         }
 
         html {
@@ -35,8 +34,8 @@
 
         body {
             font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--white);
-            color: var(--black);
+            background: var(--black);
+            color: var(--white);
             line-height: 1.6;
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
@@ -47,15 +46,16 @@
            共通スタイル
         ======================================== */
         .eyebrow {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 16px;
+            opacity: 0.6;
         }
 
         .headline-hero {
-            font-size: clamp(48px, 10vw, 96px);
+            font-size: clamp(40px, 10vw, 88px);
             font-weight: 900;
             line-height: 1.05;
             letter-spacing: -0.03em;
@@ -69,18 +69,31 @@
         }
 
         .headline-medium {
-            font-size: clamp(24px, 4vw, 40px);
+            font-size: clamp(24px, 4vw, 36px);
             font-weight: 600;
             line-height: 1.2;
         }
 
         .body-large {
-            font-size: clamp(18px, 2.5vw, 21px);
-            line-height: 1.7;
-            color: var(--gray-dark);
+            font-size: clamp(16px, 2vw, 20px);
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .text-center { text-align: center; }
+
+        section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
         /* ========================================
            ナビゲーション
@@ -92,18 +105,19 @@
             right: 0;
             z-index: 1000;
             padding: 16px 24px;
-            background: rgba(251, 251, 253, 0.85);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-home {
             font-size: 14px;
             font-weight: 600;
-            color: var(--black);
+            color: var(--white);
             text-decoration: none;
         }
 
@@ -114,20 +128,20 @@
 
         .nav-links a {
             font-size: 12px;
-            color: var(--gray-dark);
+            color: rgba(255,255,255,0.6);
             text-decoration: none;
             transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--navy);
+            color: var(--white);
         }
 
         /* ========================================
            ヒーロー
         ======================================== */
         .hero-container {
-            height: 250vh;
+            height: 200vh;
             position: relative;
         }
 
@@ -141,58 +155,56 @@
             align-items: center;
             text-align: center;
             padding: 24px;
-            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a3a 50%, #2a2a5a 100%);
-            color: white;
             overflow: hidden;
         }
 
-        .hero-bg-text {
+        .hero-bg {
             position: absolute;
-            font-size: clamp(80px, 20vw, 200px);
-            font-weight: 900;
-            color: rgba(255,255,255,0.03);
-            white-space: nowrap;
-            user-select: none;
-            pointer-events: none;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
         }
 
-        .hero-bg-text.top { top: 10%; left: -10%; }
-        .hero-bg-text.bottom { bottom: 10%; right: -10%; }
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+        }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 900px;
+            max-width: 1000px;
         }
 
-        .hero-eyebrow {
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 24px;
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 32px;
         }
 
         .hero-title {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease;
-        }
-
-        .hero-title.visible {
-            opacity: 1;
-            transform: translateY(0);
+            margin-bottom: 24px;
         }
 
         .hero-subtitle {
-            font-size: clamp(18px, 3vw, 24px);
-            color: rgba(255,255,255,0.7);
-            margin-top: 24px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease 0.2s;
-        }
-
-        .hero-subtitle.visible {
-            opacity: 1;
-            transform: translateY(0);
+            font-size: clamp(18px, 2.5vw, 24px);
+            opacity: 0.7;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
         }
 
         .hero-stats {
@@ -201,14 +213,6 @@
             gap: 48px;
             margin-top: 60px;
             flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease 0.4s;
-        }
-
-        .hero-stats.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .hero-stat {
@@ -216,619 +220,678 @@
         }
 
         .hero-stat-number {
-            font-size: clamp(36px, 6vw, 56px);
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 900;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--accent-light);
         }
 
         .hero-stat-label {
-            font-size: 13px;
-            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            opacity: 0.5;
             margin-top: 4px;
         }
 
-        /* 星のアニメーション */
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
         /* ========================================
-           イントロセクション
+           問題提起セクション
         ======================================== */
-        .intro-section {
+        .problem-section {
+            background: linear-gradient(180deg, var(--black) 0%, #0f0f1a 100%);
             padding: 120px 24px;
+        }
+
+        .problem-content {
             max-width: 900px;
             margin: 0 auto;
-            text-align: center;
         }
 
-        .intro-question {
-            font-size: clamp(28px, 5vw, 44px);
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 40px;
+        .problem-list {
+            margin-top: 60px;
         }
 
-        .intro-answer {
-            font-size: clamp(18px, 2.5vw, 21px);
-            color: var(--gray-dark);
-            line-height: 2;
-        }
-
-        /* ========================================
-           データセクション - スクロールロック
-        ======================================== */
-        .data-scroll-container {
-            height: 500vh;
-            position: relative;
-        }
-
-        .data-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
+        .problem-item {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #f5f5f7;
-            overflow: hidden;
-        }
-
-        .data-content {
-            max-width: 1200px;
-            width: 100%;
-            padding: 24px;
-            text-align: center;
-        }
-
-        .data-card {
-            background: white;
-            border-radius: 24px;
-            padding: 48px;
-            box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+            gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateX(-30px);
             transition: all 0.6s ease;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%) translateY(40px);
-            width: calc(100% - 48px);
-            max-width: 900px;
         }
 
-        .data-card.visible {
+        .problem-item.visible {
             opacity: 1;
-            transform: translate(-50%, -50%) translateY(0);
+            transform: translateX(0);
         }
 
-        .data-card.exit {
-            opacity: 0;
-            transform: translate(-50%, -50%) translateY(-40px);
-        }
-
-        .data-icon {
+        .problem-number {
             font-size: 48px;
-            margin-bottom: 24px;
-        }
-
-        .data-number {
-            font-size: clamp(48px, 10vw, 80px);
             font-weight: 900;
+            color: var(--accent);
+            opacity: 0.3;
             line-height: 1;
-            margin-bottom: 16px;
-        }
-
-        .data-number.gradient-purple {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .data-number.gradient-green {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .data-number.gradient-orange {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .data-number.gradient-blue {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .data-title {
-            font-size: clamp(20px, 3vw, 28px);
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .data-desc {
-            font-size: 16px;
-            color: var(--gray);
-            line-height: 1.8;
-        }
-
-        .data-source {
-            font-size: 12px;
-            color: var(--gray-light);
-            margin-top: 24px;
-        }
-
-        /* プログレスインジケーター */
-        .data-progress {
-            position: fixed;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 100;
-        }
-
-        .data-progress-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--gray-light);
-            transition: all 0.3s ease;
-        }
-
-        .data-progress-dot.active {
-            background: var(--navy);
-            transform: scale(1.3);
-        }
-
-        /* ========================================
-           TX延伸セクション
-        ======================================== */
-        .tx-section {
-            padding: 120px 24px;
-            background: linear-gradient(180deg, var(--white) 0%, #e8f4f8 100%);
-        }
-
-        .tx-content {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .tx-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .tx-eyebrow {
-            color: var(--accent);
-        }
-
-        .tx-timeline {
-            position: relative;
-            padding: 40px 0;
-        }
-
-        .tx-timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--accent) 0%, #764ba2 100%);
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        .tx-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 60px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .tx-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tx-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        .tx-item:nth-child(odd) .tx-item-content {
-            text-align: right;
-            padding-right: 60px;
-            padding-left: 0;
-        }
-
-        .tx-item:nth-child(even) .tx-item-content {
-            padding-left: 60px;
-        }
-
-        .tx-item-content {
-            flex: 1;
-        }
-
-        .tx-item-dot {
-            width: 24px;
-            height: 24px;
-            background: white;
-            border: 4px solid var(--accent);
-            border-radius: 50%;
-            position: relative;
-            z-index: 2;
             flex-shrink: 0;
+            width: 60px;
         }
 
-        .tx-item-year {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .tx-item-title {
+        .problem-text h3 {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
-        .tx-item-desc {
-            font-size: 14px;
-            color: var(--gray);
+        .problem-text p {
+            font-size: 15px;
+            opacity: 0.6;
             line-height: 1.7;
         }
 
-        .tx-benefit {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 60px;
-            text-align: center;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-        }
-
-        .tx-benefit-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 32px;
-        }
-
-        .tx-benefit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-        }
-
-        .tx-benefit-item {
-            padding: 24px;
-            background: #f5f5f7;
-            border-radius: 16px;
-        }
-
-        .tx-benefit-number {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .tx-benefit-label {
-            font-size: 14px;
-            color: var(--gray);
-        }
-
         /* ========================================
-           商業・物流セクション
+           解決策セクション - 三郷の強み
         ======================================== */
-        .commerce-section {
+        .solution-section {
             padding: 120px 24px;
-            background: var(--black);
-            color: white;
+            background: #0f0f1a;
         }
 
-        .commerce-content {
+        .solution-content {
             max-width: 1100px;
             margin: 0 auto;
         }
 
-        .commerce-header {
+        .solution-header {
             text-align: center;
             margin-bottom: 80px;
         }
 
-        .commerce-eyebrow {
-            color: var(--orange);
-        }
-
-        .commerce-grid {
+        .solution-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 24px;
         }
 
-        .commerce-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+        .solution-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
-            padding: 32px;
+            padding: 40px 32px;
+            transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.5s ease;
         }
 
-        .commerce-card.visible {
+        .solution-card.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .commerce-card-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
+        .solution-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-4px);
         }
 
-        .commerce-card-title {
+        .solution-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--pink) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .solution-card h3 {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 12px;
         }
 
-        .commerce-card-desc {
+        .solution-card p {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
-            line-height: 1.7;
+            opacity: 0.6;
+            line-height: 1.8;
         }
 
-        .commerce-highlight {
+        .solution-highlight {
             margin-top: 60px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(255,149,0,0.2) 0%, rgba(255,94,58,0.2) 100%);
-            border-radius: 20px;
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 24px;
             text-align: center;
         }
 
-        .commerce-highlight-title {
+        .solution-highlight-title {
             font-size: 28px;
-            font-weight: 600;
+            font-weight: 900;
             margin-bottom: 16px;
         }
 
-        .commerce-highlight-logos {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-        }
-
-        .commerce-logo {
-            background: white;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--black);
+        .solution-highlight-desc {
+            font-size: 16px;
+            opacity: 0.7;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* ========================================
-           子育てセクション
+           土地ポテンシャルセクション
         ======================================== */
-        .family-section {
+        .land-section {
             padding: 120px 24px;
-            background: linear-gradient(180deg, #fef9f3 0%, var(--white) 100%);
+            background: var(--black);
         }
 
-        .family-content {
+        .land-content {
             max-width: 1100px;
             margin: 0 auto;
         }
 
-        .family-header {
+        .land-header {
             text-align: center;
             margin-bottom: 80px;
         }
 
-        .family-eyebrow {
-            color: var(--green);
+        .land-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .family-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        .land-chart {
+            position: relative;
+        }
+
+        .land-donut {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .land-donut svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .land-donut-bg {
+            fill: none;
+            stroke: rgba(255,255,255,0.1);
+            stroke-width: 30;
+        }
+
+        .land-donut-urban {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 30;
+            stroke-dasharray: 398;
+            stroke-dashoffset: 398;
+            transition: stroke-dashoffset 1.5s ease;
+        }
+
+        .land-donut-urban.animate {
+            stroke-dashoffset: 145;
+        }
+
+        .land-donut-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .land-donut-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--accent-light);
+        }
+
+        .land-donut-label {
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .land-stats {
+            display: flex;
+            flex-direction: column;
             gap: 24px;
+        }
+
+        .land-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+        }
+
+        .land-stat-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .land-stat-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .land-stat-dot.urban {
+            background: var(--accent);
+        }
+
+        .land-stat-dot.adjust {
+            background: var(--orange);
+        }
+
+        .land-stat-value {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .land-examples {
+            margin-top: 80px;
+        }
+
+        .land-examples-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .land-example-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .land-example {
+            padding: 32px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 16px;
+        }
+
+        .land-example-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--orange);
+            color: var(--black);
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .land-example h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .land-example p {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           駅起点まちづくりセクション
+        ======================================== */
+        .station-section {
+            padding: 120px 24px;
+            background: linear-gradient(180deg, #0f0f1a 0%, var(--black) 100%);
+        }
+
+        .station-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .station-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .station-concept {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
             margin-bottom: 60px;
         }
 
-        .family-stat {
-            background: white;
-            border-radius: 20px;
-            padding: 32px;
+        .station-concept-text {
+            font-size: 18px;
+            line-height: 2;
+            opacity: 0.8;
+        }
+
+        .station-concept-example {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 12px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .station-map {
+            position: relative;
+            margin: 60px 0;
+        }
+
+        .station-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .station-line::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--pink), var(--orange));
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+
+        .station-point {
+            position: relative;
+            z-index: 2;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            flex: 1;
+        }
+
+        .station-dot {
+            width: 24px;
+            height: 24px;
+            background: var(--white);
+            border: 4px solid;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+        }
+
+        .station-dot.tx { border-color: var(--accent); }
+        .station-dot.jr { border-color: var(--pink); }
+        .station-dot.new { border-color: var(--orange); }
+
+        .station-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .station-role {
+            font-size: 12px;
+            opacity: 0.6;
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .station-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .station-card {
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
+        }
+
+        .station-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .station-card.misato-chuo {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .station-card.misato {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(236, 72, 153, 0.05) 100%);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .station-card.shin-misato {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .station-card-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .station-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .station-card-role {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .station-card.misato-chuo .station-card-role { color: var(--accent-light); }
+        .station-card.misato .station-card-role { color: var(--pink); }
+        .station-card.shin-misato .station-card-role { color: var(--orange); }
+
+        .station-card p {
+            font-size: 13px;
+            opacity: 0.7;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           スタートアップ誘致セクション
+        ======================================== */
+        .startup-section {
+            padding: 120px 24px;
+            background: var(--black);
+        }
+
+        .startup-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .startup-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .startup-vision {
+            padding: 48px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(99, 102, 241, 0.15) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 24px;
+            margin-bottom: 60px;
+        }
+
+        .startup-vision-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--green);
+        }
+
+        .startup-vision-text {
+            font-size: 16px;
+            opacity: 0.8;
+            line-height: 1.9;
+        }
+
+        .startup-reasons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .startup-reason {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
         }
 
-        .family-stat.visible {
+        .startup-reason.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .family-stat-number {
-            font-size: 40px;
-            font-weight: 900;
-            color: var(--green);
-            margin-bottom: 8px;
-        }
-
-        .family-stat-label {
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .family-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .family-feature {
-            display: flex;
-            gap: 16px;
-            padding: 24px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .family-feature-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            border-radius: 12px;
+        .startup-reason-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             flex-shrink: 0;
         }
 
-        .family-feature-content h3 {
-            font-size: 16px;
+        .startup-reason h4 {
+            font-size: 15px;
             font-weight: 600;
             margin-bottom: 4px;
         }
 
-        .family-feature-content p {
+        .startup-reason p {
             font-size: 13px;
-            color: var(--gray);
+            opacity: 0.6;
         }
 
         /* ========================================
-           比較セクション
+           タイムラインセクション
         ======================================== */
-        .compare-section {
+        .timeline-section {
             padding: 120px 24px;
-            background: #f5f5f7;
+            background: #0a0a14;
         }
 
-        .compare-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .compare-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .compare-table {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-        }
-
-        .compare-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            border-bottom: 1px solid var(--gray-light);
-        }
-
-        .compare-row:last-child {
-            border-bottom: none;
-        }
-
-        .compare-cell {
-            padding: 20px 24px;
-            text-align: center;
-            font-size: 15px;
-        }
-
-        .compare-header-cell {
-            background: var(--navy);
-            color: white;
-            font-weight: 600;
-            padding: 16px 24px;
-        }
-
-        .compare-header-cell.highlight {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .compare-label {
-            background: #f9f9f9;
-            font-weight: 500;
-            text-align: left;
-        }
-
-        .compare-value {
-            font-weight: 600;
-        }
-
-        .compare-value.best {
-            color: var(--green);
-        }
-
-        /* ========================================
-           CTAセクション
-        ======================================== */
-        .cta-section {
-            padding: 120px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .cta-content {
+        .timeline-content {
             max-width: 800px;
             margin: 0 auto;
         }
 
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--pink), var(--orange), var(--green));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 48px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+
+        .timeline-year {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-light);
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           CTA
+        ======================================== */
+        .cta-section {
+            padding: 120px 24px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(236, 72, 153, 0.2) 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
         .cta-title {
-            font-size: clamp(28px, 5vw, 44px);
+            font-size: clamp(28px, 5vw, 40px);
             font-weight: 900;
             margin-bottom: 24px;
         }
 
         .cta-desc {
-            font-size: 18px;
-            opacity: 0.9;
+            font-size: 16px;
+            opacity: 0.8;
             margin-bottom: 40px;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .cta-buttons {
@@ -842,31 +905,30 @@
             display: inline-block;
             padding: 16px 40px;
             border-radius: 30px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
         }
 
         .cta-btn-primary {
-            background: white;
-            color: #764ba2;
+            background: var(--white);
+            color: var(--black);
         }
 
         .cta-btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.2);
         }
 
         .cta-btn-secondary {
             background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.5);
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .cta-btn-secondary:hover {
             background: rgba(255,255,255,0.1);
-            border-color: white;
         }
 
         /* ========================================
@@ -874,14 +936,14 @@
         ======================================== */
         footer {
             background: var(--black);
-            color: white;
+            border-top: 1px solid rgba(255,255,255,0.05);
             padding: 60px 24px;
             text-align: center;
         }
 
         .footer-note {
             font-size: 12px;
-            color: var(--gray);
+            opacity: 0.4;
             margin-top: 16px;
             line-height: 1.8;
         }
@@ -891,14 +953,14 @@
         }
 
         .footer-links a {
-            color: var(--gray-light);
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
             font-size: 13px;
             margin: 0 12px;
         }
 
         .footer-links a:hover {
-            color: white;
+            color: var(--white);
         }
 
         /* ========================================
@@ -913,42 +975,42 @@
                 gap: 24px;
             }
 
-            .data-progress {
-                right: 12px;
+            .land-visual {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
 
-            .tx-timeline::before {
-                left: 20px;
-            }
-
-            .tx-item {
-                flex-direction: column !important;
-                align-items: flex-start;
-                padding-left: 50px;
-            }
-
-            .tx-item .tx-item-content {
-                text-align: left !important;
-                padding: 0 !important;
-            }
-
-            .tx-item-dot {
-                position: absolute;
-                left: 8px;
-            }
-
-            .compare-row {
+            .station-cards {
                 grid-template-columns: 1fr;
             }
 
-            .compare-cell {
-                border-bottom: 1px solid var(--gray-light);
+            .station-line {
+                flex-direction: column;
+                gap: 40px;
             }
 
-            .compare-label {
-                font-weight: 600;
-                background: #f0f0f0;
+            .station-line::before {
+                width: 4px;
+                height: calc(100% - 80px);
+                left: 50%;
+                top: 40px;
+                right: auto;
+                transform: translateX(-50%);
             }
+        }
+
+        /* ========================================
+           アニメーション
+        ======================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -958,344 +1020,393 @@
     <nav>
         <a href="/" class="nav-home">鈴木優作</a>
         <div class="nav-links">
-            <a href="#data">データで見る</a>
-            <a href="#tx">TX延伸</a>
-            <a href="#commerce">商業・物流</a>
-            <a href="#family">子育て</a>
+            <a href="#problem">時代の変化</a>
+            <a href="#solution">三郷の強み</a>
+            <a href="#station">駅起点まちづくり</a>
+            <a href="#startup">スタートアップ誘致</a>
         </div>
     </nav>
 
     <!-- ヒーロー -->
-    <div class="hero-container" id="heroSection">
+    <div class="hero-container">
         <div class="hero-sticky">
-            <div class="stars" id="stars"></div>
-            <div class="hero-bg-text top">MISATO</div>
-            <div class="hero-bg-text bottom">FUTURE</div>
+            <div class="hero-bg"></div>
+            <div class="hero-grid"></div>
 
             <div class="hero-content">
-                <p class="eyebrow hero-eyebrow">MISATO CITY - THE FUTURE IS HERE</p>
-                <h1 class="headline-hero hero-title" id="heroTitle">
-                    未来都市<br>三郷
+                <div class="hero-tag">AI × 物流 × 未開発地</div>
+                <h1 class="headline-hero hero-title">
+                    <span class="gradient-text">未来都市</span><br>三郷
                 </h1>
-                <p class="hero-subtitle" id="heroSubtitle">
-                    可能性に満ちた街。その理由と根拠。
+                <p class="hero-subtitle">
+                    AGIの到来。人口減少。働き方の激変。<br>
+                    すべての変化が、この街に追い風となる。
                 </p>
 
-                <div class="hero-stats" id="heroStats">
+                <div class="hero-stats">
                     <div class="hero-stat">
-                        <p class="hero-stat-number">14.2万人</p>
-                        <p class="hero-stat-label">人口（増加中）</p>
+                        <p class="hero-stat-number">36.6%</p>
+                        <p class="hero-stat-label">市街化調整区域</p>
                     </div>
                     <div class="hero-stat">
                         <p class="hero-stat-number">20分</p>
                         <p class="hero-stat-label">秋葉原へ</p>
                     </div>
                     <div class="hero-stat">
-                        <p class="hero-stat-number">+2.8%</p>
-                        <p class="hero-stat-label">地価上昇率</p>
+                        <p class="hero-stat-number">3駅</p>
+                        <p class="hero-stat-label">異なる個性</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- イントロ -->
-    <section class="intro-section">
-        <p class="intro-question">
-            なぜ、三郷市は<br>「未来都市」なのか？
-        </p>
-        <p class="intro-answer">
-            東京都心へ20分台のアクセス。<br>
-            TX東京駅延伸計画。<br>
-            人口14万人超、今なお増加中。<br>
-            IKEA・コストコ・ららぽーとが集積する商業都市。<br>
-            待機児童9人まで減少した子育て環境。<br><br>
-            <strong>データが証明する、三郷の成長ポテンシャル。</strong>
-        </p>
-    </section>
+    <!-- 問題提起 -->
+    <section class="problem-section" id="problem">
+        <div class="problem-content">
+            <p class="eyebrow">The Coming Change</p>
+            <h2 class="headline-large">
+                これから起きる<br>
+                <span class="gradient-text">4つの大変化</span>
+            </h2>
 
-    <!-- プログレスインジケーター -->
-    <div class="data-progress" id="dataProgress">
-        <div class="data-progress-dot active"></div>
-        <div class="data-progress-dot"></div>
-        <div class="data-progress-dot"></div>
-        <div class="data-progress-dot"></div>
-    </div>
-
-    <!-- データセクション -->
-    <div class="data-scroll-container" id="dataSection">
-        <div class="data-sticky" id="data">
-            <div class="data-content">
-                <!-- カード1: 人口 -->
-                <div class="data-card" id="dataCard1">
-                    <div class="data-icon">👥</div>
-                    <p class="data-number gradient-purple">141,942人</p>
-                    <h2 class="data-title">人口は増加を続けている</h2>
-                    <p class="data-desc">
-                        2024年1月時点の三郷市人口。<br>
-                        2020年から2025年までの将来推計でも増加傾向。<br>
-                        TX開業以降、若い世代の流入が続いています。
-                    </p>
-                    <p class="data-source">出典：三郷市公式サイト「みさとの人口」</p>
-                </div>
-
-                <!-- カード2: アクセス -->
-                <div class="data-card" id="dataCard2">
-                    <div class="data-icon">🚃</div>
-                    <p class="data-number gradient-green">20分</p>
-                    <h2 class="data-title">秋葉原まで最速20分</h2>
-                    <p class="data-desc">
-                        つくばエクスプレス三郷中央駅から秋葉原駅まで、<br>
-                        区間快速で最速20分。東京駅へも約25分。<br>
-                        都心通勤圏として抜群の利便性。
-                    </p>
-                    <p class="data-source">出典：つくばエクスプレス公式サイト</p>
-                </div>
-
-                <!-- カード3: 地価 -->
-                <div class="data-card" id="dataCard3">
-                    <div class="data-icon">📈</div>
-                    <p class="data-number gradient-orange">+2.79%</p>
-                    <h2 class="data-title">地価上昇率</h2>
-                    <p class="data-desc">
-                        2024年基準地価の前年比変動率。<br>
-                        全国1,736市町村中241位の上昇率。<br>
-                        街の成長を不動産価値が証明しています。
-                    </p>
-                    <p class="data-source">出典：国土交通省 地価公示・基準地価</p>
-                </div>
-
-                <!-- カード4: 子育て -->
-                <div class="data-card" id="dataCard4">
-                    <div class="data-icon">👶</div>
-                    <p class="data-number gradient-blue">9人</p>
-                    <h2 class="data-title">待機児童数（2023年4月）</h2>
-                    <p class="data-desc">
-                        2022年の22人から大幅減少。<br>
-                        認可保育所の増設、小規模保育の拡充を推進。<br>
-                        こども医療費は18歳まで無料。
-                    </p>
-                    <p class="data-source">出典：三郷市公式サイト</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- TX延伸セクション -->
-    <section class="tx-section" id="tx">
-        <div class="tx-content">
-            <div class="tx-header">
-                <p class="eyebrow tx-eyebrow">TX EXTENSION PLAN</p>
-                <h2 class="headline-large">TX東京駅延伸</h2>
-                <p class="body-large" style="margin-top: 16px;">三郷の未来を変える、巨大プロジェクト</p>
-            </div>
-
-            <div class="tx-timeline">
-                <div class="tx-item fade-in">
-                    <div class="tx-item-content">
-                        <p class="tx-item-year">2024年12月</p>
-                        <h3 class="tx-item-title">期成同盟会の設立</h3>
-                        <p class="tx-item-desc">三郷市を含む4都県11区市が参加。TX東京駅延伸と臨海地下鉄接続を目指す新組織が発足。</p>
+            <div class="problem-list">
+                <div class="problem-item fade-in">
+                    <div class="problem-number">01</div>
+                    <div class="problem-text">
+                        <h3>AGI（汎用人工知能）の到来</h3>
+                        <p>近い将来、AIは人間の知能を超える。ホワイトカラーの仕事は根本から変わり、少人数で大企業と戦える時代が来る。</p>
                     </div>
-                    <div class="tx-item-dot"></div>
                 </div>
 
-                <div class="tx-item fade-in">
-                    <div class="tx-item-content">
-                        <p class="tx-item-year">2025年2月</p>
-                        <h3 class="tx-item-title">事業計画素案を公表</h3>
-                        <p class="tx-item-desc">茨城県がTX延伸構想の事業計画素案を発表。東京・土浦一体整備で費用便益比1.35、黒字転換27年と試算。</p>
+                <div class="problem-item fade-in">
+                    <div class="problem-number">02</div>
+                    <div class="problem-text">
+                        <h3>人口減少と雇用難</h3>
+                        <p>日本の人口は減り続ける。どの業種も人手不足が深刻化し、テクノロジーを導入しなければ経営が成り立たない時代に突入する。</p>
                     </div>
-                    <div class="tx-item-dot"></div>
                 </div>
 
-                <div class="tx-item fade-in">
-                    <div class="tx-item-content">
-                        <p class="tx-item-year">2028年頃</p>
-                        <h3 class="tx-item-title">臨海地下鉄着工</h3>
-                        <p class="tx-item-desc">東京都が計画する都心部・臨海地域地下鉄が着工予定。TXとの接続が実現へ向かう。</p>
+                <div class="problem-item fade-in">
+                    <div class="problem-number">03</div>
+                    <div class="problem-text">
+                        <h3>物流ニーズの爆発的増大</h3>
+                        <p>Eコマースの拡大、即日配送の常態化。人々の仕事が変わっても、「モノを届ける」ニーズはさらに高まる。</p>
                     </div>
-                    <div class="tx-item-dot"></div>
                 </div>
 
-                <div class="tx-item fade-in">
-                    <div class="tx-item-content">
-                        <p class="tx-item-year">将来</p>
-                        <h3 class="tx-item-title">三郷中央→東京駅 直通</h3>
-                        <p class="tx-item-desc">延伸が実現すれば、三郷中央駅から東京駅まで乗り換えなしでアクセス可能に。通勤・通学がさらに便利に。</p>
-                    </div>
-                    <div class="tx-item-dot"></div>
-                </div>
-            </div>
-
-            <div class="tx-benefit">
-                <h3 class="tx-benefit-title">現在の三郷中央駅からのアクセス</h3>
-                <div class="tx-benefit-grid">
-                    <div class="tx-benefit-item">
-                        <p class="tx-benefit-number">9分</p>
-                        <p class="tx-benefit-label">北千住まで</p>
-                    </div>
-                    <div class="tx-benefit-item">
-                        <p class="tx-benefit-number">20分</p>
-                        <p class="tx-benefit-label">秋葉原まで</p>
-                    </div>
-                    <div class="tx-benefit-item">
-                        <p class="tx-benefit-number">25分</p>
-                        <p class="tx-benefit-label">東京駅まで（乗換含む）</p>
-                    </div>
-                    <div class="tx-benefit-item">
-                        <p class="tx-benefit-number">33分</p>
-                        <p class="tx-benefit-label">つくばまで</p>
+                <div class="problem-item fade-in">
+                    <div class="problem-number">04</div>
+                    <div class="problem-text">
+                        <h3>東京の不動産高騰</h3>
+                        <p>都心の地価は上がり続ける。スタートアップも大企業も、「ちょうどいい場所」を求めている。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 商業・物流セクション -->
-    <section class="commerce-section" id="commerce">
-        <div class="commerce-content">
-            <div class="commerce-header">
-                <p class="eyebrow commerce-eyebrow">COMMERCE & LOGISTICS</p>
-                <h2 class="headline-large" style="color: white;">商業・物流の集積地</h2>
-                <p class="body-large" style="color: rgba(255,255,255,0.7); margin-top: 16px;">
-                    世界的ブランドが選んだ街
-                </p>
-            </div>
-
-            <div class="commerce-grid">
-                <div class="commerce-card fade-in">
-                    <div class="commerce-card-icon">🛍️</div>
-                    <h3 class="commerce-card-title">新三郷ららシティ</h3>
-                    <p class="commerce-card-desc">
-                        武蔵野操車場跡地51haを再開発。三井不動産を中心に、商業施設・住宅・物流施設が一体となった新しい街が誕生。
-                    </p>
-                </div>
-
-                <div class="commerce-card fade-in">
-                    <div class="commerce-card-icon">📦</div>
-                    <h3 class="commerce-card-title">首都圏物流拠点</h3>
-                    <p class="commerce-card-desc">
-                        外環道・常磐道のICに近接。プロロジスパーク三郷など大型物流施設が集積。Eコマース時代の要衝として発展。
-                    </p>
-                </div>
-
-                <div class="commerce-card fade-in">
-                    <div class="commerce-card-icon">🏠</div>
-                    <h3 class="commerce-card-title">住商一体の街づくり</h3>
-                    <p class="commerce-card-desc">
-                        ファインコートららシティ268戸をはじめとする良質な住宅地。買い物・通勤・子育てすべてが揃う理想の住環境。
-                    </p>
-                </div>
-            </div>
-
-            <div class="commerce-highlight">
-                <h3 class="commerce-highlight-title">世界が認めた立地</h3>
-                <div class="commerce-highlight-logos">
-                    <div class="commerce-logo">ららぽーと</div>
-                    <div class="commerce-logo">IKEA</div>
-                    <div class="commerce-logo">COSTCO</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 子育てセクション -->
-    <section class="family-section" id="family">
-        <div class="family-content">
-            <div class="family-header">
-                <p class="eyebrow family-eyebrow">CHILD RAISING</p>
-                <h2 class="headline-large">子育てしやすい街</h2>
+    <!-- 解決策 - 三郷の強み -->
+    <section class="solution-section" id="solution">
+        <div class="solution-content">
+            <div class="solution-header">
+                <p class="eyebrow">Why Misato</p>
+                <h2 class="headline-large">
+                    なぜ、三郷なのか
+                </h2>
                 <p class="body-large" style="margin-top: 16px;">
-                    若い世代が選ぶ、その理由
+                    すべての条件が揃っている。
                 </p>
             </div>
 
-            <div class="family-stats">
-                <div class="family-stat fade-in">
-                    <p class="family-stat-number">17,663人</p>
-                    <p class="family-stat-label">18歳未満の子どもの数</p>
+            <div class="solution-grid">
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">🚚</div>
+                    <h3>物流の要衝</h3>
+                    <p>外環道・常磐道のIC至近。首都圏への配送拠点として最適な立地。IKEA、コストコ、ららぽーとが選んだ場所。</p>
                 </div>
-                <div class="family-stat fade-in">
-                    <p class="family-stat-number">18歳まで</p>
-                    <p class="family-stat-label">こども医療費無料</p>
+
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">🚃</div>
+                    <h3>都心20分圏</h3>
+                    <p>つくばエクスプレスで秋葉原まで20分。TX東京駅延伸が実現すれば、乗り換えなしで東京駅へ。</p>
                 </div>
-                <div class="family-stat fade-in">
-                    <p class="family-stat-number">23園</p>
-                    <p class="family-stat-label">認定保育所</p>
+
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">🏗️</div>
+                    <h3>36.6%の未開発地</h3>
+                    <p>市街化調整区域が1,102ha。計画的な開発余地が、都心近郊でこれだけ残っている街は稀。</p>
                 </div>
-                <div class="family-stat fade-in">
-                    <p class="family-stat-number">日本一</p>
-                    <p class="family-stat-label">読書のまち宣言</p>
+
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">💰</div>
+                    <h3>適正な地価</h3>
+                    <p>東京の1/10以下のコストで拠点を構えられる。スタートアップにとって、挑戦しやすい経済環境。</p>
+                </div>
+
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">🗺️</div>
+                    <h3>ゾーニングの明確さ</h3>
+                    <p>商業地・住宅地・物流拠点が明確に区分されている。混在しない、計画的な街づくり。</p>
+                </div>
+
+                <div class="solution-card fade-in">
+                    <div class="solution-icon">🌱</div>
+                    <h3>成功事例がある</h3>
+                    <p>新三郷ららシティ、三郷中央駅周辺。調整区域から市街化区域への編入で、街は生まれ変わった。</p>
                 </div>
             </div>
 
-            <div class="family-features">
-                <div class="family-feature fade-in">
-                    <div class="family-feature-icon">🏥</div>
-                    <div class="family-feature-content">
-                        <h3>こども医療費助成</h3>
-                        <p>0歳から18歳年度末まで医療費無料</p>
+            <div class="solution-highlight">
+                <p class="solution-highlight-title">AI × 物流 = 三郷</p>
+                <p class="solution-highlight-desc">
+                    大手企業ではなく、AI×物流の分野で世界を変えるスタートアップを誘致する。<br>
+                    三郷は、その「未来投資」の最適解になりうる。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 土地ポテンシャル -->
+    <section class="land-section" id="land">
+        <div class="land-content">
+            <div class="land-header">
+                <p class="eyebrow">Land Potential</p>
+                <h2 class="headline-large">
+                    <span class="gradient-text">36.6%</span>が未開発
+                </h2>
+                <p class="body-large" style="margin-top: 16px;">
+                    都心近郊で、これだけの開発余地が残っている街は稀有
+                </p>
+            </div>
+
+            <div class="land-visual">
+                <div class="land-chart">
+                    <div class="land-donut">
+                        <svg viewBox="0 0 160 160">
+                            <circle class="land-donut-bg" cx="80" cy="80" r="63.5"/>
+                            <circle class="land-donut-urban" cx="80" cy="80" r="63.5" id="donutUrban"/>
+                        </svg>
+                        <div class="land-donut-center">
+                            <p class="land-donut-number">3,013</p>
+                            <p class="land-donut-label">ha（総面積）</p>
+                        </div>
                     </div>
                 </div>
-                <div class="family-feature fade-in">
-                    <div class="family-feature-icon">🏫</div>
-                    <div class="family-feature-content">
-                        <h3>保育施設の充実</h3>
-                        <p>認可保育所23園、認定こども園6園</p>
+
+                <div class="land-stats">
+                    <div class="land-stat">
+                        <div class="land-stat-label">
+                            <div class="land-stat-dot urban"></div>
+                            <span>市街化区域</span>
+                        </div>
+                        <div class="land-stat-value">1,911 ha（63.4%）</div>
+                    </div>
+                    <div class="land-stat">
+                        <div class="land-stat-label">
+                            <div class="land-stat-dot adjust"></div>
+                            <span>市街化調整区域</span>
+                        </div>
+                        <div class="land-stat-value">1,102 ha（36.6%）</div>
                     </div>
                 </div>
-                <div class="family-feature fade-in">
-                    <div class="family-feature-icon">👨‍👩‍👧</div>
-                    <div class="family-feature-content">
-                        <h3>ファミリーサポート</h3>
-                        <p>1時間700円からの子育て支援</p>
+            </div>
+
+            <div class="land-examples">
+                <h3 class="land-examples-title">調整区域→市街化区域 成功事例</h3>
+                <div class="land-example-cards">
+                    <div class="land-example fade-in">
+                        <span class="land-example-tag">CASE 1</span>
+                        <h4>新三郷ららシティ</h4>
+                        <p>武蔵野操車場跡地51haを再開発。三井不動産を中心に、ららぽーと・IKEA・コストコが集積する商業エリアと住宅街に生まれ変わった。</p>
                     </div>
-                </div>
-                <div class="family-feature fade-in">
-                    <div class="family-feature-icon">📚</div>
-                    <div class="family-feature-content">
-                        <h3>日本一の読書のまち</h3>
-                        <p>学校・地域で読書環境を整備</p>
+                    <div class="land-example fade-in">
+                        <span class="land-example-tag">CASE 2</span>
+                        <h4>三郷中央駅周辺</h4>
+                        <p>TX開通に合わせ、田畑が多かった調整区域を市街化区域に編入。URによる計画的な区画整理で、人気の住宅街へ発展。</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 比較セクション -->
-    <section class="compare-section">
-        <div class="compare-content">
-            <div class="compare-header">
-                <p class="eyebrow">COMPARISON</p>
-                <h2 class="headline-medium">近隣市との比較</h2>
+    <!-- 駅起点まちづくり -->
+    <section class="station-section" id="station">
+        <div class="station-content">
+            <div class="station-header">
+                <p class="eyebrow">Station-Based Development</p>
+                <h2 class="headline-large">
+                    駅を起点に考える<br>
+                    <span class="gradient-text">まちづくり</span>
+                </h2>
             </div>
 
-            <div class="compare-table">
-                <div class="compare-row">
-                    <div class="compare-cell compare-header-cell">項目</div>
-                    <div class="compare-cell compare-header-cell highlight">三郷市</div>
-                    <div class="compare-cell compare-header-cell">近隣平均</div>
+            <div class="station-concept fade-in">
+                <p class="station-concept-text">
+                    「三郷市」という広域ではなく、<strong>駅を起点</strong>に考える。<br>
+                    世田谷区の中に、下北沢があり、三軒茶屋があり、等々力がある。<br>
+                    それぞれの駅が、それぞれの個性を持っている。<br><br>
+                    三郷市も同じ。3つの駅に、3つの明確な役割を。
+                </p>
+            </div>
+
+            <div class="station-map">
+                <div class="station-line">
+                    <div class="station-point">
+                        <div class="station-dot tx"></div>
+                        <p class="station-name">三郷中央</p>
+                        <span class="station-role">TX沿線</span>
+                    </div>
+                    <div class="station-point">
+                        <div class="station-dot jr"></div>
+                        <p class="station-name">三郷</p>
+                        <span class="station-role">JR武蔵野線</span>
+                    </div>
+                    <div class="station-point">
+                        <div class="station-dot new"></div>
+                        <p class="station-name">新三郷</p>
+                        <span class="station-role">JR武蔵野線</span>
+                    </div>
                 </div>
-                <div class="compare-row">
-                    <div class="compare-cell compare-label">秋葉原へのアクセス</div>
-                    <div class="compare-cell compare-value best">20分（TX直通）</div>
-                    <div class="compare-cell compare-value">30〜40分</div>
+            </div>
+
+            <div class="station-cards">
+                <div class="station-card misato-chuo fade-in">
+                    <div class="station-card-icon">🏙️</div>
+                    <h3>三郷中央駅</h3>
+                    <p class="station-card-role">暮らしのインフラ拠点</p>
+                    <p>交流拠点を軸にスマートな街づくり。行政サービス、医療、教育を集約。住民の生活を支える中心地。</p>
                 </div>
-                <div class="compare-row">
-                    <div class="compare-cell compare-label">地価上昇率（2024年）</div>
-                    <div class="compare-cell compare-value best">+2.79%</div>
-                    <div class="compare-cell compare-value">+1〜2%</div>
+
+                <div class="station-card misato fade-in">
+                    <div class="station-card-icon">🎨</div>
+                    <h3>三郷駅</h3>
+                    <p class="station-card-role">アーティストが集まる街</p>
+                    <p>クリエイターやアーティストが活動する文化拠点。個性的な店舗やアトリエが並ぶ、感性の街。</p>
                 </div>
-                <div class="compare-row">
-                    <div class="compare-cell compare-label">大型商業施設</div>
-                    <div class="compare-cell compare-value best">3施設集積</div>
-                    <div class="compare-cell compare-value">0〜1施設</div>
+
+                <div class="station-card shin-misato fade-in">
+                    <div class="station-card-icon">🛒</div>
+                    <h3>新三郷駅</h3>
+                    <p class="station-card-role">商業・観光の集積地</p>
+                    <p>ららぽーと、IKEA、コストコ。県外からも人が訪れる、埼玉を代表する商業エリア。</p>
                 </div>
-                <div class="compare-row">
-                    <div class="compare-cell compare-label">こども医療費</div>
-                    <div class="compare-cell compare-value best">18歳まで無料</div>
-                    <div class="compare-cell compare-value">15〜18歳</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- スタートアップ誘致 -->
+    <section class="startup-section" id="startup">
+        <div class="startup-content">
+            <div class="startup-header">
+                <p class="eyebrow">Startup Invitation</p>
+                <h2 class="headline-large">
+                    AI × 物流<br>
+                    <span class="gradient-text">スタートアップ誘致</span>
+                </h2>
+            </div>
+
+            <div class="startup-vision">
+                <h3 class="startup-vision-title">大手ではなく、未来への投資</h3>
+                <p class="startup-vision-text">
+                    既存の大企業を誘致するのではない。<br>
+                    AGI時代に世界を変える、AI×物流のスタートアップを呼び込む。<br><br>
+                    少人数でも大企業と戦える時代。<br>
+                    彼らが必要としているのは、都心へのアクセスと、手頃な拠点コストと、物流インフラ。<br>
+                    三郷には、すべてがある。
+                </p>
+            </div>
+
+            <div class="startup-reasons">
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">🤖</div>
+                    <div>
+                        <h4>自動倉庫・ロボティクス</h4>
+                        <p>物流センターでのテスト環境に最適</p>
+                    </div>
+                </div>
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">🚁</div>
+                    <div>
+                        <h4>ドローン配送</h4>
+                        <p>調整区域の広さが実証実験を可能に</p>
+                    </div>
+                </div>
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">📊</div>
+                    <div>
+                        <h4>物流AI・最適化</h4>
+                        <p>首都圏配送の実データにアクセス</p>
+                    </div>
+                </div>
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">🚛</div>
+                    <div>
+                        <h4>自動運転物流</h4>
+                        <p>新規開発エリアでの実装が可能</p>
+                    </div>
+                </div>
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">📦</div>
+                    <div>
+                        <h4>ラストワンマイル</h4>
+                        <p>住宅街と物流拠点が隣接</p>
+                    </div>
+                </div>
+                <div class="startup-reason fade-in">
+                    <div class="startup-reason-icon">🌐</div>
+                    <div>
+                        <h4>サプライチェーンDX</h4>
+                        <p>大手物流企業との連携機会</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- タイムライン -->
+    <section class="timeline-section">
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <p class="eyebrow">Roadmap</p>
+                <h2 class="headline-medium">三郷の未来年表</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">2005</p>
+                    <h3 class="timeline-title">TX開業</h3>
+                    <p class="timeline-desc">つくばエクスプレス開通。三郷中央駅が誕生し、駅周辺の開発が始まる。</p>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">2008-2009</p>
+                    <h3 class="timeline-title">新三郷ららシティ誕生</h3>
+                    <p class="timeline-desc">IKEA、コストコ、ららぽーとが相次いでオープン。操車場跡地が商業の中心地に。</p>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">2024</p>
+                    <h3 class="timeline-title">TX延伸期成同盟会設立</h3>
+                    <p class="timeline-desc">三郷市を含む11区市が参加。東京駅延伸・臨海地下鉄接続の実現へ動き出す。</p>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">2028頃</p>
+                    <h3 class="timeline-title">臨海地下鉄着工</h3>
+                    <p class="timeline-desc">東京都の臨海地下鉄が着工予定。TXとの接続が現実味を帯びる。</p>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">2030s</p>
+                    <h3 class="timeline-title">AI×物流スタートアップ集積</h3>
+                    <p class="timeline-desc">目標：三郷をAI物流の実証・実装拠点に。日本のシリコンバレーならぬ「ロジスティクスバレー」へ。</p>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <p class="timeline-year">FUTURE</p>
+                    <h3 class="timeline-title">TX東京駅直通</h3>
+                    <p class="timeline-desc">三郷中央から東京駅まで乗り換えなし。都心と直結する未来都市の完成。</p>
                 </div>
             </div>
         </div>
@@ -1304,12 +1415,13 @@
     <!-- CTA -->
     <section class="cta-section">
         <div class="cta-content">
-            <h2 class="cta-title">三郷の未来を、<br>一緒に創りませんか</h2>
+            <h2 class="cta-title">
+                これだけの可能性がある街
+            </h2>
             <p class="cta-desc">
-                私は三郷市議会議員として、<br>
-                この街の可能性を最大限に引き出すために活動しています。<br>
-                TX延伸の実現、子育て環境の充実、商業・物流のさらなる発展。<br>
-                皆さんの声を聞かせてください。
+                三郷市議会議員として、このビジョンを実現するために活動しています。<br>
+                AI×物流のスタートアップ誘致、駅起点のまちづくり、調整区域の戦略的開発。<br>
+                一緒に、三郷の未来を創りませんか。
             </p>
             <div class="cta-buttons">
                 <a href="https://yusaku-suzuki.com/" class="cta-btn cta-btn-primary">鈴木優作について</a>
@@ -1320,10 +1432,10 @@
 
     <!-- Footer -->
     <footer>
-        <p>制作：<a href="https://yusaku-suzuki.com/" style="color: var(--gray-light);">鈴木優作</a>（三郷市議会議員）</p>
+        <p>制作：<a href="https://yusaku-suzuki.com/" style="color: rgba(255,255,255,0.5);">鈴木優作</a>（三郷市議会議員）</p>
         <p class="footer-note">
-            本ページのデータは各公式情報源に基づいています。<br>
-            人口データ：三郷市公式サイト ｜ 地価データ：国土交通省 ｜ TX情報：つくばエクスプレス・茨城県
+            本ページは三郷市の可能性と未来ビジョンを示すものです。<br>
+            データ出典：三郷市公式サイト、国土交通省、つくばエクスプレス
         </p>
         <div class="footer-links">
             <a href="https://yusaku-suzuki.com/council">三郷市議会の今</a>
@@ -1332,70 +1444,7 @@
     </footer>
 
     <script>
-        // 星を生成
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
-        }
-        createStars();
-
-        // ヒーローアニメーション
-        const heroTitle = document.getElementById('heroTitle');
-        const heroSubtitle = document.getElementById('heroSubtitle');
-        const heroStats = document.getElementById('heroStats');
-
-        setTimeout(() => {
-            heroTitle.classList.add('visible');
-        }, 300);
-        setTimeout(() => {
-            heroSubtitle.classList.add('visible');
-        }, 600);
-        setTimeout(() => {
-            heroStats.classList.add('visible');
-        }, 900);
-
-        // データセクションのスクロールエフェクト
-        const dataSection = document.getElementById('dataSection');
-        const dataCards = [
-            document.getElementById('dataCard1'),
-            document.getElementById('dataCard2'),
-            document.getElementById('dataCard3'),
-            document.getElementById('dataCard4')
-        ];
-        const progressDots = document.querySelectorAll('.data-progress-dot');
-
-        function handleDataScroll() {
-            const rect = dataSection.getBoundingClientRect();
-            const scrollProgress = Math.min(1, Math.max(0, -rect.top / (rect.height - window.innerHeight)));
-
-            const cardIndex = Math.floor(scrollProgress * 4);
-
-            dataCards.forEach((card, i) => {
-                if (i === cardIndex || (i === 3 && scrollProgress >= 0.999)) {
-                    card.classList.add('visible');
-                    card.classList.remove('exit');
-                } else if (i < cardIndex) {
-                    card.classList.remove('visible');
-                    card.classList.add('exit');
-                } else {
-                    card.classList.remove('visible');
-                    card.classList.remove('exit');
-                }
-            });
-
-            progressDots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === Math.min(cardIndex, 3));
-            });
-        }
-
-        // Fade-in animation
+        // Intersection Observer for fade-in
         const fadeElements = document.querySelectorAll('.fade-in');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
@@ -1412,9 +1461,41 @@
 
         fadeElements.forEach(el => observer.observe(el));
 
-        // Family stats animation
-        const familyStats = document.querySelectorAll('.family-stat');
-        const familyObserver = new IntersectionObserver((entries) => {
+        // Problem items animation
+        const problemItems = document.querySelectorAll('.problem-item');
+        const problemObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        problemItems.forEach(el => problemObserver.observe(el));
+
+        // Solution cards animation
+        const solutionCards = document.querySelectorAll('.solution-card');
+        const solutionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        solutionCards.forEach(el => solutionObserver.observe(el));
+
+        // Station cards animation
+        const stationCards = document.querySelectorAll('.station-card');
+        const stationObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
@@ -1426,27 +1507,27 @@
             threshold: 0.2
         });
 
-        familyStats.forEach(el => familyObserver.observe(el));
+        stationCards.forEach(el => stationObserver.observe(el));
 
-        // Commerce cards animation
-        const commerceCards = document.querySelectorAll('.commerce-card');
-        const commerceObserver = new IntersectionObserver((entries) => {
+        // Startup reasons animation
+        const startupReasons = document.querySelectorAll('.startup-reason');
+        const startupObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('visible');
-                    }, index * 150);
+                    }, index * 100);
                 }
             });
         }, {
-            threshold: 0.2
+            threshold: 0.1
         });
 
-        commerceCards.forEach(el => commerceObserver.observe(el));
+        startupReasons.forEach(el => startupObserver.observe(el));
 
-        // TX items animation
-        const txItems = document.querySelectorAll('.tx-item');
-        const txObserver = new IntersectionObserver((entries) => {
+        // Timeline animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const timelineObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
@@ -1456,11 +1537,21 @@
             threshold: 0.3
         });
 
-        txItems.forEach(el => txObserver.observe(el));
+        timelineItems.forEach(el => timelineObserver.observe(el));
 
-        // Scroll event
-        window.addEventListener('scroll', handleDataScroll);
-        handleDataScroll();
+        // Donut chart animation
+        const donutUrban = document.getElementById('donutUrban');
+        const landObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    donutUrban.classList.add('animate');
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        landObserver.observe(document.querySelector('.land-chart'));
     </script>
 
 </body>
