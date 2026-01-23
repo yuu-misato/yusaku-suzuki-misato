@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>鈴木 優作 | 三郷市議会議員</title>
   <meta name="description" content="三郷市議会議員 鈴木優作の公式ウェブサイト。現役世代の声を市政に届け、みんなで創る三郷の未来。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +20,7 @@
       --text: #1a1a1a;
       --text-light: #6b6b6b;
       --accent: #1a1a1a;
+      --page-shadow: rgba(0, 0, 0, 0.15);
     }
 
     html {
@@ -32,13 +33,50 @@
       color: var(--text);
       min-height: 100vh;
       overflow: hidden;
-      perspective: 1000px;
     }
 
-    /* Subtle grid background */
-    body::before {
-      content: '';
+    /* Book Container */
+    .book {
       position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      perspective: 2000px;
+      perspective-origin: 50% 50%;
+    }
+
+    /* Pages Container */
+    .pages {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+
+    /* Each Page */
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      padding-bottom: 4rem;
+      background: var(--bg);
+      transform-origin: left center;
+      transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+      backface-visibility: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-shadow: -2px 0 10px var(--page-shadow);
+    }
+
+    .page::before {
+      content: '';
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -51,113 +89,41 @@
       z-index: 0;
     }
 
-    .container {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-    }
-
-    /* Lines */
-    .line {
-      position: fixed;
-      background: rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s ease-out;
-      opacity: 0;
-      animation: lineDissolve 1.5s ease forwards;
-    }
-
-    .line-h {
-      width: 100%;
-      height: 1px;
-      left: 0;
-    }
-
-    .line-v {
-      width: 1px;
-      height: 100%;
-      top: 0;
-    }
-
-    .line-top { top: 2rem; animation-delay: 0.2s; }
-    .line-bottom { bottom: 2rem; animation-delay: 0.4s; }
-    .line-left { left: 2rem; animation-delay: 0.3s; }
-    .line-right { right: 2rem; animation-delay: 0.5s; }
-
-    @keyframes lineDissolve {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Floating shapes */
-    .floating-shapes {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    /* Page flip states */
+    .page.flipped {
+      transform: rotateY(-180deg);
       pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
     }
 
-    .shape {
+    .page.active {
+      z-index: 10;
+    }
+
+    .page.next {
+      z-index: 5;
+    }
+
+    /* Page edge effect (book spine illusion) */
+    .page::after {
+      content: '';
       position: absolute;
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      border-radius: 2px;
-      transition: transform 0.3s ease-out;
-      animation: shapeFloat 8s ease-in-out infinite;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+      pointer-events: none;
     }
 
-    @keyframes shapeFloat {
-      0%, 100% {
-        transform: translate(var(--float-x, 0), var(--float-y, 0)) rotate(var(--rotation, 0deg));
-      }
+    /* Dark page (Contact) */
+    .page-contact {
+      background: var(--text);
     }
 
-    .shape-1 {
-      width: 120px;
-      height: 120px;
-      top: 15%;
-      left: 10%;
-      transform: rotate(15deg);
-    }
-
-    .shape-2 {
-      width: 80px;
-      height: 80px;
-      top: 70%;
-      left: 15%;
-      transform: rotate(-10deg);
-    }
-
-    .shape-3 {
-      width: 150px;
-      height: 150px;
-      top: 20%;
-      right: 8%;
-      transform: rotate(25deg);
-    }
-
-    .shape-4 {
-      width: 60px;
-      height: 60px;
-      top: 65%;
-      right: 12%;
-      transform: rotate(-20deg);
-    }
-
-    .shape-5 {
-      width: 100px;
-      height: 100px;
-      top: 45%;
-      left: 5%;
-      transform: rotate(5deg);
+    .page-contact::before {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
     }
 
     /* Corner decorations */
@@ -168,30 +134,170 @@
       letter-spacing: 0.05em;
       opacity: 0;
       animation: fadeIn 1s ease 0.6s forwards;
-      transition: transform 0.15s ease-out;
+      z-index: 100;
+      pointer-events: none;
+      transition: color 0.5s ease;
     }
 
-    .corner-tl { top: 2.5rem; left: 2.5rem; }
-    .corner-tr { top: 2.5rem; right: 2.5rem; text-align: right; }
-    .corner-bl { bottom: 2.5rem; left: 2.5rem; }
-    .corner-br { bottom: 2.5rem; right: 2.5rem; text-align: right; }
+    .corner-tl { top: 1.5rem; left: 1.5rem; }
+    .corner-tr { top: 1.5rem; right: 1.5rem; text-align: right; }
+    .corner-bl { bottom: 1.5rem; left: 1.5rem; }
+    .corner-br { bottom: 1.5rem; right: 1.5rem; text-align: right; }
 
-    .corner a {
+    body.dark-mode .corner {
+      color: rgba(255,255,255,0.5);
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Page Navigation - Horizontal at bottom */
+    .page-nav {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: row;
+      gap: 0.75rem;
+      z-index: 200;
+      align-items: center;
+    }
+
+    .page-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .page-dot::after {
+      content: attr(data-label);
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--text-light);
-      text-decoration: none;
-      transition: color 0.3s ease;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
-    .corner a:hover {
-      color: var(--text);
+    .page-dot:hover::after {
+      opacity: 1;
+    }
+
+    .page-dot.active {
+      background: var(--text);
+      transform: scale(1.4);
+    }
+
+    body.dark-mode .page-dot {
+      background: rgba(255,255,255,0.3);
+    }
+
+    body.dark-mode .page-dot.active {
+      background: var(--bg);
+    }
+
+    body.dark-mode .page-dot::after {
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* Scroll hint - horizontal arrow */
+    .scroll-hint {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 100;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+      transition: opacity 0.5s ease;
+    }
+
+    .scroll-hint.hidden {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
+    .scroll-hint-text {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .scroll-hint-arrow {
+      width: 16px;
+      height: 16px;
+      border-right: 1px solid var(--text-light);
+      border-bottom: 1px solid var(--text-light);
+      transform: rotate(-45deg);
+      animation: swipeHint 2s ease-in-out infinite;
+    }
+
+    @keyframes swipeHint {
+      0%, 100% { transform: rotate(-45deg) translateX(0); }
+      50% { transform: rotate(-45deg) translateX(5px); }
+    }
+
+    body.dark-mode .scroll-hint-text {
+      color: rgba(255,255,255,0.5);
+    }
+
+    body.dark-mode .scroll-hint-arrow {
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* Book title hint */
+    .book-hint {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      opacity: 0;
+      animation: fadeIn 1s ease 1s forwards;
+      z-index: 100;
+      transition: color 0.5s ease;
+    }
+
+    body.dark-mode .book-hint {
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ============================================
+       HOME SECTION
+       ============================================ */
+    .home-content {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* Logo / Name */
     .logo {
-      font-size: clamp(2rem, 8vw, 5rem);
+      font-size: clamp(1.8rem, 7vw, 4.5rem);
       font-weight: 600;
       letter-spacing: -0.03em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -210,6 +316,7 @@
     .logo-char.floating {
       position: fixed;
       transition: font-size 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 1000;
     }
 
     .logo-char.assembled {
@@ -221,21 +328,21 @@
     }
 
     .logo-char.assembled:hover {
-      transform: translateY(-10px) translateZ(20px) rotate(5deg);
+      transform: translateY(-8px) translateZ(15px) rotate(3deg);
     }
 
     /* Position title */
     .position-title {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(0.85rem, 2vw, 1.1rem);
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
       font-weight: 500;
       letter-spacing: 0.2em;
       color: var(--text);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       opacity: 0;
       transform: translateY(-20px);
       border: 1px solid rgba(0, 0, 0, 0.15);
-      padding: 0.4rem 1.2rem;
+      padding: 0.35rem 1rem;
       display: inline-block;
     }
 
@@ -248,11 +355,11 @@
     /* Japanese name */
     .name-jp {
       font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
       font-weight: 400;
       letter-spacing: 0.3em;
       color: var(--text-light);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       opacity: 0;
       transform: translateY(20px);
     }
@@ -267,24 +374,25 @@
     .status {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: center;
+      gap: 0.6rem;
       color: var(--text-light);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       opacity: 0;
-      transform: translateY(20px) translateZ(0);
+      transform: translateY(20px);
     }
 
     .status.visible {
       opacity: 1;
-      transform: translateZ(30px);
+      transform: translateY(0);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .pulse {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: var(--accent);
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
@@ -292,14 +400,8 @@
     }
 
     @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.5;
-        transform: scale(0.8);
-      }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
     }
 
     .service-roller {
@@ -327,9 +429,9 @@
 
     /* Vision Box */
     .vision-box {
-      margin-top: 2.5rem;
+      margin-top: 1.8rem;
       text-align: center;
-      max-width: 400px;
+      max-width: 350px;
       opacity: 0;
       transform: translateY(20px);
     }
@@ -341,24 +443,25 @@
     }
 
     .vision-label {
-      font-size: 0.55rem;
+      font-size: 0.5rem;
       letter-spacing: 0.15em;
       color: var(--text-light);
       text-transform: uppercase;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.6rem;
     }
 
     .vision-text {
-      font-size: 0.9rem;
-      line-height: 2;
+      font-size: 0.85rem;
+      line-height: 1.9;
       color: var(--text);
     }
 
     /* Social Links */
     .social-links {
       display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+      justify-content: center;
       opacity: 0;
       transform: translateY(20px);
     }
@@ -373,8 +476,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: var(--text);
       border-radius: 50%;
       color: var(--bg);
@@ -383,587 +486,294 @@
     }
 
     .social-link:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .social-link svg {
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
     }
 
     .note-text {
       font-family: 'Instrument Sans', sans-serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
       line-height: 1;
     }
 
-    /* Navigation Links */
-    .nav-section {
-      margin-top: 2rem;
-      display: flex;
-      gap: 2rem;
+    /* Special Link */
+    .special-link {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: #1e3a5f;
+      text-decoration: none;
+      border: 1px solid rgba(30, 58, 95, 0.3);
+      border-radius: 100px;
       opacity: 0;
       transform: translateY(20px);
+      transition: all 0.3s ease;
     }
 
-    .nav-section.visible {
+    .special-link.visible {
       opacity: 1;
       transform: translateY(0);
-      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
     }
 
-    .nav-link {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      text-decoration: none;
-      padding: 0.5rem 0;
-      position: relative;
-      transition: color 0.3s ease;
+    .special-link:hover {
+      background: #1e3a5f;
+      color: #fff;
+      border-color: #1e3a5f;
     }
 
-    .nav-link:hover {
-      color: var(--text);
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0.3rem;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: var(--text);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
-    }
-
-    .nav-link:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    .nav-link-special {
-      color: #1e3a5f;
-      font-weight: 500;
-      margin-top: 0.5rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .nav-link-special:hover {
-      color: #1e3a5f;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* Profile Section - Overlay */
-    .profile-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 4rem;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 50;
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow-y: auto;
-    }
-
-    .profile-section.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .profile-inner {
-      max-width: 1000px;
+    /* ============================================
+       SECTION COMMON STYLES
+       ============================================ */
+    .section-inner {
+      max-width: 900px;
       margin: 0 auto;
       width: 100%;
       position: relative;
+      z-index: 1;
+      padding: 0 1rem;
     }
 
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 3rem;
-      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 5vw, 3.5rem);
+      font-size: clamp(1.5rem, 4vw, 2.8rem);
       font-weight: 600;
       letter-spacing: -0.03em;
       color: var(--text);
       line-height: 1;
       opacity: 0;
-      transform: translateY(40px);
+      transform: translateX(30px);
       transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .section-title.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
     .section-label {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-light);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
     }
 
     .section-label.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
+    /* ============================================
+       PROFILE SECTION
+       ============================================ */
     .profile-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0;
       position: relative;
     }
 
     .profile-item {
-      padding: 1.5rem 1.5rem 1.5rem 0;
+      padding: 1rem;
       border-bottom: 1px solid rgba(0,0,0,0.06);
       position: relative;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .profile-item.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
-    .profile-item:not(:nth-child(3n)) {
+    .profile-item:nth-child(odd) {
       border-right: 1px solid rgba(0,0,0,0.06);
     }
 
-    .profile-item:nth-child(3n) {
-      padding-left: 1.5rem;
-      padding-right: 0;
-    }
-
-    .profile-item:nth-child(3n-1) {
-      padding-left: 1.5rem;
-    }
-
-    .profile-item:nth-last-child(-n+3) {
+    .profile-item:nth-last-child(-n+2) {
       border-bottom: none;
     }
 
     .profile-label {
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-light);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       display: block;
     }
 
     .profile-value {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       color: var(--text);
       line-height: 1.5;
       font-weight: 400;
     }
 
     .profile-value-lg {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 500;
       letter-spacing: -0.02em;
     }
 
     .profile-value-sub {
-      margin-top: 0.3rem;
+      margin-top: 0.2rem;
       color: var(--text-light);
-      font-size: 0.75rem;
-    }
-
-    /* Back button */
-    .back-button {
-      position: absolute;
-      top: 2rem;
-      left: 2rem;
       font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-light);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
     }
 
-    .back-button.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .back-button:hover {
-      color: var(--text);
-    }
-
-    .back-button::before {
-      content: '←';
-      font-size: 1rem;
-    }
-
-    /* Policy Section */
-    .policy-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 4rem;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 50;
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow-y: auto;
-    }
-
-    .policy-section.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .policy-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-      width: 100%;
-      position: relative;
-    }
-
+    /* ============================================
+       VISION/POLICY SECTION
+       ============================================ */
     .policy-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0;
     }
 
     .policy-item {
-      padding: 1.5rem;
+      padding: 1rem;
       border-bottom: 1px solid rgba(0,0,0,0.06);
       border-right: 1px solid rgba(0,0,0,0.06);
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .policy-item.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
-    .policy-item:nth-child(3n) {
+    .policy-item:nth-child(2n) {
       border-right: none;
     }
 
-    .policy-item:nth-last-child(-n+3) {
+    .policy-item:nth-last-child(-n+2) {
       border-bottom: none;
     }
 
     .policy-number {
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.15em;
       color: var(--text-light);
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
     }
 
     .policy-title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       letter-spacing: -0.01em;
+      line-height: 1.4;
     }
 
     .policy-description {
-      font-size: 0.8rem;
-      line-height: 1.8;
+      font-size: 0.7rem;
+      line-height: 1.7;
       color: var(--text-light);
     }
 
-    /* Contact Section */
-    .contact-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 4rem;
-      background: var(--text);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 50;
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .contact-section.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .contact-inner {
-      max-width: 600px;
-      margin: 0 auto;
-      width: 100%;
-      text-align: center;
-    }
-
-    .contact-section .section-title {
-      color: var(--bg);
-    }
-
-    .contact-section .section-label {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .contact-section .back-button {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .contact-section .back-button:hover {
-      color: var(--bg);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      margin-top: 3rem;
-      text-align: left;
-    }
-
-    .contact-item {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .contact-item.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .contact-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-value {
-      font-size: 0.95rem;
-      color: var(--bg);
-      line-height: 1.6;
-    }
-
-    .contact-value a {
-      color: var(--bg);
-      text-decoration: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .contact-value a:hover {
-      opacity: 0.7;
-    }
-
-    .contact-cta {
-      margin-top: 3rem;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .contact-cta.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .contact-lead {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-
-    .line-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: #06C755;
-      color: #fff;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(6, 199, 85, 0.3);
-    }
-
-    .line-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 30px rgba(6, 199, 85, 0.4);
-      background: #05b34c;
-    }
-
-    .line-icon {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* Connect Section */
-    .connect-section {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      padding: 4rem;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 50;
-      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow-y: auto;
-    }
-
-    .connect-section.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .connect-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
+    /* ============================================
+       CONNECT SECTION
+       ============================================ */
     .connect-intro {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .connect-intro.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
     .connect-intro p {
-      font-size: 1rem;
+      font-size: 0.85rem;
       color: var(--text-light);
       line-height: 1.8;
     }
 
     .connect-cards {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
 
     .connect-card {
-      padding: 2rem;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      border-right: 1px solid rgba(0,0,0,0.06);
+      padding: 1.2rem;
+      border: 1px solid rgba(0,0,0,0.06);
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .connect-card.visible {
       opacity: 1;
-      transform: translateY(0);
-    }
-
-    .connect-card:nth-child(2n) {
-      border-right: none;
-    }
-
-    .connect-card:nth-last-child(-n+2) {
-      border-bottom: none;
+      transform: translateX(0);
     }
 
     .connect-card-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
     }
 
     .connect-card-label {
-      font-size: 0.6rem;
+      font-size: 0.55rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-light);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
     .connect-card-title {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       line-height: 1.4;
     }
 
     .connect-card-desc {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       color: var(--text-light);
-      line-height: 1.8;
-      margin-bottom: 1.2rem;
+      line-height: 1.7;
+      margin-bottom: 0.8rem;
     }
 
     .connect-card-features {
       list-style: none;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .connect-card-features li {
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: var(--text-light);
-      padding: 0.3rem 0;
-      padding-left: 1rem;
+      padding: 0.2rem 0;
+      padding-left: 0.8rem;
       position: relative;
     }
 
@@ -977,13 +787,13 @@
     .connect-card-button {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       background: #06C755;
       color: #fff;
-      padding: 0.7rem 1.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 2px;
       text-decoration: none;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 500;
       transition: all 0.3s ease;
     }
@@ -994,90 +804,117 @@
     }
 
     .connect-card-button svg {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
     }
 
     .connect-note {
       text-align: center;
-      margin-top: 2rem;
-      font-size: 0.7rem;
+      margin-top: 1.5rem;
+      font-size: 0.6rem;
       color: var(--text-light);
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateX(20px);
       transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
     }
 
     .connect-note.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
 
-    /* Responsive */
+    /* ============================================
+       CONTACT SECTION (Dark)
+       ============================================ */
+    .page-contact .section-header {
+      justify-content: center;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .page-contact .section-title {
+      color: var(--bg);
+    }
+
+    .page-contact .section-label {
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    .contact-cta {
+      margin-top: 2rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .contact-cta.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .contact-lead {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .line-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #06C755;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(6, 199, 85, 0.3);
+    }
+
+    .line-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(6, 199, 85, 0.4);
+      background: #05b34c;
+    }
+
+    .line-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ============================================
+       RESPONSIVE - Mobile First
+       ============================================ */
     @media (max-width: 768px) {
-      .profile-section,
-      .policy-section,
-      .connect-section,
-      .contact-section {
-        padding: 5rem 1.5rem 2rem;
-      }
-
-      .connect-cards {
-        grid-template-columns: 1fr;
-      }
-
-      .connect-card {
-        padding: 1.5rem 0;
-        border-right: none;
-      }
-
-      .connect-card:last-child {
-        border-bottom: none;
-      }
-
-      .connect-card-title {
-        font-size: 1.1rem;
+      .page {
+        padding: 3.5rem 1rem 4rem;
       }
 
       .section-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
+        gap: 0.3rem;
+        margin-bottom: 1.5rem;
       }
 
       .profile-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
       }
 
       .profile-item {
-        padding: 1.2rem 0;
+        padding: 0.8rem 0;
+        border-right: none !important;
       }
 
-      .profile-item:not(:nth-child(3n)) {
-        border-right: none;
-      }
-
-      .profile-item:nth-child(3n),
-      .profile-item:nth-child(3n-1) {
-        padding-left: 0;
-      }
-
-      .profile-item:nth-child(odd) {
-        padding-right: 1rem;
-        border-right: 1px solid rgba(0,0,0,0.06);
-      }
-
-      .profile-item:nth-child(even) {
-        padding-left: 1rem;
-      }
-
-      .profile-item:nth-last-child(-n+2) {
+      .profile-item:last-child {
         border-bottom: none;
-      }
-
-      .profile-item:nth-last-child(3) {
-        border-bottom: 1px solid rgba(0,0,0,0.06);
       }
 
       .policy-grid {
@@ -1086,360 +923,374 @@
 
       .policy-item {
         border-right: none;
+        padding: 0.8rem 0;
       }
 
       .policy-item:last-child {
         border-bottom: none;
       }
 
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+      .connect-cards {
+        gap: 1rem;
       }
 
-      .back-button {
-        top: 1.5rem;
-        left: 1.5rem;
+      .connect-card {
+        padding: 1rem;
       }
 
-      .nav-section {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem 2rem;
+      .corner {
+        font-size: 0.55rem;
+      }
+
+      .corner-tl { top: 1rem; left: 1rem; }
+      .corner-tr { top: 1rem; right: 1rem; }
+      .corner-bl { bottom: 3.5rem; left: 1rem; }
+      .corner-br { bottom: 3.5rem; right: 1rem; }
+
+      .book-hint {
+        top: 1rem;
+        font-size: 0.5rem;
+      }
+
+      .page-nav {
+        bottom: 1rem;
+        gap: 0.6rem;
+      }
+
+      .page-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .page-dot::after {
+        display: none;
+      }
+
+      .scroll-hint {
+        bottom: 1rem;
+        right: 1rem;
+      }
+
+      .scroll-hint-text {
+        font-size: 0.5rem;
       }
     }
 
-    @media (max-width: 640px) {
-      .corner {
-        font-size: 0.625rem;
+    @media (max-width: 480px) {
+      .logo {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
       }
 
-      .line-top { top: 1.5rem; }
-      .line-bottom { bottom: 1.5rem; }
-      .line-left { left: 1.5rem; }
-      .line-right { right: 1.5rem; }
+      .section-title {
+        font-size: clamp(1.3rem, 5vw, 2rem);
+      }
 
-      .corner-tl { top: 2rem; left: 1.75rem; }
-      .corner-tr { top: 2rem; right: 1.75rem; }
-      .corner-bl { bottom: 2rem; left: 1.75rem; }
-      .corner-br { bottom: 2rem; right: 1.75rem; }
+      .policy-title {
+        font-size: 0.9rem;
+      }
+
+      .line-button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Page content animation */
+    .page [data-animate] {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    .page.active [data-animate].visible {
+      opacity: 1;
+      transform: translateX(0);
     }
   </style>
 </head>
 <body>
-  <!-- Lines -->
-  <div class="line line-h line-top"></div>
-  <div class="line line-h line-bottom"></div>
-  <div class="line line-v line-left"></div>
-  <div class="line line-v line-right"></div>
-
-  <!-- Floating shapes -->
-  <div class="floating-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
-    <div class="shape shape-5"></div>
-  </div>
+  <!-- Book title hint -->
+  <div class="book-hint">読書の街 三郷 — Yusaku Suzuki</div>
 
   <!-- Corner decorations -->
-  <div class="corner corner-tl">
-    Misato City Council
+  <div class="corner corner-tl">Misato City Council</div>
+  <div class="corner corner-tr">Saitama, Japan</div>
+  <div class="corner corner-bl">三郷市議会議員</div>
+  <div class="corner corner-br">2026</div>
+
+  <!-- Page Navigation - Horizontal -->
+  <nav class="page-nav">
+    <div class="page-dot active" data-page="0" data-label="Home"></div>
+    <div class="page-dot" data-page="1" data-label="Profile"></div>
+    <div class="page-dot" data-page="2" data-label="Vision"></div>
+    <div class="page-dot" data-page="3" data-label="Connect"></div>
+    <div class="page-dot" data-page="4" data-label="Contact"></div>
+  </nav>
+
+  <!-- Scroll Hint - Horizontal -->
+  <div class="scroll-hint" id="scrollHint">
+    <span class="scroll-hint-text">Swipe</span>
+    <div class="scroll-hint-arrow"></div>
   </div>
 
-  <div class="corner corner-tr">
-    Saitama, Japan
-  </div>
+  <!-- Book -->
+  <div class="book">
+    <div class="pages" id="pages">
+      <!-- HOME -->
+      <div class="page page-home active" data-index="0">
+        <div class="home-content">
+          <p class="position-title" id="positionTitle">三郷市議会議員</p>
+          <h1 class="logo" id="logo"></h1>
+          <p class="name-jp" id="nameJp">鈴木 優作</p>
 
-  <div class="corner corner-bl">
-    三郷市議会議員
-  </div>
+          <div class="status" id="status">
+            <span class="pulse"></span>
+            <div class="service-roller">
+              <div class="service-roller-inner">
+                <span>三郷市議会議員</span>
+                <span>現役世代の声を市政に</span>
+                <span>駅前のにぎわい創出</span>
+                <span>関係人口の創出</span>
+                <span>子どもの未来づくり</span>
+                <span>地域コミュニティ再設計</span>
+                <span>三郷市議会議員</span>
+                <span>現役世代の声を市政に</span>
+                <span>駅前のにぎわい創出</span>
+                <span>関係人口の創出</span>
+                <span>子どもの未来づくり</span>
+                <span>地域コミュニティ再設計</span>
+              </div>
+            </div>
+          </div>
 
-  <div class="corner corner-br">
-    2026
-  </div>
+          <div class="vision-box" id="visionBox">
+            <div class="vision-label">Mission</div>
+            <p class="vision-text">
+              現役世代の声を市政に。<br>
+              みんなで創ろう、三郷の未来。
+            </p>
+          </div>
 
-  <!-- Main Container -->
-  <div class="container" id="mainContainer">
-    <p class="position-title" id="positionTitle">三郷市議会議員</p>
-    <h1 class="logo" id="logo"></h1>
-    <p class="name-jp" id="nameJp">鈴木 優作</p>
+          <div class="social-links" id="socialLinks">
+            <a href="https://x.com/yuu_misato" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://note.com/souzoudo" target="_blank" rel="noopener noreferrer" class="social-link social-link-note" aria-label="note">
+              <span class="note-text">n</span>
+            </a>
+          </div>
 
-    <div class="status" id="status">
-      <span class="pulse"></span>
-      <div class="service-roller">
-        <div class="service-roller-inner">
-          <span>三郷市議会議員</span>
-          <span>現役世代の声を市政に</span>
-          <span>駅前のにぎわい創出</span>
-          <span>関係人口の創出</span>
-          <span>子どもの未来づくり</span>
-          <span>地域コミュニティ再設計</span>
-          <span>三郷市議会議員</span>
-          <span>現役世代の声を市政に</span>
-          <span>駅前のにぎわい創出</span>
-          <span>関係人口の創出</span>
-          <span>子どもの未来づくり</span>
-          <span>地域コミュニティ再設計</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="vision-box" id="visionBox">
-      <div class="vision-label">Mission</div>
-      <p class="vision-text">
-        現役世代の声を市政に。<br>
-        みんなで創ろう、三郷の未来。
-      </p>
-    </div>
-
-    <div class="social-links" id="socialLinks">
-      <a href="https://x.com/yuu_misato" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-        </svg>
-      </a>
-      <a href="https://note.com/souzoudo" target="_blank" rel="noopener noreferrer" class="social-link social-link-note" aria-label="note">
-        <span class="note-text">n</span>
-      </a>
-    </div>
-
-    <nav class="nav-section" id="navSection">
-      <a href="#" class="nav-link" data-section="profile">Profile →</a>
-      <a href="#" class="nav-link" data-section="policy">Vision →</a>
-      <a href="#" class="nav-link" data-section="connect">Connect →</a>
-      <a href="#" class="nav-link" data-section="contact">Contact →</a>
-      <a href="council.html" class="nav-link nav-link-special">三郷市議会ガイド →</a>
-    </nav>
-  </div>
-
-  <!-- Profile Section -->
-  <section class="profile-section" id="profileSection">
-    <div class="back-button" id="profileBack">Back</div>
-    <div class="profile-inner">
-      <div class="section-header">
-        <h2 class="section-title" data-profile>PROFILE</h2>
-        <span class="section-label" data-profile>プロフィール</span>
-      </div>
-
-      <div class="profile-grid">
-        <div class="profile-item" data-profile data-delay="0">
-          <span class="profile-label">Name</span>
-          <div class="profile-value profile-value-lg">鈴木 優作</div>
-          <div class="profile-value-sub">Yusaku Suzuki</div>
-        </div>
-
-        <div class="profile-item" data-profile data-delay="1">
-          <span class="profile-label">Position</span>
-          <div class="profile-value profile-value-lg">三郷市議会議員</div>
-          <div class="profile-value-sub">Misato City Council Member</div>
-        </div>
-
-        <div class="profile-item" data-profile data-delay="2">
-          <span class="profile-label">Birthday</span>
-          <div class="profile-value profile-value-lg">1992.03.10</div>
-          <div class="profile-value-sub">33歳</div>
-        </div>
-
-        <div class="profile-item" data-profile data-delay="3">
-          <span class="profile-label">Residence</span>
-          <div class="profile-value profile-value-lg">三郷市三郷</div>
-          <div class="profile-value-sub">一児の父</div>
-        </div>
-
-        <div class="profile-item" data-profile data-delay="4">
-          <span class="profile-label">Specialty</span>
-          <div class="profile-value">Webデザイン・開発<br>地域ブランディング</div>
-        </div>
-
-        <div class="profile-item" data-profile data-delay="5">
-          <span class="profile-label">Career</span>
-          <div class="profile-value">株式会社SOUZOUDO 代表取締役<br>みさとまち未来創造委員会 委員長</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Policy Section -->
-  <section class="policy-section" id="policySection">
-    <div class="back-button" id="policyBack">Back</div>
-    <div class="policy-inner">
-      <div class="section-header">
-        <h2 class="section-title" data-policy>VISION</h2>
-        <span class="section-label" data-policy>未来ビジョン</span>
-      </div>
-
-      <div class="policy-grid">
-        <div class="policy-item" data-policy data-delay="0">
-          <span class="policy-number">01</span>
-          <h3 class="policy-title">駅前のにぎわいで<br>人が集まるまちへ</h3>
-          <p class="policy-description">
-            三郷駅・三郷中央駅前に商業空間の創出。駅周辺に「人が集い、活動する」拠点づくり。
-          </p>
-        </div>
-        <div class="policy-item" data-policy data-delay="1">
-          <span class="policy-number">02</span>
-          <h3 class="policy-title">公共施設の活用で<br>地域のつながりを育てる</h3>
-          <p class="policy-description">
-            既存施設を「地域の交流拠点」として活用。行政主導ではなく、市民発案の仕組みへ。
-          </p>
-        </div>
-        <div class="policy-item" data-policy data-delay="2">
-          <span class="policy-number">03</span>
-          <h3 class="policy-title">関係人口の創出で<br>にぎわいと活力あるまちへ</h3>
-          <p class="policy-description">
-            三郷の資源を活かした"参加型まちづくり"でファンを増やす。市外からも関わりたくなるまちに。
-          </p>
-        </div>
-        <div class="policy-item" data-policy data-delay="3">
-          <span class="policy-number">04</span>
-          <h3 class="policy-title">若者が暮らし、<br>誇れるまちへ</h3>
-          <p class="policy-description">
-            進学や就職で三郷を離れた若者が「戻りたい」と思えるまち。学び直しや交流拠点の整備。
-          </p>
-        </div>
-        <div class="policy-item" data-policy data-delay="4">
-          <span class="policy-number">05</span>
-          <h3 class="policy-title">子どもたちが<br>「住みたい」と思えるまち</h3>
-          <p class="policy-description">
-            子どもの視点に立った遊び場・学び場・居場所づくり。「三郷で育ってよかった」記憶を残す。
-          </p>
-        </div>
-        <div class="policy-item" data-policy data-delay="5">
-          <span class="policy-number">06</span>
-          <h3 class="policy-title">聞きに行く議員として</h3>
-          <p class="policy-description">
-            市民の声に耳を傾け、想いをつなぐ役割を担う。対話型ワークショップで声を市政へ届ける。
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Connect Section -->
-  <section class="connect-section" id="connectSection">
-    <div class="back-button" id="connectBack">Back</div>
-    <div class="connect-inner">
-      <div class="section-header">
-        <h2 class="section-title" data-connect>CONNECT</h2>
-        <span class="section-label" data-connect>つながる</span>
-      </div>
-
-      <div class="connect-intro" data-connect data-delay="0">
-        <p>三郷市の情報を「届ける」LINEと、<br>「話せる」対話室。2つの運用をスタートします。</p>
-      </div>
-
-      <div class="connect-cards">
-        <div class="connect-card" data-connect data-delay="1">
-          <div class="connect-card-icon">📰</div>
-          <div class="connect-card-label">Receive News</div>
-          <h3 class="connect-card-title">三郷市最新ニュース<br>LINE公式アカウント</h3>
-          <p class="connect-card-desc">市のホームページの更新情報が自動で届くシステム。忙しい毎日でも、三郷の最新情報をキャッチできます。</p>
-          <ul class="connect-card-features">
-            <li>毎日12:00頃に最新情報をお届け</li>
-            <li>ニュースがない日は通知なし</li>
-            <li>ランチタイムにサクッと確認</li>
-          </ul>
-          <a href="https://line.me/R/ti/p/@963tbayc" target="_blank" rel="noopener noreferrer" class="connect-card-button">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-            </svg>
-            ニュースを受け取る
-          </a>
-        </div>
-
-        <div class="connect-card" data-connect data-delay="2">
-          <div class="connect-card-icon">💬</div>
-          <div class="connect-card-label">Join Dialogue</div>
-          <h3 class="connect-card-title">対話室<br>オープンチャット</h3>
-          <p class="connect-card-desc">匿名で気軽に参加できるコミュニティ。地域の課題や未来について、ざっくばらんに意見交換できる場です。</p>
-          <ul class="connect-card-features">
-            <li>ニックネームで匿名参加OK</li>
-            <li>鈴木優作と直接対話</li>
-            <li>地域の声を市政に届ける</li>
-          </ul>
-          <a href="https://line.me/ti/g2/hrLKGQYP-HSgxYZws7mUZ1AZ4XRBQ7U2etM_Hw" target="_blank" rel="noopener noreferrer" class="connect-card-button">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-            </svg>
-            対話室に参加する
+          <a href="council.html" class="special-link" id="specialLink">
+            三郷市議会ガイド →
           </a>
         </div>
       </div>
 
-      <p class="connect-note" data-connect data-delay="3">
-        ※ 本アカウント群は鈴木優作個人の政治活動の一環として運用しており、三郷市役所の公式アカウントではありません。
-      </p>
-    </div>
-  </section>
+      <!-- PROFILE -->
+      <div class="page page-profile" data-index="1">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title" data-animate>PROFILE</h2>
+            <span class="section-label" data-animate>プロフィール</span>
+          </div>
 
-  <!-- Contact Section -->
-  <section class="contact-section" id="contactSection">
-    <div class="back-button" id="contactBack">Back</div>
-    <div class="contact-inner">
-      <div class="section-header" style="justify-content: center; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
-        <div>
-          <h2 class="section-title" data-contact>CONTACT</h2>
-          <span class="section-label" data-contact style="display: block; margin-top: 0.5rem;">ご意見をお聞かせください</span>
+          <div class="profile-grid">
+            <div class="profile-item" data-animate data-delay="0">
+              <span class="profile-label">Name</span>
+              <div class="profile-value profile-value-lg">鈴木 優作</div>
+              <div class="profile-value-sub">Yusaku Suzuki</div>
+            </div>
+
+            <div class="profile-item" data-animate data-delay="1">
+              <span class="profile-label">Position</span>
+              <div class="profile-value profile-value-lg">三郷市議会議員</div>
+              <div class="profile-value-sub">Misato City Council Member</div>
+            </div>
+
+            <div class="profile-item" data-animate data-delay="2">
+              <span class="profile-label">Birthday</span>
+              <div class="profile-value profile-value-lg">1992.03.10</div>
+              <div class="profile-value-sub">33歳</div>
+            </div>
+
+            <div class="profile-item" data-animate data-delay="3">
+              <span class="profile-label">Residence</span>
+              <div class="profile-value profile-value-lg">三郷市三郷</div>
+              <div class="profile-value-sub">一児の父</div>
+            </div>
+
+            <div class="profile-item" data-animate data-delay="4">
+              <span class="profile-label">Specialty</span>
+              <div class="profile-value">Webデザイン・開発<br>地域ブランディング</div>
+            </div>
+
+            <div class="profile-item" data-animate data-delay="5">
+              <span class="profile-label">Career</span>
+              <div class="profile-value">株式会社SOUZOUDO 代表取締役<br>みさとまち未来創造委員会 委員長</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="contact-cta" data-contact data-delay="0">
-        <p class="contact-lead">ご意見・ご相談はLINEで<br>お気軽にお送りください</p>
-        <a href="https://lin.ee/6YDZSsO" target="_blank" rel="noopener noreferrer" class="line-button">
-          <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
-          </svg>
-          LINE で相談する
-        </a>
+      <!-- VISION -->
+      <div class="page page-vision" data-index="2">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title" data-animate>VISION</h2>
+            <span class="section-label" data-animate>未来ビジョン</span>
+          </div>
+
+          <div class="policy-grid">
+            <div class="policy-item" data-animate data-delay="0">
+              <span class="policy-number">01</span>
+              <h3 class="policy-title">駅前のにぎわいで<br>人が集まるまちへ</h3>
+              <p class="policy-description">三郷駅・三郷中央駅前に商業空間の創出。駅周辺に「人が集い、活動する」拠点づくり。</p>
+            </div>
+            <div class="policy-item" data-animate data-delay="1">
+              <span class="policy-number">02</span>
+              <h3 class="policy-title">公共施設の活用で<br>地域のつながりを育てる</h3>
+              <p class="policy-description">既存施設を「地域の交流拠点」として活用。行政主導ではなく、市民発案の仕組みへ。</p>
+            </div>
+            <div class="policy-item" data-animate data-delay="2">
+              <span class="policy-number">03</span>
+              <h3 class="policy-title">関係人口の創出で<br>にぎわいと活力あるまちへ</h3>
+              <p class="policy-description">三郷の資源を活かした"参加型まちづくり"でファンを増やす。市外からも関わりたくなるまちに。</p>
+            </div>
+            <div class="policy-item" data-animate data-delay="3">
+              <span class="policy-number">04</span>
+              <h3 class="policy-title">若者が暮らし、<br>誇れるまちへ</h3>
+              <p class="policy-description">進学や就職で三郷を離れた若者が「戻りたい」と思えるまち。学び直しや交流拠点の整備。</p>
+            </div>
+            <div class="policy-item" data-animate data-delay="4">
+              <span class="policy-number">05</span>
+              <h3 class="policy-title">子どもたちが<br>「住みたい」と思えるまち</h3>
+              <p class="policy-description">子どもの視点に立った遊び場・学び場・居場所づくり。「三郷で育ってよかった」記憶を残す。</p>
+            </div>
+            <div class="policy-item" data-animate data-delay="5">
+              <span class="policy-number">06</span>
+              <h3 class="policy-title">聞きに行く議員として</h3>
+              <p class="policy-description">市民の声に耳を傾け、想いをつなぐ役割を担う。対話型ワークショップで声を市政へ届ける。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONNECT -->
+      <div class="page page-connect" data-index="3">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title" data-animate>CONNECT</h2>
+            <span class="section-label" data-animate>つながる</span>
+          </div>
+
+          <div class="connect-intro" data-animate data-delay="0">
+            <p>三郷市の情報を「届ける」LINEと、<br>「話せる」対話室。2つの運用をスタートします。</p>
+          </div>
+
+          <div class="connect-cards">
+            <div class="connect-card" data-animate data-delay="1">
+              <div class="connect-card-icon">📰</div>
+              <div class="connect-card-label">Receive News</div>
+              <h3 class="connect-card-title">三郷市最新ニュース LINE公式アカウント</h3>
+              <p class="connect-card-desc">市のホームページの更新情報が自動で届くシステム。忙しい毎日でも、三郷の最新情報をキャッチできます。</p>
+              <ul class="connect-card-features">
+                <li>毎日12:00頃に最新情報をお届け</li>
+                <li>ニュースがない日は通知なし</li>
+              </ul>
+              <a href="https://line.me/R/ti/p/@963tbayc" target="_blank" rel="noopener noreferrer" class="connect-card-button">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+                ニュースを受け取る
+              </a>
+            </div>
+
+            <div class="connect-card" data-animate data-delay="2">
+              <div class="connect-card-icon">💬</div>
+              <div class="connect-card-label">Join Dialogue</div>
+              <h3 class="connect-card-title">対話室 オープンチャット</h3>
+              <p class="connect-card-desc">匿名で気軽に参加できるコミュニティ。地域の課題や未来について、ざっくばらんに意見交換できる場です。</p>
+              <ul class="connect-card-features">
+                <li>ニックネームで匿名参加OK</li>
+                <li>鈴木優作と直接対話</li>
+              </ul>
+              <a href="https://line.me/ti/g2/hrLKGQYP-HSgxYZws7mUZ1AZ4XRBQ7U2etM_Hw" target="_blank" rel="noopener noreferrer" class="connect-card-button">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+                対話室に参加する
+              </a>
+            </div>
+          </div>
+
+          <p class="connect-note" data-animate data-delay="3">
+            ※ 本アカウント群は鈴木優作個人の政治活動の一環として運用しており、三郷市役所の公式アカウントではありません。
+          </p>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="page page-contact" data-index="4">
+        <div class="section-inner" style="max-width: 500px; text-align: center;">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" data-animate>CONTACT</h2>
+              <span class="section-label" data-animate>ご意見をお聞かせください</span>
+            </div>
+          </div>
+
+          <div class="contact-cta" data-animate data-delay="0">
+            <p class="contact-lead">ご意見・ご相談はLINEで<br>お気軽にお送りください</p>
+            <a href="https://lin.ee/6YDZSsO" target="_blank" rel="noopener noreferrer" class="line-button">
+              <svg class="line-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+              </svg>
+              LINE で相談する
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <script>
-    // Logo assembly animation (like SOUZOUDO)
+    // ============================================
+    // LOGO ASSEMBLY ANIMATION
+    // ============================================
     const logoText = 'YUSAKU SUZUKI';
     const logo = document.getElementById('logo');
     const positionTitle = document.getElementById('positionTitle');
     const nameJp = document.getElementById('nameJp');
     const status = document.getElementById('status');
     const visionBox = document.getElementById('visionBox');
-    const navSection = document.getElementById('navSection');
-    const container = document.getElementById('mainContainer');
-    const corners = document.querySelectorAll('.corner');
-    const lines = document.querySelectorAll('.line');
-    const shapes = document.querySelectorAll('.shape');
+    const socialLinks = document.getElementById('socialLinks');
 
-    // Character tracking
     const chars = [];
     let isAssembled = false;
     let charFloatTime = 0;
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
 
-    // Create individual character elements - append to body like SOUZOUDO
+    // Create floating characters
     logoText.split('').forEach((char, i) => {
       const span = document.createElement('span');
       span.className = 'logo-char floating';
       span.textContent = char === ' ' ? '\u00A0' : char;
       span.dataset.index = i;
 
-      // Random starting position with margin from edges
-      const margin = 100;
+      const margin = 80;
       const startX = margin + Math.random() * (window.innerWidth - margin * 2);
       const startY = margin + Math.random() * (window.innerHeight - margin * 2);
       const startRotation = Math.random() * 360 - 180;
 
-      // Random size for depth perception - extreme range for impact
-      // Scale from tiny (0.15x) to massive (8x) - largest fills ~half the screen
-      const depthScale = 0.15 + Math.random() * 7.85;
-      const logoFontSize = Math.min(window.innerWidth * 0.08, 80);
+      const depthScale = 0.15 + Math.random() * 5;
+      const logoFontSize = Math.min(window.innerWidth * 0.07, 60);
       const floatingFontSize = logoFontSize * depthScale;
 
-      // Adjust opacity based on depth - far = faint, close = bold
       const opacity = depthScale < 1
-        ? 0.15 + depthScale * 0.4  // Small letters: 0.15 - 0.55
-        : Math.min(0.9, 0.5 + (depthScale - 1) * 0.06); // Large letters: 0.5 - 0.9
+        ? 0.15 + depthScale * 0.4
+        : Math.min(0.9, 0.5 + (depthScale - 1) * 0.06);
 
       span.style.left = startX + 'px';
       span.style.top = startY + 'px';
@@ -1447,8 +1298,6 @@
       span.style.fontSize = floatingFontSize + 'px';
       span.style.opacity = opacity;
       span.dataset.depthScale = depthScale;
-
-      // Store initial random values for floating animation
       span.dataset.offsetX = Math.random() * 2 - 1;
       span.dataset.offsetY = Math.random() * 2 - 1;
       span.dataset.speed = 0.3 + Math.random() * 0.4;
@@ -1458,18 +1307,13 @@
         el: span,
         x: startX,
         y: startY,
-        targetX: startX,
-        targetY: startY,
-        rotation: startRotation,
-        targetRotation: startRotation,
-        vx: 0,
-        vy: 0
+        rotation: startRotation
       });
 
       document.body.appendChild(span);
     });
 
-    // Floating animation for scattered chars
+    // Floating animation
     function animateFloatingChars() {
       if (isAssembled) return;
 
@@ -1481,30 +1325,27 @@
         const speed = parseFloat(char.el.dataset.speed);
         const rotSpeed = parseFloat(char.el.dataset.rotSpeed);
 
-        // Gentle floating movement
-        char.x += Math.sin(charFloatTime * speed + i) * 0.5 * offsetX;
-        char.y += Math.cos(charFloatTime * speed * 0.7 + i) * 0.5 * offsetY;
-        char.rotation += rotSpeed * 0.3;
+        char.x += Math.sin(charFloatTime * speed + i) * 0.4 * offsetX;
+        char.y += Math.cos(charFloatTime * speed * 0.7 + i) * 0.4 * offsetY;
+        char.rotation += rotSpeed * 0.25;
 
-        // Mouse repulsion during floating
         const dx = mouseX - char.x;
         const dy = mouseY - char.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const repelDist = 120;
+        const repelDist = 100;
 
         if (dist < repelDist && dist > 0) {
-          const force = (1 - dist / repelDist) * 8;
+          const force = (1 - dist / repelDist) * 6;
           const angle = Math.atan2(dy, dx);
           char.x -= Math.cos(angle) * force;
           char.y -= Math.sin(angle) * force;
-          char.rotation += (Math.random() - 0.5) * force * 0.5;
+          char.rotation += (Math.random() - 0.5) * force * 0.4;
         }
 
-        // Keep within bounds
-        if (char.x < 50) char.x = 50;
-        if (char.x > window.innerWidth - 50) char.x = window.innerWidth - 50;
-        if (char.y < 50) char.y = 50;
-        if (char.y > window.innerHeight - 50) char.y = window.innerHeight - 50;
+        if (char.x < 40) char.x = 40;
+        if (char.x > window.innerWidth - 40) char.x = window.innerWidth - 40;
+        if (char.y < 40) char.y = 40;
+        if (char.y > window.innerHeight - 40) char.y = window.innerHeight - 40;
 
         char.el.style.left = char.x + 'px';
         char.el.style.top = char.y + 'px';
@@ -1516,37 +1357,28 @@
 
     animateFloatingChars();
 
-    // Assemble characters to center after delay
+    // Assemble characters
     function assembleChars() {
       isAssembled = true;
 
-      // Get the final assembled font size
       const computedStyle = getComputedStyle(logo);
       const fontSize = parseFloat(computedStyle.fontSize);
       const letterSpacing = -0.03 * fontSize;
-      const charWidth = fontSize * 0.6; // Approximate char width
-
-      // Calculate total logo width
+      const charWidth = fontSize * 0.6;
       const totalLogoWidth = (charWidth * logoText.length) + (letterSpacing * (logoText.length - 1));
-
-      // Center of screen
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-
-      // Starting X position (leftmost character)
       const startX = centerX - (totalLogoWidth / 2);
 
       chars.forEach((char, i) => {
-        // Target position - true center of screen
         const targetX = startX + (i * (charWidth + letterSpacing)) + (charWidth / 2);
         const targetY = centerY;
 
-        // Animate to position with size normalization
-        char.el.style.transition = `left 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
-                                    top 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
-                                    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
-                                    font-size 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s,
-                                    opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.05}s`;
+        char.el.style.transition = `left 1s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.04}s,
+                                    top 1s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.04}s,
+                                    transform 1s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.04}s,
+                                    font-size 1s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.04}s,
+                                    opacity 1s cubic-bezier(0.22, 1, 0.36, 1) ${i * 0.04}s`;
 
         char.el.style.left = targetX + 'px';
         char.el.style.top = targetY + 'px';
@@ -1555,16 +1387,13 @@
         char.el.style.opacity = '1';
       });
 
-      // After assembly, move chars into logo element
       setTimeout(() => {
-        // Hide all chars first
         chars.forEach((char) => {
           char.el.style.opacity = '0';
         });
 
-        // Short delay then move to logo
         setTimeout(() => {
-          chars.forEach((char, i) => {
+          chars.forEach((char) => {
             char.el.classList.remove('floating');
             char.el.classList.add('assembled');
             char.el.style.transition = '';
@@ -1575,7 +1404,6 @@
             logo.appendChild(char.el);
           });
 
-          // Fade in the assembled logo
           requestAnimationFrame(() => {
             chars.forEach((char) => {
               char.el.style.transition = 'opacity 0.3s ease';
@@ -1583,46 +1411,39 @@
             });
           });
 
-          // Show other elements
           positionTitle.classList.add('visible');
           nameJp.classList.add('visible');
           status.classList.add('visible');
           visionBox.classList.add('visible');
-          document.getElementById('socialLinks').classList.add('visible');
-          navSection.classList.add('visible');
+          socialLinks.classList.add('visible');
+          document.getElementById('specialLink').classList.add('visible');
 
-          // Start interactive mode
           startInteractiveMode();
         }, 50);
-      }, 1500);
+      }, 1200);
     }
 
-    // Start assembly after 2.5 seconds
-    setTimeout(assembleChars, 2500);
+    setTimeout(assembleChars, 2000);
 
-    // Interactive mode - chars respond to mouse
+    // Interactive mode
     function startInteractiveMode() {
       function animateInteractive() {
-        const logoRect = logo.getBoundingClientRect();
-
-        chars.forEach((char, i) => {
+        chars.forEach((char) => {
           const charRect = char.el.getBoundingClientRect();
           const charCenterX = charRect.left + charRect.width / 2;
           const charCenterY = charRect.top + charRect.height / 2;
 
-          // Distance from mouse to char
           const dx = mouseX - charCenterX;
           const dy = mouseY - charCenterY;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          // Repel effect when mouse is close
-          const maxDist = 150;
+          const maxDist = 120;
           if (dist < maxDist) {
-            const force = (1 - dist / maxDist) * 20;
+            const force = (1 - dist / maxDist) * 15;
             const angle = Math.atan2(dy, dx);
             const offsetX = -Math.cos(angle) * force;
             const offsetY = -Math.sin(angle) * force;
-            const rotation = (offsetX * 0.5);
+            const rotation = (offsetX * 0.4);
 
             char.el.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
           } else {
@@ -1636,7 +1457,7 @@
       animateInteractive();
     }
 
-    // Track mouse/touch position
+    // Mouse tracking
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -1647,151 +1468,172 @@
       mouseY = e.touches[0].clientY;
     });
 
-    // 3D tilt effect variables
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
+    // ============================================
+    // BOOK PAGE NAVIGATION (Horizontal)
+    // ============================================
+    const pages = document.querySelectorAll('.page');
+    const pageDots = document.querySelectorAll('.page-dot');
+    const scrollHint = document.getElementById('scrollHint');
+    let currentPage = 0;
+    const totalPages = 5;
+    let isTransitioning = false;
+    let scrollAccumulator = 0;
+    const scrollThreshold = 50;
 
-    // Mouse movement (desktop) for 3D effect
-    document.addEventListener('mousemove', (e) => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-
-      targetX = (e.clientX - centerX) / centerX;
-      targetY = (e.clientY - centerY) / centerY;
-    });
-
-    // Touch movement (mobile)
-    document.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-
-      targetX = (touch.clientX - centerX) / centerX;
-      targetY = (touch.clientY - centerY) / centerY;
-    });
-
-    // Device orientation (mobile tilt)
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener('deviceorientation', (e) => {
-        if (e.gamma !== null && e.beta !== null) {
-          targetX = Math.max(-1, Math.min(1, e.gamma / 30));
-          targetY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
-        }
-      });
-    }
-
-    // 3D animation loop
-    function animate3D() {
-      currentX += (targetX - currentX) * 0.08;
-      currentY += (targetY - currentY) * 0.08;
-
-      const rotateY = currentX * 8;
-      const rotateX = -currentY * 5;
-
-      container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-
-      corners.forEach((corner, i) => {
-        const factor = 0.5;
-        const offsetX = -currentX * 15 * factor;
-        const offsetY = -currentY * 10 * factor;
-        corner.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
-
-      lines.forEach((line, i) => {
-        const isHorizontal = line.classList.contains('line-h');
-        if (isHorizontal) {
-          line.style.transform = `translateY(${currentY * 3}px)`;
+    // Set initial z-index for pages (like a stack of papers)
+    function updatePageStack() {
+      pages.forEach((page, i) => {
+        if (i < currentPage) {
+          page.style.zIndex = totalPages - i;
+          page.classList.add('flipped');
+          page.classList.remove('active', 'next');
+        } else if (i === currentPage) {
+          page.style.zIndex = totalPages;
+          page.classList.add('active');
+          page.classList.remove('flipped', 'next');
         } else {
-          line.style.transform = `translateX(${currentX * 3}px)`;
+          page.style.zIndex = totalPages - i;
+          page.classList.remove('flipped', 'active');
+          if (i === currentPage + 1) {
+            page.classList.add('next');
+          } else {
+            page.classList.remove('next');
+          }
         }
       });
-
-      shapes.forEach((shape, i) => {
-        const depth = (i + 1) * 0.3;
-        const rotationBase = [15, -10, 25, -20, 5][i];
-        const offsetX = currentX * 30 * depth;
-        const offsetY = currentY * 20 * depth;
-        const rotation = rotationBase + currentX * 5;
-        shape.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rotation}deg)`;
-      });
-
-      requestAnimationFrame(animate3D);
     }
 
-    animate3D();
+    updatePageStack();
 
-    // Auto floating animation for shapes
-    let floatTime = 0;
-    function floatShapes() {
-      floatTime += 0.015;
-      shapes.forEach((shape, i) => {
-        const baseY = Math.sin(floatTime + i * 1.5) * 15;
-        const baseX = Math.cos(floatTime * 0.7 + i) * 10;
-        shape.style.setProperty('--float-x', baseX + 'px');
-        shape.style.setProperty('--float-y', baseY + 'px');
+    // Navigate to page with book flip
+    function navigateToPage(pageIndex) {
+      if (isTransitioning || pageIndex === currentPage || pageIndex < 0 || pageIndex >= totalPages) return;
+
+      isTransitioning = true;
+      const previousPage = currentPage;
+      const direction = pageIndex > currentPage ? 'next' : 'prev';
+
+      // Remove visible from previous section elements
+      const prevPageEl = pages[previousPage];
+      const prevElements = prevPageEl.querySelectorAll('[data-animate]');
+      prevElements.forEach(el => el.classList.remove('visible'));
+
+      currentPage = pageIndex;
+
+      // Update page stack
+      updatePageStack();
+
+      // Update page dots
+      pageDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentPage);
       });
-      requestAnimationFrame(floatShapes);
-    }
-    floatShapes();
 
-    // Section navigation
-    const profileSection = document.getElementById('profileSection');
-    const policySection = document.getElementById('policySection');
-    const connectSection = document.getElementById('connectSection');
-    const contactSection = document.getElementById('contactSection');
+      // Hide scroll hint after first navigation
+      if (currentPage > 0) {
+        scrollHint.classList.add('hidden');
+      } else {
+        scrollHint.classList.remove('hidden');
+      }
 
-    function showSection(section) {
-      section.classList.add('visible');
-      document.body.style.overflow = 'hidden';
+      // Dark mode for contact page
+      if (currentPage === 4) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
 
-      // Animate elements
+      // Animate elements in new section
       setTimeout(() => {
-        const elements = section.querySelectorAll('[data-profile], [data-policy], [data-connect], [data-contact]');
-        elements.forEach((el, index) => {
+        const currentPageEl = pages[currentPage];
+        const currentElements = currentPageEl.querySelectorAll('[data-animate]');
+        currentElements.forEach((el, index) => {
           const delay = el.dataset.delay || index;
           setTimeout(() => {
             el.classList.add('visible');
-          }, delay * 100 + 200);
+          }, delay * 80 + 150);
         });
 
-        const backBtn = section.querySelector('.back-button');
-        if (backBtn) backBtn.classList.add('visible');
-      }, 100);
+        isTransitioning = false;
+      }, 500);
     }
 
-    function hideSection(section) {
-      const elements = section.querySelectorAll('.visible');
-      elements.forEach(el => el.classList.remove('visible'));
-      section.classList.remove('visible');
-      document.body.style.overflow = '';
+    // Scroll/Swipe handling (horizontal)
+    function handleScroll(deltaX) {
+      scrollAccumulator += deltaX;
+
+      if (Math.abs(scrollAccumulator) >= scrollThreshold) {
+        if (scrollAccumulator > 0 && currentPage < totalPages - 1) {
+          navigateToPage(currentPage + 1);
+        } else if (scrollAccumulator < 0 && currentPage > 0) {
+          navigateToPage(currentPage - 1);
+        }
+        scrollAccumulator = 0;
+      }
     }
 
-    // Nav link clicks
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', (e) => {
+    // Mouse wheel (horizontal or vertical)
+    window.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      // Use horizontal if available, otherwise use vertical
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      handleScroll(delta);
+    }, { passive: false });
+
+    // Touch handling (horizontal swipe)
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', (e) => {
+      if (isTransitioning) return;
+
+      const touchCurrentX = e.touches[0].clientX;
+      const touchCurrentY = e.touches[0].clientY;
+      const deltaX = touchStartX - touchCurrentX;
+      const deltaY = touchStartY - touchCurrentY;
+
+      // Only trigger if horizontal movement is greater than vertical
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0 && currentPage < totalPages - 1) {
+          navigateToPage(currentPage + 1);
+        } else if (deltaX < 0 && currentPage > 0) {
+          navigateToPage(currentPage - 1);
+        }
+        touchStartX = touchCurrentX;
+      }
+    }, { passive: true });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
         e.preventDefault();
-        const sectionName = link.dataset.section;
-        if (sectionName === 'profile') showSection(profileSection);
-        if (sectionName === 'policy') showSection(policySection);
-        if (sectionName === 'connect') showSection(connectSection);
-        if (sectionName === 'contact') showSection(contactSection);
-      });
+        if (currentPage < totalPages - 1) {
+          navigateToPage(currentPage + 1);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (currentPage > 0) {
+          navigateToPage(currentPage - 1);
+        }
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        navigateToPage(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        navigateToPage(totalPages - 1);
+      }
     });
 
-    // Back buttons
-    document.getElementById('profileBack').addEventListener('click', () => hideSection(profileSection));
-    document.getElementById('policyBack').addEventListener('click', () => hideSection(policySection));
-    document.getElementById('connectBack').addEventListener('click', () => hideSection(connectSection));
-    document.getElementById('contactBack').addEventListener('click', () => hideSection(contactSection));
-
-    // ESC key to close sections
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        hideSection(profileSection);
-        hideSection(policySection);
-        hideSection(connectSection);
-        hideSection(contactSection);
-      }
+    // Page dot clicks
+    pageDots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const pageIndex = parseInt(dot.dataset.page);
+        navigateToPage(pageIndex);
+      });
     });
   </script>
 </body>
