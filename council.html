@@ -1,0 +1,5288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三郷市議会の今</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;400;600;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray: #6e6e73;
+            --gray-light: #d2d2d7;
+            --white: #fbfbfd;
+            --accent: #0071e3;
+            --navy: #1e3a5f;
+            --navy-light: #2a4a73;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========================================
+           共通スタイル
+        ======================================== */
+        section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-full {
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .headline-large {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        .headline-medium {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .headline-small {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .body-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--gray-dark);
+        }
+
+        .body-text-large {
+            font-size: 21px;
+            line-height: 1.6;
+            color: var(--gray-dark);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-gray {
+            color: var(--gray);
+        }
+
+        .mt-16 { margin-top: 16px; }
+        .mt-24 { margin-top: 24px; }
+        .mt-40 { margin-top: 40px; }
+        .mt-80 { margin-top: 80px; }
+
+        .link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        .link::after {
+            content: ' ›';
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--gray-light);
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        /* ========================================
+           ナビゲーション
+        ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .nav-home {
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .nav-home:hover {
+            opacity: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a:not(.nav-home) {
+            color: var(--black);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            padding: 0 16px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        nav a:not(.nav-home):hover {
+            opacity: 1;
+        }
+
+        /* Mobile Navigation */
+        .nav-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            position: absolute;
+            right: 8px;
+            top: 2px;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--black);
+            margin: 4px auto;
+            transition: all 0.3s;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(251, 251, 253, 0.98);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 999;
+            padding: 40px 24px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            display: block;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--black);
+            text-decoration: none;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start;
+            }
+
+            .nav-home {
+                font-size: 11px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: block;
+                pointer-events: none;
+            }
+
+            .mobile-menu.active {
+                pointer-events: auto;
+            }
+        }
+
+        /* ========================================
+           HERO
+        ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 48px;
+        }
+
+        .hero .eyebrow {
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+        }
+
+        .hero .body-text-large {
+            max-width: 600px;
+            margin: 24px auto 0;
+        }
+
+        .hero-disclaimer {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 24px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.04);
+            border-radius: 20px;
+        }
+
+        .hero-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 80px;
+        }
+
+        .hero-number {
+            text-align: center;
+        }
+
+        .hero-number-value {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--navy);
+        }
+
+        .hero-number-unit {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .hero-number-label {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: float 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 20px;
+            animation: bounce-arrow 1.5s ease-in-out infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--navy), transparent);
+            border-radius: 1px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(8px); opacity: 0.5; }
+        }
+
+        /* ========================================
+           QUIZ SECTION
+        ======================================== */
+        .quiz-section {
+            padding: 120px 24px;
+            background: #f5f5f7;
+        }
+
+        .quiz-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        .quiz-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--navy);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+        }
+
+        .quiz-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .quiz-label {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .quiz-desc {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .quiz-icon-flat {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* ========================================
+           QUESTION SECTION
+        ======================================== */
+        .question-section {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 160px 24px;
+        }
+
+        .question-section .headline-medium {
+            color: var(--white);
+            opacity: 0.5;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-section .answer {
+            color: var(--white);
+            margin-top: 60px;
+        }
+
+        /* ========================================
+           IMPACT GRID
+        ======================================== */
+        .impact-section {
+            padding-top: 160px;
+            padding-bottom: 160px;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--gray-light);
+            margin-top: 80px;
+        }
+
+        .impact-item {
+            background: var(--white);
+            padding: 60px 40px;
+            transition: background 0.3s;
+        }
+
+        .impact-item:hover {
+            background: #f5f5f7;
+        }
+
+        .impact-number {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: var(--navy);
+        }
+
+        .impact-unit {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .impact-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .impact-desc {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           BUDGET SECTION
+        ======================================== */
+        .budget-section {
+            text-align: center;
+        }
+
+        .budget-amount {
+            font-size: clamp(80px, 15vw, 200px);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: var(--navy);
+        }
+
+        .budget-unit {
+            font-size: clamp(24px, 4vw, 48px);
+            font-weight: 400;
+        }
+
+        .budget-note {
+            font-size: 17px;
+            color: var(--gray);
+            margin-top: 16px;
+        }
+
+        .budget-bar-section {
+            margin-top: 100px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .budget-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--gray-light);
+        }
+
+        .budget-segment {
+            transition: flex 0.3s;
+        }
+
+        .seg-1 { background: #c94a4a; flex: 3; }      /* 福祉・医療：赤系 */
+        .seg-2 { background: #4a8ac9; flex: 2; }      /* 教育・子育て：青系 */
+        .seg-3 { background: #5a9a6a; flex: 1.5; }    /* 道路・土木：緑系 */
+        .seg-4 { background: #c9a44a; flex: 1.5; }    /* 行政運営：黄土色 */
+        .seg-5 { background: #9a9a9a; flex: 2; }      /* その他：グレー */
+
+        .budget-legend {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--gray-dark);
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-percent {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .per-person-box {
+            margin-top: 80px;
+            padding: 60px;
+            background: #f5f5f7;
+            border-radius: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .per-person-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .per-person-amount {
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-top: 8px;
+            color: var(--navy);
+        }
+
+        .per-person-note {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 16px;
+        }
+
+        .budget-familiar {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .budget-familiar-title {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 40px;
+        }
+
+        .budget-familiar-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .budget-familiar-item {
+            background: #f5f5f7;
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: transform 0.2s;
+        }
+
+        .budget-familiar-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .budget-familiar-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .budget-familiar-icon-flat {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+        }
+
+        .budget-familiar-label {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .budget-familiar-example {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .budget-familiar-example strong {
+            font-size: 28px;
+            color: var(--navy);
+        }
+
+        .budget-familiar-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .budget-familiar-note {
+            margin-top: 40px;
+            font-size: 15px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        /* ========================================
+           COUNCIL SECTION
+        ======================================== */
+        .council-section {
+            background: #f5f5f7;
+        }
+
+        .council-section.section-full {
+            padding: 160px 24px;
+        }
+
+        .council-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .seats-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 80px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .seat {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .seat:hover {
+            transform: scale(1.15);
+        }
+
+        .seat-dark { background: var(--black); color: var(--white); }
+        .seat-gray1 { background: #48484a; color: var(--white); }
+        .seat-gray2 { background: #636366; color: var(--white); }
+        .seat-gray3 { background: #86868b; color: var(--white); }
+        .seat-gray4 { background: #aeaeb2; color: var(--white); }
+        .seat-light { background: #d1d1d6; color: var(--black); }
+        .seat-vacant {
+            background: transparent;
+            border: 2px dashed var(--gray-light);
+        }
+        .seat-speaker {
+            background: var(--black);
+            color: var(--white);
+            position: relative;
+            box-shadow: 0 0 0 2px #c9a227;
+        }
+        .seat-speaker::after {
+            content: '議長';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            font-weight: 600;
+            color: #c9a227;
+            white-space: nowrap;
+        }
+        .seat-vice-speaker {
+            background: #48484a;
+            color: var(--white);
+            position: relative;
+            box-shadow: 0 0 0 2px #8b8b8b;
+        }
+        .seat-vice-speaker::after {
+            content: '副議長';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            font-weight: 600;
+            color: #8b8b8b;
+            white-space: nowrap;
+        }
+        .seat-highlight {
+            background: var(--navy);
+            color: var(--white);
+            box-shadow: 0 0 0 3px var(--navy), 0 0 0 5px rgba(30, 58, 95, 0.3);
+            animation: pulse-navy 2s ease-in-out infinite;
+        }
+        @keyframes pulse-navy {
+            0%, 100% { box-shadow: 0 0 0 3px var(--navy), 0 0 0 5px rgba(30, 58, 95, 0.3); }
+            50% { box-shadow: 0 0 0 3px var(--navy), 0 0 0 8px rgba(30, 58, 95, 0.15); }
+        }
+
+        .faction-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faction-item {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .faction-name {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .faction-count {
+            font-size: 40px;
+            font-weight: 900;
+            margin-top: 4px;
+            color: var(--navy);
+        }
+
+        .faction-count span {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .faction-vacant {
+            opacity: 0.4;
+        }
+
+        .faction-note {
+            font-size: 11px;
+            color: #c9a227;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .faction-note-light {
+            font-size: 11px;
+            color: #8b8b8b;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .faction-highlight {
+            border-radius: 12px;
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .faction-highlight.revealed {
+            background: var(--navy);
+            color: var(--white);
+            transform: scale(1.08);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.4);
+            z-index: 10;
+        }
+
+        .faction-highlight .faction-name {
+            transition: color 0.5s ease;
+        }
+
+        .faction-highlight.revealed .faction-name {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .faction-highlight .faction-count {
+            transition: color 0.5s ease;
+        }
+
+        .faction-highlight.revealed .faction-count {
+            color: var(--white);
+        }
+
+        .faction-author {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease 0.2s;
+        }
+
+        .faction-highlight.revealed .faction-author {
+            opacity: 1;
+            max-height: 30px;
+        }
+
+        .speaker-note {
+            margin-top: 16px;
+            padding: 20px 24px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .speaker-note:first-of-type {
+            margin-top: 48px;
+        }
+
+        .speaker-note-badge {
+            flex-shrink: 0;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            background: #c9a227;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .speaker-note-text {
+            font-size: 13px;
+            color: var(--gray-dark);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           HOW IT WORKS
+        ======================================== */
+        .process-section {
+            padding: 160px 24px;
+        }
+
+        .process-flow {
+            margin-top: 80px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 32px;
+            align-items: start;
+            position: relative;
+            padding-bottom: 48px;
+        }
+
+        .process-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            left: 39px;
+            top: 80px;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-light);
+        }
+
+        .process-step:last-child::before {
+            display: none;
+        }
+
+        .process-number-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .process-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-content {
+            padding-top: 16px;
+        }
+
+        .process-content h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .process-content p {
+            font-size: 15px;
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .process-detail {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+
+        .process-detail-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .process-detail-content {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .process-actors {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .process-actor {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .process-actor-light {
+            background: var(--gray-light);
+            color: var(--gray-dark);
+        }
+
+        .committee-section {
+            margin-top: 100px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .committee-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--gray-light);
+            margin-top: 40px;
+        }
+
+        .committee-item {
+            background: var(--white);
+            padding: 32px;
+        }
+
+        .committee-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .committee-item p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .committee-category {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .committee-highlight {
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .committee-highlight.revealed {
+            background: var(--navy);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.3);
+            z-index: 10;
+        }
+
+        .committee-highlight .committee-category {
+            transition: color 0.5s ease;
+        }
+
+        .committee-highlight.revealed .committee-category {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .committee-highlight h4 {
+            transition: color 0.5s ease;
+        }
+
+        .committee-highlight.revealed h4 {
+            color: var(--white);
+        }
+
+        .committee-highlight p {
+            transition: color 0.5s ease;
+        }
+
+        .committee-highlight.revealed p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .committee-author {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease 0.2s;
+        }
+
+        .committee-highlight.revealed .committee-author {
+            opacity: 1;
+            max-height: 50px;
+        }
+
+        .committee-role {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            font-size: 10px;
+        }
+
+        /* ========================================
+           INSPECTION SECTION
+        ======================================== */
+        .inspection-section {
+            padding: 160px 24px;
+            background: #f5f5f7;
+        }
+
+        .inspection-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .inspection-flow {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .inspection-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+        }
+
+        .inspection-step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .inspection-step-content h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .inspection-step-content p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .inspection-example {
+            margin-top: 80px;
+        }
+
+        .inspection-example-title {
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .inspection-example-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .inspection-example-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+            transition: transform 0.2s;
+        }
+
+        .inspection-example-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .inspection-example-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .inspection-example-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .inspection-example-content p {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .inspection-note {
+            margin-top: 48px;
+            padding: 24px 32px;
+            background: var(--white);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .inspection-note p {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        /* ========================================
+           ROLES SECTION
+        ======================================== */
+        .roles-section {
+            background: var(--navy);
+            color: var(--white);
+            padding: 160px 24px;
+        }
+
+        .roles-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .roles-section .eyebrow {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .roles-section .headline-medium {
+            color: var(--white);
+        }
+
+        .roles-section .body-text {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .roles-diagram {
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .roles-row {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .roles-row-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .role-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 32px;
+            width: 280px;
+            text-align: center;
+            transition: background 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .role-card:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+        }
+
+        .role-card-main {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .role-title {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .role-name {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 16px;
+        }
+
+        .role-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+        }
+
+        .role-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .badge-executive {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+        }
+
+        .badge-legislative {
+            background: rgba(255,255,255,0.3);
+            color: var(--white);
+        }
+
+        .badge-support {
+            background: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .roles-relation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin: -20px 0;
+        }
+
+        .relation-line {
+            width: 1px;
+            height: 40px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .relation-text {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+
+        .roles-check-balance {
+            margin-top: 80px;
+            text-align: center;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .check-balance-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .check-balance-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           COMPANY ANALOGY SECTION
+        ======================================== */
+        .company-section {
+            padding: 160px 24px;
+            background: var(--white);
+        }
+
+        .company-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .company-diagram {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .company-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .company-column-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--gray-light);
+            margin-bottom: 8px;
+        }
+
+        .company-arrow-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 60px;
+        }
+
+        .company-arrow {
+            font-size: 24px;
+            color: var(--gray);
+        }
+
+        .company-card {
+            background: #f5f5f7;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .company-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .company-card-role {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .company-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 4px;
+        }
+
+        .company-card-sub {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 12px;
+        }
+
+        .company-card-desc {
+            font-size: 13px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .company-card-highlight {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .company-card-highlight .company-card-role {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .company-card-highlight .company-card-title {
+            color: var(--white);
+        }
+
+        .company-card-highlight .company-card-sub {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .company-card-highlight .company-card-desc {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .company-insight {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .company-insight-card {
+            background: #f5f5f7;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .company-insight-icon {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .company-insight-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .company-insight-desc {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.7;
+        }
+
+        .company-note {
+            margin-top: 48px;
+            padding: 24px 32px;
+            background: #f5f5f7;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .company-note p {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .company-diagram {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .company-arrow-column {
+                padding-top: 0;
+                transform: rotate(90deg);
+            }
+
+            .company-insight {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           ORGANIZATION SECTION
+        ======================================== */
+        .org-section {
+            padding: 160px 24px;
+            background: #f5f5f7;
+        }
+
+        .org-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .org-intro {
+            max-width: 700px;
+            margin: 0 auto 80px;
+            text-align: center;
+        }
+
+        .org-intro p {
+            font-size: 15px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+            margin-top: 24px;
+        }
+
+        .org-chart {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .org-dept {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .org-dept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .org-dept-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .org-dept-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .org-dept-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .org-dept-desc {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .org-divisions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .org-division {
+            font-size: 13px;
+            color: var(--gray-dark);
+            padding: 8px 12px;
+            background: #f5f5f7;
+            border-radius: 8px;
+        }
+
+        .org-division-main {
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .org-division-note {
+            font-size: 11px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .org-highlight {
+            border: 2px solid var(--navy);
+        }
+
+        .org-highlight .org-dept-icon {
+            background: #c9a227;
+        }
+
+        .org-note {
+            margin-top: 48px;
+            padding: 24px 32px;
+            background: var(--white);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .org-note p {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        .org-note a {
+            color: var(--navy);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .org-chart {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .org-chart {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           TIMELINE
+        ======================================== */
+        .timeline-section {
+            padding: 160px 24px;
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 80px auto 0;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+
+        .timeline-content h3 {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .timeline-content p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           VOTING SECTION
+        ======================================== */
+        .voting-section {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .voting-section.section-full {
+            padding: 160px 24px;
+        }
+
+        .voting-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .voting-section .eyebrow {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .voting-section .headline-medium {
+            color: var(--white);
+        }
+
+        .voting-chart {
+            max-width: 600px;
+            margin: 80px auto 0;
+        }
+
+        .voting-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .voting-year {
+            width: 80px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            text-align: left;
+        }
+
+        .voting-bar-wrapper {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .voting-bar {
+            height: 100%;
+            background: var(--white);
+            border-radius: 2px;
+        }
+
+        .voting-value {
+            width: 80px;
+            font-size: 14px;
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .voting-highlight {
+            margin-top: 80px;
+        }
+
+        .voting-big-number {
+            font-size: 120px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .voting-big-label {
+            font-size: 17px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 16px;
+        }
+
+        /* ========================================
+           ACTIVITY SECTION
+        ======================================== */
+        .activity-section {
+            padding: 160px 24px;
+            background: #f5f5f7;
+        }
+
+        .activity-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .activity-timeline {
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .activity-timeline::before {
+            content: '';
+            position: absolute;
+            left: 80px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-light);
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 32px;
+            padding: 24px 0;
+            position: relative;
+        }
+
+        .activity-item::after {
+            content: '';
+            position: absolute;
+            left: 74px;
+            top: 32px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--navy);
+        }
+
+        .activity-future::after {
+            background: var(--navy);
+            border-color: var(--navy);
+        }
+
+        .activity-start::after {
+            background: #c94a4a;
+            border-color: #c94a4a;
+            width: 18px;
+            height: 18px;
+            left: 72px;
+        }
+
+        .activity-date {
+            width: 60px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .activity-month {
+            display: block;
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .activity-year {
+            display: block;
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+        .activity-content {
+            flex: 1;
+            padding-left: 32px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+
+        .activity-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .activity-content p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .activity-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            margin-bottom: 8px;
+        }
+
+        .activity-tag-inspection {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .activity-tag-action {
+            background: var(--gray-dark);
+            color: var(--white);
+        }
+
+        .activity-tag-important {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .activity-future .activity-content {
+            background: var(--white);
+        }
+
+        /* ========================================
+           ACTION SECTION
+        ======================================== */
+        .action-section {
+            padding: 160px 24px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 80px;
+        }
+
+        .action-card {
+            padding: 48px 32px;
+            border-radius: 24px;
+            background: #f5f5f7;
+            transition: background 0.3s;
+        }
+
+        .action-card:hover {
+            background: #e8e8ed;
+        }
+
+        .action-card h3 {
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .action-card p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        .action-card .link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* ========================================
+           AUTHOR SECTION
+        ======================================== */
+        .author-section {
+            background: var(--navy);
+            padding: 80px 24px;
+        }
+
+        .author-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .author-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.6);
+            padding: 6px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .author-name {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .author-title {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 24px;
+        }
+
+        .author-message {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .author-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .author-link {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .author-link:first-child {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .author-link:first-child:hover {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .author-link:last-child {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .author-link:last-child:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        footer {
+            background: #f5f5f7;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 12px;
+            color: var(--gray);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--black);
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: var(--gray);
+            margin-top: 24px;
+        }
+
+        /* ========================================
+           AREA MAP
+        ======================================== */
+        .area-section {
+            background: #f5f5f7;
+            padding: 160px 24px;
+        }
+
+        .area-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .area-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 80px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .area-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .area-card:hover {
+            border-color: var(--gray-light);
+        }
+
+        .area-card.active {
+            border-color: var(--navy);
+        }
+
+        .area-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .area-card-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .area-card-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .area-card-station {
+            font-size: 12px;
+            color: var(--gray);
+            margin-left: auto;
+        }
+
+        .area-card-desc {
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .area-card-keywords {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .area-keyword {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            color: var(--gray-dark);
+        }
+
+        .area-card:hover .area-keyword {
+            background: #e8e8ed;
+        }
+
+        .area-card-highlight {
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .area-card-highlight .area-card-dot {
+            background: var(--black) !important;
+            transition: all 0.5s ease;
+        }
+
+        .area-card-highlight.revealed {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px var(--navy), 0 20px 40px rgba(30, 58, 95, 0.3);
+            transform: scale(1.03);
+            z-index: 10;
+        }
+
+        .area-card-highlight.revealed .area-card-dot {
+            background: var(--navy) !important;
+            transform: scale(1.5);
+        }
+
+        .area-card-author {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--white);
+            background: var(--navy);
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.5s ease 0.3s;
+        }
+
+        .area-card-highlight.revealed .area-card-author {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .area-stats {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .area-stat {
+            text-align: center;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 16px;
+        }
+
+        .area-stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            color: var(--navy);
+        }
+
+        .area-stat-label {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* ========================================
+           VOICES
+        ======================================== */
+        .voices-section {
+            padding: 160px 24px;
+        }
+
+        .voices-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .voices-category {
+            margin-top: 60px;
+        }
+
+        .voices-category:first-of-type {
+            margin-top: 80px;
+        }
+
+        .voices-category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .voices-category-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .voices-category-title {
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .voices-category-count {
+            font-size: 12px;
+            color: var(--gray);
+            margin-left: auto;
+        }
+
+        .voices-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .voice-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            transition: background 0.2s;
+        }
+
+        .voice-item:hover {
+            background: #e8e8ed;
+        }
+
+        .voice-item::before {
+            content: '"';
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--gray-light);
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .voice-area {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 8px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 10px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .voices-note {
+            margin-top: 40px;
+            padding: 24px;
+            background: #f5f5f7;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .voices-note p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .voices-note strong {
+            color: var(--gray-dark);
+        }
+
+        .voices-x-link {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 24px;
+            background: var(--navy);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 24px;
+            transition: all 0.2s;
+        }
+
+        .voices-x-link:hover {
+            background: var(--navy-light);
+            transform: translateY(-1px);
+        }
+
+        /* ========================================
+           SCHEDULE SECTION
+        ======================================== */
+        .schedule-section {
+            padding: 160px 24px;
+        }
+
+        .schedule-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .schedule-year {
+            margin-top: 60px;
+        }
+
+        .schedule-year-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .schedule-item {
+            background: #f5f5f7;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-4px);
+        }
+
+        .schedule-month {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .schedule-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .schedule-desc {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .schedule-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 10px;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .schedule-tag-main {
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .schedule-flow {
+            margin-top: 80px;
+        }
+
+        .schedule-flow-title {
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .schedule-flow-items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .schedule-flow-item {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            max-width: 180px;
+        }
+
+        .schedule-flow-day {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .schedule-flow-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .schedule-flow-content p {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        .schedule-flow-arrow {
+            font-size: 20px;
+            color: var(--gray-light);
+            font-weight: 300;
+        }
+
+        .schedule-info {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .schedule-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px;
+            background: #f5f5f7;
+            border-radius: 16px;
+        }
+
+        .schedule-info-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--navy);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .schedule-info-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .schedule-info-content p {
+            font-size: 13px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           AUTHOR NEW
+        ======================================== */
+        .author-section-new {
+            background: var(--navy);
+            padding: 160px 24px;
+        }
+
+        .author-new-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .author-profile-card {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 48px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .author-profile-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.7);
+            padding: 6px 16px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+
+        .author-profile-name {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 0.05em;
+        }
+
+        .author-profile-name-en {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em;
+            margin-top: 4px;
+        }
+
+        .author-profile-mission {
+            margin-top: 32px;
+            padding: 24px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .author-mission-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .author-mission-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.7;
+        }
+
+        .author-profile-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+            text-align: left;
+        }
+
+        .author-info-item {
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+
+        .author-info-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 4px;
+        }
+
+        .author-info-value {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .author-vision {
+            margin-top: 80px;
+        }
+
+        .author-vision-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .author-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .author-vision-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: background 0.3s;
+        }
+
+        .author-vision-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .author-vision-num {
+            font-size: 12px;
+            font-weight: 900;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+        }
+
+        .author-vision-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white);
+            line-height: 1.5;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .author-vision-item p {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+        }
+
+        .author-connect {
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .author-connect-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .author-connect-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+        }
+
+        .author-connect-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .author-connect-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .author-connect-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .author-connect-icon-flat {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 auto 16px;
+        }
+
+        .author-connect-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .author-connect-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+
+        .author-connect-card p:last-of-type {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+        }
+
+        a.author-connect-card {
+            text-decoration: none;
+            transition: all 0.25s;
+        }
+
+        a.author-connect-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+            transform: translateY(-4px);
+        }
+
+        .author-connect-btn {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+
+        a.author-connect-card:hover .author-connect-btn {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .author-connect-note {
+            margin-top: 24px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+        }
+
+        .author-cta {
+            margin-top: 60px;
+            text-align: center;
+            padding: 48px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 24px;
+        }
+
+        .author-cta p {
+            font-size: 17px;
+            color: var(--white);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .author-cta-button {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--white);
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: all 0.2s;
+        }
+
+        .author-cta-button:hover {
+            background: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* ========================================
+           FLOATING CTA
+        ======================================== */
+        .floating-cta {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 998;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s, transform 0.4s;
+            pointer-events: none;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .floating-cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .floating-cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .floating-cta-line {
+            background: #06C755;
+            color: white;
+        }
+
+        .floating-cta-scroll {
+            background: var(--navy);
+            color: white;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .floating-cta {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .floating-cta-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .floating-cta-scroll {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero-numbers {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .hero-number-value {
+                font-size: 56px;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-item {
+                padding: 40px 24px;
+            }
+
+            .impact-number {
+                font-size: 40px;
+            }
+
+            .faction-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .activity-timeline::before {
+                left: 40px;
+            }
+
+            .activity-item::after {
+                left: 34px;
+            }
+
+            .activity-start::after {
+                left: 32px;
+            }
+
+            .activity-date {
+                width: 30px;
+            }
+
+            .activity-month {
+                font-size: 13px;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inspection-example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .schedule-flow-items {
+                flex-wrap: wrap;
+            }
+
+            .schedule-flow-arrow {
+                display: none;
+            }
+
+            .schedule-flow-item {
+                max-width: none;
+                width: calc(50% - 8px);
+            }
+
+            .schedule-info {
+                grid-template-columns: 1fr;
+            }
+
+            .role-card {
+                width: 100%;
+            }
+
+            .roles-row {
+                gap: 24px;
+            }
+
+            .process-step {
+                grid-template-columns: 60px 1fr;
+                gap: 20px;
+            }
+
+            .process-number {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+            }
+
+            .process-step::before {
+                left: 29px;
+                top: 60px;
+            }
+
+            .process-content h3 {
+                font-size: 18px;
+            }
+
+            .process-content {
+                padding-top: 8px;
+            }
+
+            .voting-big-number {
+                font-size: 72px;
+            }
+
+            .per-person-box {
+                padding: 40px 24px;
+            }
+
+            .per-person-amount {
+                font-size: 48px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .quiz-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .quiz-card {
+                padding: 20px 16px;
+            }
+
+            .quiz-icon {
+                font-size: 28px;
+            }
+
+            .quiz-label {
+                font-size: 13px;
+            }
+
+            .budget-familiar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .area-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .area-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .author-profile-card {
+                padding: 32px 24px;
+            }
+
+            .author-profile-name {
+                font-size: 28px;
+            }
+
+            .author-profile-info {
+                grid-template-columns: 1fr;
+            }
+
+            .author-vision-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-connect-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .author-cta {
+                padding: 32px 24px;
+            }
+        }
+
+        /* ========================================
+           REFINED SCROLL ANIMATIONS
+        ======================================== */
+
+        /* Elegant fade up */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Subtle slide from left */
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Subtle slide from right */
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Scale in - subtle */
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Flip in - refined */
+        .flip-in {
+            opacity: 0;
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+
+        .flip-in.visible {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        /* Zoom blur in - subtle */
+        .zoom-blur-in {
+            opacity: 0;
+            transform: scale(1.05);
+            filter: blur(4px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out, filter 0.8s ease-out;
+        }
+
+        .zoom-blur-in.visible {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        /* Drop in - gentle */
+        .drop-in {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .drop-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Elastic pop - subtle bounce */
+        .elastic-pop {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s ease-out, transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+        }
+
+        .elastic-pop.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Staggered animation delays */
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.1s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.2s; }
+        .stagger-5 { transition-delay: 0.25s; }
+        .stagger-6 { transition-delay: 0.3s; }
+
+        /* Scroll tracking - smooth parallax */
+        .scroll-track {
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        /* 3D Card tilt effect - subtle */
+        .tilt-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .tilt-card:hover {
+            transform: perspective(1000px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) translateZ(10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        /* Gentle hover lift */
+        .hover-lift {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+
+        /* Number counter animation */
+        .count-up {
+            display: inline-block;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Smooth reveal for sections */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+
+        .reveal-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Progress bar animation */
+        .progress-animate {
+            transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* Underline grow animation */
+        .underline-grow {
+            position: relative;
+        }
+
+        .underline-grow::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 48px;
+            height: 2px;
+            background: var(--navy);
+            transition: transform 0.6s ease-out;
+        }
+
+        .underline-grow.visible::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* White background sections don't need underline */
+        .roles-section .underline-grow::after,
+        .voting-section .underline-grow::after {
+            background: rgba(255,255,255,0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-home">← 公式サイト</a>
+        <div class="nav-links">
+            <a href="#budget">予算</a>
+            <a href="#council">議会構成</a>
+            <a href="#roles">役割</a>
+            <a href="#author">制作者</a>
+            <a href="#schedule">日程</a>
+            <a href="#action">参加する</a>
+        </div>
+        <button class="nav-toggle" aria-label="メニューを開く">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="index.html" style="color: var(--navy); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 16px; margin-bottom: 8px;">← 公式サイトに戻る</a>
+        <a href="#budget">予算の使い道</a>
+        <a href="#council">議会構成</a>
+        <a href="#company">会社に例えると</a>
+        <a href="#organization">市役所の組織</a>
+        <a href="#roles">議員の役割</a>
+        <a href="#voices">市民の声</a>
+        <a href="#author">鈴木優作について</a>
+        <a href="#activity">活動報告</a>
+        <a href="#area">エリアガイド</a>
+        <a href="#schedule">議会日程</a>
+        <a href="#timeline">2025年の決定</a>
+        <a href="#voting">投票率</a>
+        <a href="#action">参加する</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="eyebrow">三郷市議会</p>
+        <h1 class="headline-large">
+            あなたの街の<br>
+            お金と未来を<br>
+            決めている場所。
+        </h1>
+        <p class="hero-disclaimer">
+            非公式 / 鈴木優作（市議会議員）作成
+        </p>
+        <p class="body-text-large mt-24">
+            625億円の予算。23人の議員。<br>
+            3分で、三郷市議会の「今」がわかる。
+        </p>
+
+        <div class="hero-numbers">
+            <div class="hero-number">
+                <div class="hero-number-value">625<span class="hero-number-unit">億</span></div>
+                <div class="hero-number-label">年間予算</div>
+            </div>
+            <div class="hero-number">
+                <div class="hero-number-value">23<span class="hero-number-unit">人</span></div>
+                <div class="hero-number-label">市議会議員（欠員1）</div>
+            </div>
+            <div class="hero-number">
+                <div class="hero-number-value">14.2<span class="hero-number-unit">万</span></div>
+                <div class="hero-number-label">三郷市民</div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            Scroll
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="quiz-section" id="quiz">
+        <div class="quiz-inner">
+            <p class="eyebrow text-center">For You</p>
+            <h2 class="headline-medium text-center">
+                あなたに関係あるのは<br>どれ？
+            </h2>
+            <p class="body-text text-center text-gray mt-16">当てはまるものをタップすると、関連する情報にジャンプします</p>
+
+            <div class="quiz-grid">
+                <a href="#voices" class="quiz-card" data-category="child" aria-label="子育て中・妊娠中の方向け情報へ">
+                    <div class="quiz-icon-flat" aria-hidden="true">育</div>
+                    <div class="quiz-label">子育て中・妊娠中</div>
+                    <div class="quiz-desc">保育園、学校、医療費、遊び場…</div>
+                </a>
+                <a href="#budget" class="quiz-card" data-category="tax" aria-label="税金の使い道について">
+                    <div class="quiz-icon-flat" aria-hidden="true">¥</div>
+                    <div class="quiz-label">税金の使い道が気になる</div>
+                    <div class="quiz-desc">625億円、どこに消えてる？</div>
+                </a>
+                <a href="#voices" class="quiz-card" data-category="infra" aria-label="道路・公園についての情報へ">
+                    <div class="quiz-icon-flat" aria-hidden="true">道</div>
+                    <div class="quiz-label">道路・公園が気になる</div>
+                    <div class="quiz-desc">渋滞、街灯、公園の遊具…</div>
+                </a>
+                <a href="#area" class="quiz-card" data-category="move" aria-label="エリアガイドへ">
+                    <div class="quiz-icon-flat" aria-hidden="true">住</div>
+                    <div class="quiz-label">三郷に引っ越してきた</div>
+                    <div class="quiz-desc">エリアの特徴を知りたい</div>
+                </a>
+                <a href="#council" class="quiz-card" data-category="council" aria-label="議会の仕組みについて">
+                    <div class="quiz-icon-flat" aria-hidden="true">議</div>
+                    <div class="quiz-label">議会の仕組みを知りたい</div>
+                    <div class="quiz-desc">誰が何を決めてるの？</div>
+                </a>
+                <a href="#author" class="quiz-card" data-category="author" aria-label="鈴木優作について">
+                    <div class="quiz-icon-flat" aria-hidden="true">人</div>
+                    <div class="quiz-label">鈴木優作について知りたい</div>
+                    <div class="quiz-desc">どんな人？何を目指してる？</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUESTION -->
+    <section class="question-section section-full">
+        <h2 class="headline-medium">
+            「市議会って、<br>
+            自分には関係ない」<br>
+            そう思っていませんか。
+        </h2>
+        <p class="headline-small answer mt-40">
+            実は、あなたの毎日に<br>
+            深く関わっています。
+        </p>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="impact-section">
+        <p class="eyebrow text-center">What Council Decided</p>
+        <h2 class="headline-medium text-center">
+            市議会が決めた、<br>
+            具体的なこと。
+        </h2>
+
+        <div class="impact-grid">
+            <div class="impact-item">
+                <div class="impact-number">625<span class="impact-unit">億円</span></div>
+                <div class="impact-title">令和7年度予算</div>
+                <div class="impact-desc">過去最高額を更新。18年連続で増加。令和7年3月議会で可決。</div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-number">22.6<span class="impact-unit">億円</span></div>
+                <div class="impact-title">南部防災施設の整備</div>
+                <div class="impact-desc">令和8年開館予定。防災学習・地域交流の拠点として令和7年3月議会で可決。</div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-number">18歳<span class="impact-unit">まで</span></div>
+                <div class="impact-title">子ども医療費 無料</div>
+                <div class="impact-desc">令和5年3月議会で条例改正。高校生相当（18歳年度末）まで拡大。</div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-number">4,300<span class="impact-unit">万円</span></div>
+                <div class="impact-title">市道7路線の舗装修繕</div>
+                <div class="impact-desc">令和6年9月議会で補正予算として可決。インフラ整備を推進。</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- BUDGET -->
+    <section class="budget-section" id="budget">
+        <p class="eyebrow">Budget 2025</p>
+        <h2 class="headline-medium">令和7年度予算</h2>
+
+        <div class="mt-40">
+            <div class="budget-amount">625<span class="budget-unit">億円</span></div>
+            <p class="budget-note">過去最高。18年連続で増加。前年比 +7.7%</p>
+        </div>
+
+        <div class="budget-bar-section">
+            <div class="budget-bar">
+                <div class="budget-segment seg-1"></div>
+                <div class="budget-segment seg-2"></div>
+                <div class="budget-segment seg-3"></div>
+                <div class="budget-segment seg-4"></div>
+                <div class="budget-segment seg-5"></div>
+            </div>
+            <div class="budget-legend">
+                <div class="legend-item"><div class="legend-dot" style="background:#c94a4a"></div>福祉・医療 <span class="legend-percent">30%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#4a8ac9"></div>教育・子育て <span class="legend-percent">20%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#5a9a6a"></div>道路・土木 <span class="legend-percent">15%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#c9a44a"></div>行政運営 <span class="legend-percent">15%</span></div>
+                <div class="legend-item"><div class="legend-dot" style="background:#9a9a9a"></div>その他 <span class="legend-percent">20%</span></div>
+            </div>
+        </div>
+
+        <div class="per-person-box">
+            <p class="per-person-label">市民1人あたり</p>
+            <div class="per-person-amount">約46万円</div>
+            <p class="per-person-note">この使い道を決めているのが、市議会です。</p>
+        </div>
+
+        <div class="budget-familiar">
+            <h3 class="budget-familiar-title">ピンとこない？<br>身近なモノに例えると…</h3>
+            <div class="budget-familiar-grid">
+                <div class="budget-familiar-item">
+                    <div class="budget-familiar-icon-flat">月</div>
+                    <div class="budget-familiar-label">1人あたり年間46万円は</div>
+                    <div class="budget-familiar-example">毎月<strong>約3.8万円</strong></div>
+                    <div class="budget-familiar-desc">スマホ代 + Netflix + ジム会費くらい</div>
+                </div>
+                <div class="budget-familiar-item">
+                    <div class="budget-familiar-icon-flat">家</div>
+                    <div class="budget-familiar-label">625億円は</div>
+                    <div class="budget-familiar-example">新築一戸建て<strong>約1.5万軒分</strong></div>
+                    <div class="budget-familiar-desc">三郷市内の全世帯の約2割に相当</div>
+                </div>
+                <div class="budget-familiar-item">
+                    <div class="budget-familiar-icon-flat">商</div>
+                    <div class="budget-familiar-label">625億円は</div>
+                    <div class="budget-familiar-example">ららぽーと<strong>約6個分</strong></div>
+                    <div class="budget-familiar-desc">毎年これだけのお金が動いています</div>
+                </div>
+            </div>
+            <p class="budget-familiar-note">これだけの金額を、どう使うか。<br>決めているのは、あなたが選んだ23人の議員です。</p>
+        </div>
+    </section>
+
+    <!-- COUNCIL -->
+    <section class="council-section section-full" id="council">
+        <div class="council-inner">
+            <p class="eyebrow text-center">Council</p>
+            <h2 class="headline-medium text-center">
+                23人が、<br>
+                あなたの代わりに。
+            </h2>
+            <p class="body-text text-center text-gray mt-16">定数24名中、現在1名欠員</p>
+
+            <div class="seats-container">
+                <!-- 新政会 7（うち1名が議長） -->
+                <div class="seat seat-speaker" title="議長：採決に参加できない">新</div>
+                <div class="seat seat-dark">新</div>
+                <div class="seat seat-dark">新</div>
+                <div class="seat seat-dark">新</div>
+                <div class="seat seat-dark">新</div>
+                <div class="seat seat-dark">新</div>
+                <div class="seat seat-dark">新</div>
+                <!-- 21世紀クラブ 4（うち1名が副議長） -->
+                <div class="seat seat-vice-speaker" title="副議長">21</div>
+                <div class="seat seat-gray1">21</div>
+                <div class="seat seat-gray1">21</div>
+                <div class="seat seat-gray1">21</div>
+                <!-- 公明党 4 -->
+                <div class="seat seat-gray2">公</div>
+                <div class="seat seat-gray2">公</div>
+                <div class="seat seat-gray2">公</div>
+                <div class="seat seat-gray2">公</div>
+                <!-- 創政MISATO 4 -->
+                <div class="seat seat-highlight" title="鈴木優作">創</div>
+                <div class="seat seat-gray3">創</div>
+                <div class="seat seat-gray3">創</div>
+                <div class="seat seat-gray3">創</div>
+                <!-- 日本共産党 3 -->
+                <div class="seat seat-gray4">共</div>
+                <div class="seat seat-gray4">共</div>
+                <div class="seat seat-gray4">共</div>
+                <!-- 無所属 1 -->
+                <div class="seat seat-light">無</div>
+                <!-- 欠員 1 -->
+                <div class="seat seat-vacant"></div>
+            </div>
+
+            <div class="faction-grid">
+                <div class="faction-item">
+                    <div class="faction-name">新政会</div>
+                    <div class="faction-count">7<span>人</span></div>
+                    <div class="faction-note">※議長所属（採決時6票）</div>
+                </div>
+                <div class="faction-item">
+                    <div class="faction-name">21世紀クラブ</div>
+                    <div class="faction-count">4<span>人</span></div>
+                    <div class="faction-note-light">※副議長所属</div>
+                </div>
+                <div class="faction-item">
+                    <div class="faction-name">公明党</div>
+                    <div class="faction-count">4<span>人</span></div>
+                </div>
+                <div class="faction-item faction-highlight">
+                    <div class="faction-name">創政MISATO</div>
+                    <div class="faction-count">4<span>人</span></div>
+                    <div class="faction-author">私が所属</div>
+                </div>
+                <div class="faction-item">
+                    <div class="faction-name">日本共産党</div>
+                    <div class="faction-count">3<span>人</span></div>
+                </div>
+                <div class="faction-item">
+                    <div class="faction-name">無所属</div>
+                    <div class="faction-count">1<span>人</span></div>
+                </div>
+                <div class="faction-item faction-vacant">
+                    <div class="faction-name">欠員</div>
+                    <div class="faction-count">1<span>名</span></div>
+                </div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-badge">議長</div>
+                <div class="speaker-note-text">議長は通常の採決に参加できません（地方自治法第116条）。可否同数の場合のみ裁決権を行使します。</div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-badge" style="background: #8b8b8b;">副議長</div>
+                <div class="speaker-note-text">議長不在時に議長の職務を代行します。副議長は通常の採決に参加できます。</div>
+            </div>
+
+            <div class="speaker-note">
+                <div class="speaker-note-badge" style="background: var(--navy);">過半数</div>
+                <div class="speaker-note-text">現在の採決参加議員は22名（23名−議長1名）。過半数は<strong>12名</strong>です。つまり、12名以上の賛成がなければ議案は可決されません。どの会派も単独では過半数に届かないため、議案を通すには会派間の合意形成が必要です。</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPANY ANALOGY -->
+    <section class="company-section section-full" id="company">
+        <div class="company-inner">
+            <p class="eyebrow text-center">Company</p>
+            <h2 class="headline-medium text-center">
+                会社に例えると。
+            </h2>
+            <p class="body-text text-center text-gray mt-16">市議会の役割を、なじみのある組織構造で理解する</p>
+
+            <div class="company-comparison">
+                <div class="company-row company-header">
+                    <div class="company-cell">役割</div>
+                    <div class="company-cell">会社</div>
+                    <div class="company-cell">三郷市</div>
+                </div>
+                <div class="company-row">
+                    <div class="company-cell company-role">経営判断</div>
+                    <div class="company-cell">
+                        <div class="company-title">社長</div>
+                        <div class="company-desc">会社の方針を決める</div>
+                    </div>
+                    <div class="company-cell">
+                        <div class="company-title">市長</div>
+                        <div class="company-desc">市政の方針を決める</div>
+                    </div>
+                </div>
+                <div class="company-row">
+                    <div class="company-cell company-role">監視・承認</div>
+                    <div class="company-cell">
+                        <div class="company-title">取締役会</div>
+                        <div class="company-desc">社長の提案を審議・承認</div>
+                    </div>
+                    <div class="company-cell">
+                        <div class="company-title">市議会</div>
+                        <div class="company-desc">市長の提案を審議・議決</div>
+                    </div>
+                </div>
+                <div class="company-row">
+                    <div class="company-cell company-role">実行</div>
+                    <div class="company-cell">
+                        <div class="company-title">各部門</div>
+                        <div class="company-desc">営業部、人事部など</div>
+                    </div>
+                    <div class="company-cell">
+                        <div class="company-title">市役所</div>
+                        <div class="company-desc">福祉課、建設課など</div>
+                    </div>
+                </div>
+                <div class="company-row">
+                    <div class="company-cell company-role">株主</div>
+                    <div class="company-cell">
+                        <div class="company-title">株主</div>
+                        <div class="company-desc">出資者・オーナー</div>
+                    </div>
+                    <div class="company-cell">
+                        <div class="company-title">市民</div>
+                        <div class="company-desc">納税者・有権者</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="company-point">
+                <div class="company-point-icon">💡</div>
+                <div class="company-point-text">
+                    つまり市議会議員は「取締役」のような存在。<br>
+                    市民（株主）の代わりに、市長（社長）の提案をチェックし、<br>
+                    税金（会社のお金）の使い方を監視・決定しています。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORGANIZATION -->
+    <section class="org-section" id="organization">
+        <div class="org-inner">
+            <div class="org-intro">
+                <p class="eyebrow text-center">Organization</p>
+                <h2 class="headline-medium text-center">
+                    市役所の組織構造。
+                </h2>
+                <p>三郷市役所は11の部で構成され、それぞれが専門分野を担当しています。<br>議会は各部の施策・予算を審議し、市民の立場からチェックを行います。</p>
+            </div>
+
+            <div class="org-chart">
+                <!-- 企画政策部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">企</div>
+                        <div>
+                            <div class="org-dept-name">企画政策部</div>
+                            <div class="org-dept-desc">市の将来像を描く</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">企画政策課</div>
+                            <div class="org-division-note">総合計画・重要施策の企画立案</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">秘書課</div>
+                            <div class="org-division-note">市長・副市長の秘書業務</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">広報広聴課</div>
+                            <div class="org-division-note">広報紙発行・市民の声の収集</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">情報政策課</div>
+                            <div class="org-division-note">DX推進・情報システム管理</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 総務部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">総</div>
+                        <div>
+                            <div class="org-dept-name">総務部</div>
+                            <div class="org-dept-desc">市役所の管理運営</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">総務課</div>
+                            <div class="org-division-note">条例・規則の管理、文書管理</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">人事課</div>
+                            <div class="org-division-note">職員の採用・研修・福利厚生</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">契約課</div>
+                            <div class="org-division-note">入札・契約事務</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">危機管理防災課</div>
+                            <div class="org-division-note">防災計画・災害対策</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 財務部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">財</div>
+                        <div>
+                            <div class="org-dept-name">財務部</div>
+                            <div class="org-dept-desc">お金の管理</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">財政課</div>
+                            <div class="org-division-note">予算編成・財政運営</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">市民税課</div>
+                            <div class="org-division-note">市民税・軽自動車税</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">資産税課</div>
+                            <div class="org-division-note">固定資産税・都市計画税</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">収納課</div>
+                            <div class="org-division-note">税金の収納・滞納整理</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 市民生活部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">市</div>
+                        <div>
+                            <div class="org-dept-name">市民生活部</div>
+                            <div class="org-dept-desc">届出・暮らしの窓口</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">市民課</div>
+                            <div class="org-division-note">戸籍・住民票・転入転出届</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">生活安全課</div>
+                            <div class="org-division-note">消費生活相談・交通安全</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">クリーンライフ課</div>
+                            <div class="org-division-note">ごみ収集・リサイクル推進</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- いきいき健康部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">健</div>
+                        <div>
+                            <div class="org-dept-name">いきいき健康部</div>
+                            <div class="org-dept-desc">健康・医療・介護</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">健康推進課</div>
+                            <div class="org-division-note">健診・予防接種・感染症対策</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">国保年金課</div>
+                            <div class="org-division-note">国民健康保険・年金</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">長寿いきがい課</div>
+                            <div class="org-division-note">高齢者福祉・敬老事業</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">介護保険課</div>
+                            <div class="org-division-note">介護認定・介護サービス</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 福祉部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">福</div>
+                        <div>
+                            <div class="org-dept-name">福祉部</div>
+                            <div class="org-dept-desc">暮らしの支援</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">ふくし総合支援課</div>
+                            <div class="org-division-note">福祉の総合相談窓口</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">生活ふくし課</div>
+                            <div class="org-division-note">生活保護・生活困窮者支援</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">障がい福祉課</div>
+                            <div class="org-division-note">障がい者手帳・福祉サービス</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- こども未来部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">子</div>
+                        <div>
+                            <div class="org-dept-name">こども未来部</div>
+                            <div class="org-dept-desc">子育て支援</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">こども政策課</div>
+                            <div class="org-division-note">保育所・学童保育・児童手当</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">こども家庭センター</div>
+                            <div class="org-division-note">子育て相談・虐待防止</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">すこやか課</div>
+                            <div class="org-division-note">母子保健・乳幼児健診</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 地域振興部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">振</div>
+                        <div>
+                            <div class="org-dept-name">地域振興部</div>
+                            <div class="org-dept-desc">地域活性化</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">市民活動支援課</div>
+                            <div class="org-division-note">自治会・コミュニティ支援</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">商工観光課</div>
+                            <div class="org-division-note">商業振興・観光PR</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">農業振興課</div>
+                            <div class="org-division-note">農業支援・農地管理</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">スポーツ振興課</div>
+                            <div class="org-division-note">スポーツ施設・大会運営</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 建設部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">建</div>
+                        <div>
+                            <div class="org-dept-name">建設部</div>
+                            <div class="org-dept-desc">道路・インフラ整備</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">道路課</div>
+                            <div class="org-division-note">道路の維持管理・舗装修繕</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">河川課</div>
+                            <div class="org-division-note">河川・水路の管理</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">下水道課</div>
+                            <div class="org-division-note">下水道整備・維持管理</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- まちづくり推進部 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">街</div>
+                        <div>
+                            <div class="org-dept-name">まちづくり推進部</div>
+                            <div class="org-dept-desc">都市計画・開発</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">都市デザイン課</div>
+                            <div class="org-division-note">都市計画・景観形成</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">開発指導課</div>
+                            <div class="org-division-note">開発許可・建築確認</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">みどり公園課</div>
+                            <div class="org-division-note">公園整備・緑化推進</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">まちづくり事業課</div>
+                            <div class="org-division-note">区画整理・再開発</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 教育委員会 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">教</div>
+                        <div>
+                            <div class="org-dept-name">教育委員会</div>
+                            <div class="org-dept-desc">学校教育・生涯学習</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">教育総務課</div>
+                            <div class="org-division-note">学校施設の管理</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">学務課</div>
+                            <div class="org-division-note">就学・学校給食</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">指導課</div>
+                            <div class="org-division-note">教育課程・教職員研修</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">生涯学習課</div>
+                            <div class="org-division-note">公民館・社会教育</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 議会事務局 -->
+                <div class="org-dept">
+                    <div class="org-dept-header">
+                        <div class="org-dept-icon">議</div>
+                        <div>
+                            <div class="org-dept-name">議会事務局</div>
+                            <div class="org-dept-desc">議会運営のサポート</div>
+                        </div>
+                    </div>
+                    <div class="org-divisions">
+                        <div class="org-division">
+                            <div class="org-division-main">議事課</div>
+                            <div class="org-division-note">本会議・委員会の運営補助</div>
+                        </div>
+                        <div class="org-division">
+                            <div class="org-division-main">調査係</div>
+                            <div class="org-division-note">議員の調査活動支援</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="org-note">
+                <p>市議会議員は、これらすべての部署の施策や予算をチェックします。<br>
+                私は<strong>総務委員会</strong>に所属し、主に総務部・財務部・企画政策部などの分野を担当しています。<br>
+                <a href="https://www.city.misato.lg.jp/soshiki/" target="_blank">三郷市公式サイト - 組織案内 →</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROLES -->
+    <section class="roles-section section-full" id="roles">
+        <div class="roles-inner">
+            <p class="eyebrow text-center">Roles</p>
+            <h2 class="headline-medium text-center">
+                誰が関わっているのか。
+            </h2>
+            <p class="body-text text-center mt-16">市政を動かす人々と、その役割</p>
+
+            <div class="roles-diagram">
+                <!-- 市民 -->
+                <div>
+                    <p class="roles-row-label">主権者</p>
+                    <div class="roles-row">
+                        <div class="role-card role-card-main" style="width: 100%; max-width: 400px;">
+                            <div class="role-badge badge-legislative">選挙で選ぶ</div>
+                            <div class="role-title">市民</div>
+                            <div class="role-name">三郷市の有権者 約11.4万人</div>
+                            <div class="role-desc">市長と市議会議員を選挙で選び、市政の方向性を決める主権者。請願・陳情で直接意見を届けることもできます。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 関係性の矢印 -->
+                <div class="roles-relation">
+                    <div class="relation-line"></div>
+                    <div class="relation-text">選挙で選出</div>
+                    <div class="relation-line"></div>
+                </div>
+
+                <!-- 二元代表制 -->
+                <div>
+                    <p class="roles-row-label">二元代表制</p>
+                    <div class="roles-row">
+                        <div class="role-card">
+                            <div class="role-badge badge-executive">執行機関</div>
+                            <div class="role-title">市長</div>
+                            <div class="role-name">木津雅晟（きづ まさあき）</div>
+                            <div class="role-desc">市の行政のトップ。予算案や条例案を議会に提案し、可決後に執行する。市の代表として政策を実行します。</div>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-badge badge-legislative">議決機関</div>
+                            <div class="role-title">市議会</div>
+                            <div class="role-name">議員23名（定数24、欠員1）</div>
+                            <div class="role-desc">市民の代表として、市長が提案する予算や条例を審議・議決。市政をチェックし、市民の声を届けます。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 関係性 -->
+                <div class="roles-relation">
+                    <div class="relation-line"></div>
+                    <div class="relation-text">チェック＆バランス</div>
+                    <div class="relation-line"></div>
+                </div>
+
+                <!-- サポート組織 -->
+                <div>
+                    <p class="roles-row-label">それぞれを支える組織</p>
+                    <div class="roles-row">
+                        <div class="role-card">
+                            <div class="role-badge badge-support">市長を補佐</div>
+                            <div class="role-title">執行部</div>
+                            <div class="role-name">副市長・教育長・各部長など</div>
+                            <div class="role-desc">市長の方針に基づき、各分野の行政を担当。議会では市長に代わって答弁することも。</div>
+                        </div>
+                        <div class="role-card">
+                            <div class="role-badge badge-support">議会を補佐</div>
+                            <div class="role-title">議会事務局</div>
+                            <div class="role-name">事務局長・職員</div>
+                            <div class="role-desc">議会運営をサポートする市の職員。会議の準備、議事録作成、議員の調査活動を支援。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 議長 -->
+                <div>
+                    <p class="roles-row-label">議会運営の要</p>
+                    <div class="roles-row">
+                        <div class="role-card" style="width: 100%; max-width: 500px;">
+                            <div class="role-badge badge-legislative">中立・公平</div>
+                            <div class="role-title">議長</div>
+                            <div class="role-name">議員の互選により選出</div>
+                            <div class="role-desc">議会の秩序を保持し、議事を整理する責務を負う（地方自治法第104条）。すべての議員に公平な発言機会を保障し、特定の会派や意見に偏らない運営が求められる。議長は「議会を代表する」存在として、中立性と公正さが最も重要な資質とされています。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="roles-check-balance">
+                <div class="check-balance-title">なぜ「二元代表制」なのか？</div>
+                <div class="check-balance-desc">市長と議会、両方を市民が直接選ぶことで、どちらか一方に権力が集中することを防ぎます。市長は政策を提案・実行し、議会はそれをチェック。お互いが牽制し合うことで、市民のための政治が実現します。</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- HOW IT WORKS -->
+    <section class="process-section" id="process">
+        <p class="eyebrow text-center">How it works</p>
+        <h2 class="headline-medium text-center">
+            議案が決まるまで。
+        </h2>
+        <p class="body-text text-center text-gray mt-16">市長の提案や議員の発議が、どのように決定されるか</p>
+
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="process-number-wrapper">
+                    <div class="process-number">1</div>
+                </div>
+                <div class="process-content">
+                    <h3>議案の提出</h3>
+                    <p>市長が予算案や条例案を作成し、議会に提出します。議員が自ら議案を出すこともできます。</p>
+                    <div class="process-detail">
+                        <div class="process-detail-title">例えばこんな議案</div>
+                        <div class="process-detail-content">「令和7年度一般会計補正予算」「市道の舗装工事契約」「子ども医療費助成条例の改正」など</div>
+                    </div>
+                    <div class="process-actors">
+                        <span class="process-actor">市長</span>
+                        <span class="process-actor-light process-actor">議員</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number-wrapper">
+                    <div class="process-number">2</div>
+                </div>
+                <div class="process-content">
+                    <h3>本会議で質疑</h3>
+                    <p>議場に全議員が集まり、提案者（主に市長・執行部）から議案の説明を受けます。議員は疑問点を質問できます。</p>
+                    <div class="process-detail">
+                        <div class="process-detail-title">ここがポイント</div>
+                        <div class="process-detail-content">本会議は傍聴可能。ネット中継もあるので、自宅から議論の様子を見ることができます。</div>
+                    </div>
+                    <div class="process-actors">
+                        <span class="process-actor">全議員23名</span>
+                        <span class="process-actor-light process-actor">執行部</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number-wrapper">
+                    <div class="process-number">3</div>
+                </div>
+                <div class="process-content">
+                    <h3>委員会で審査</h3>
+                    <p>議案の内容に応じた専門委員会（総務・民生・文教経済・建設）で、より詳しく審議。必要なら修正案を作成します。</p>
+                    <div class="process-detail">
+                        <div class="process-detail-title">委員会の特徴</div>
+                        <div class="process-detail-content">少人数で専門的な議論ができる場。資料を取り寄せたり、関係者から話を聞くことも。</div>
+                    </div>
+                    <div class="process-actors">
+                        <span class="process-actor">委員会メンバー</span>
+                        <span class="process-actor-light process-actor">担当部局</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-number-wrapper">
+                    <div class="process-number">4</div>
+                </div>
+                <div class="process-content">
+                    <h3>本会議で採決</h3>
+                    <p>委員長が審査結果を報告。討論の後、全議員で賛成・反対を表明して議決します。過半数の賛成で可決。</p>
+                    <div class="process-detail">
+                        <div class="process-detail-title">可決されると</div>
+                        <div class="process-detail-content">予算は執行され、条例は施行されます。あなたの生活に直接影響する瞬間です。</div>
+                    </div>
+                    <div class="process-actors">
+                        <span class="process-actor">全議員23名</span>
+                        <span class="process-actor-light process-actor">議長</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="committee-section">
+            <h3 class="headline-small text-center">委員会の役割</h3>
+            <p class="body-text text-center text-gray mt-16">議案を専門分野ごとに分けて、詳しく審議する場</p>
+
+            <div class="committee-grid">
+                <div class="committee-item committee-highlight">
+                    <div class="committee-category">常任委員会</div>
+                    <h4>総務委員会</h4>
+                    <p>市の組織・財政・税金・防災・選挙など、行政の基盤に関わる事項を審議</p>
+                    <div class="committee-author">私が所属</div>
+                </div>
+                <div class="committee-item">
+                    <div class="committee-category">常任委員会</div>
+                    <h4>文教経済委員会</h4>
+                    <p>学校教育・生涯学習・文化・スポーツ・産業振興・観光に関する事項を審議</p>
+                </div>
+                <div class="committee-item">
+                    <div class="committee-category">常任委員会</div>
+                    <h4>民生委員会</h4>
+                    <p>福祉・医療・保険・年金・子育て支援・環境・ごみ処理に関する事項を審議</p>
+                </div>
+                <div class="committee-item">
+                    <div class="committee-category">常任委員会</div>
+                    <h4>建設委員会</h4>
+                    <p>道路・公園・住宅・上下水道・都市計画・交通に関する事項を審議</p>
+                </div>
+                <div class="committee-item">
+                    <div class="committee-category">その他</div>
+                    <h4>議会運営委員会</h4>
+                    <p>議会の運営方法や日程、ルールについて協議する委員会</p>
+                </div>
+                <div class="committee-item">
+                    <div class="committee-category">その他</div>
+                    <h4>特別委員会</h4>
+                    <p>特定のテーマについて集中的に調査・審議するために設置される委員会</p>
+                </div>
+                <div class="committee-item committee-highlight">
+                    <div class="committee-category">その他</div>
+                    <h4>議会だより編集委員会</h4>
+                    <p>市議会の活動を市民に伝える「議会だより」の企画・編集を担当</p>
+                    <div class="committee-author">私が所属<span class="committee-role">副委員長</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOICES -->
+    <section class="voices-section" id="voices">
+        <div class="voices-inner">
+            <p class="eyebrow text-center">Citizen Voices</p>
+            <h2 class="headline-medium text-center">
+                届いている声。
+            </h2>
+            <p class="body-text text-center text-gray mt-16">市民の皆さまから寄せられた要望の一部をご紹介します</p>
+
+            <!-- 道路・公園・インフラ -->
+            <div class="voices-category">
+                <div class="voices-category-header">
+                    <div class="voices-category-icon">道</div>
+                    <div class="voices-category-title">道路・公園・インフラ</div>
+                    <div class="voices-category-count">20件以上</div>
+                </div>
+                <div class="voices-list">
+                    <div class="voice-item">高州二丁目交差点の視認性を改善し、事故防止対策を講じてほしい</div>
+                    <div class="voice-item">通学路に支障をきたす植木・雑草の早急な剪定と整備を</div>
+                    <div class="voice-item">早稲田団地内の公園へ遊具や健康器具を増設し、公園の活性化を</div>
+                    <div class="voice-item">三郷中央駅前の信号時間の延長、または歩行環境の改善を</div>
+                    <div class="voice-item">におどり公園に人工芝の多目的広場を整備し、活用の幅を広げてほしい</div>
+                    <div class="voice-item">三郷市文化会館の老朽化に伴う改修、または建て替えを</div>
+                </div>
+            </div>
+
+            <!-- 子育て・教育 -->
+            <div class="voices-category">
+                <div class="voices-category-header">
+                    <div class="voices-category-icon">育</div>
+                    <div class="voices-category-title">子育て・教育</div>
+                    <div class="voices-category-count">16件</div>
+                </div>
+                <div class="voices-list">
+                    <div class="voice-item">放課後児童クラブの待機児童解消と、預かりの質の向上を</div>
+                    <div class="voice-item">小中学校におけるトイレの洋式化を早期に完了させてほしい</div>
+                    <div class="voice-item">市内小中学校の給食費の完全無償化を</div>
+                    <div class="voice-item">天候に左右されずに遊べる屋内型の子ども向け施設の建設を</div>
+                    <div class="voice-item">急激な人口増に対応した保育園・小学校の増設を</div>
+                    <div class="voice-item">中高生の居場所づくりと、乳児健診の時間帯設定の配慮を</div>
+                </div>
+            </div>
+
+            <!-- 環境・行政・その他 -->
+            <div class="voices-category">
+                <div class="voices-category-header">
+                    <div class="voices-category-icon">他</div>
+                    <div class="voices-category-title">環境・行政・防災</div>
+                    <div class="voices-category-count">12件</div>
+                </div>
+                <div class="voices-list">
+                    <div class="voice-item">燃えないごみの収集頻度の増加を</div>
+                    <div class="voice-item">市のホームページをリニューアルし、情報の検索性と利便性向上を</div>
+                    <div class="voice-item">夜間の犯罪抑止のため、暗い場所へのLED街路灯の増設を</div>
+                    <div class="voice-item">高齢者の外出支援サービスの拡充と、移動手段の確保を</div>
+                    <div class="voice-item">市独自の防災アプリ導入と、多角的な災害情報伝達手段の確保を</div>
+                </div>
+            </div>
+
+            <div class="voices-note">
+                <p>これらは市民の皆さまから<strong>鈴木優作</strong>に寄せられた声の一部です。<br>あなたの声もお聞かせください。一緒に考えます。</p>
+                <a href="https://x.com/yuu_misato" target="_blank" class="voices-x-link">Xで声を届ける →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTHOR -->
+    <section class="author-section-new section-full" id="author">
+        <div class="author-new-inner">
+            <p class="eyebrow text-center" style="color: rgba(255,255,255,0.5);">About Author</p>
+            <h2 class="headline-medium text-center" style="color: var(--white);">
+                このページの制作者
+            </h2>
+
+            <div class="author-profile-card">
+                <div class="author-profile-header">
+                    <div class="author-profile-badge">三郷市議会議員</div>
+                    <h3 class="author-profile-name">鈴木 優作</h3>
+                    <p class="author-profile-name-en">Yusaku Suzuki</p>
+                </div>
+
+                <div class="author-profile-mission">
+                    <p class="author-mission-label">Mission</p>
+                    <p class="author-mission-text">現役世代の声を市政に。<br>みんなで創ろう、三郷の未来。</p>
+                </div>
+
+                <div class="author-profile-info">
+                    <div class="author-info-item">
+                        <span class="author-info-label">Birthday</span>
+                        <span class="author-info-value">1992.03.10（33歳）</span>
+                    </div>
+                    <div class="author-info-item">
+                        <span class="author-info-label">Residence</span>
+                        <span class="author-info-value">三郷市三郷・一児の父</span>
+                    </div>
+                    <div class="author-info-item">
+                        <span class="author-info-label">Specialty</span>
+                        <span class="author-info-value">Webデザイン・地域ブランディング</span>
+                    </div>
+                    <div class="author-info-item">
+                        <span class="author-info-label">Career</span>
+                        <span class="author-info-value">株式会社SOUZOUDO 代表取締役</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="author-vision">
+                <h3 class="author-vision-title">未来ビジョン</h3>
+                <div class="author-vision-grid">
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">01</span>
+                        <h4>駅前のにぎわいで<br>人が集まるまちへ</h4>
+                        <p>三郷駅・三郷中央駅前に商業空間の創出。駅周辺に「人が集い、活動する」拠点づくり。</p>
+                    </div>
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">02</span>
+                        <h4>公共施設の活用で<br>地域のつながりを</h4>
+                        <p>既存施設を「地域の交流拠点」として活用。行政主導ではなく、市民発案の仕組みへ。</p>
+                    </div>
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">03</span>
+                        <h4>関係人口の創出で<br>活力あるまちへ</h4>
+                        <p>三郷の資源を活かした"参加型まちづくり"でファンを増やす。市外からも関わりたくなるまちに。</p>
+                    </div>
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">04</span>
+                        <h4>若者が暮らし、<br>誇れるまちへ</h4>
+                        <p>進学や就職で三郷を離れた若者が「戻りたい」と思えるまち。学び直しや交流拠点の整備。</p>
+                    </div>
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">05</span>
+                        <h4>子どもたちが<br>住みたいと思えるまち</h4>
+                        <p>子どもの視点に立った遊び場・学び場・居場所づくり。「三郷で育ってよかった」記憶を残す。</p>
+                    </div>
+                    <div class="author-vision-item">
+                        <span class="author-vision-num">06</span>
+                        <h4>聞きに行く<br>議員として</h4>
+                        <p>市民の声に耳を傾け、想いをつなぐ役割を担う。対話型ワークショップで声を市政へ届ける。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="author-connect">
+                <h3 class="author-connect-title">つながる</h3>
+                <p class="author-connect-desc">三郷市の情報を「届ける」LINEと、「話せる」対話室</p>
+                <div class="author-connect-grid">
+                    <a href="https://line.me/R/ti/p/@963tbayc" target="_blank" class="author-connect-card">
+                        <div class="author-connect-icon-flat">届</div>
+                        <h4>三郷市最新ニュース</h4>
+                        <p class="author-connect-label">LINE公式アカウント</p>
+                        <p>市のHP更新情報が自動で届く。忙しい毎日でも、三郷の最新情報をキャッチ。</p>
+                        <span class="author-connect-btn">友だち追加 →</span>
+                    </a>
+                    <a href="https://line.me/ti/g2/hrLKGQYP-HSgxYZws7mUZ1AZ4XRBQ7U2etM_Hw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="author-connect-card">
+                        <div class="author-connect-icon-flat">話</div>
+                        <h4>対話室</h4>
+                        <p class="author-connect-label">オープンチャット</p>
+                        <p>匿名で気軽に参加できるコミュニティ。鈴木優作と直接対話できる場です。</p>
+                        <span class="author-connect-btn">参加する →</span>
+                    </a>
+                </div>
+                <p class="author-connect-note">これらのアカウントは、現役世代や忙しい方々が市政情報を効率的に知り、気軽に想いを共有できるよう、鈴木優作が運用する独自の広報・聴取ツールです。<br>※ 市の公式サービスではありません</p>
+            </div>
+
+            <div class="author-cta">
+                <p>もっと詳しく知りたい方は<br>公式サイトをご覧ください</p>
+                <a href="https://yusaku-suzuki.com/" target="_blank" class="author-cta-button">鈴木優作 公式サイト →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTIVITY -->
+    <section class="activity-section" id="activity">
+        <div class="activity-inner">
+            <p class="eyebrow text-center">My Activity</p>
+            <h2 class="headline-medium text-center">
+                私の動き。
+            </h2>
+            <p class="body-text text-center text-gray mt-16">議員としての活動記録をお伝えします</p>
+
+            <div class="activity-timeline">
+                <div class="activity-item activity-future">
+                    <div class="activity-date">
+                        <span class="activity-month">2-3月</span>
+                        <span class="activity-year">2026</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-important">予定</div>
+                        <h4>3月定例会（予算審議）に向けた集中準備</h4>
+                        <p>新年度予算625億円超の審議に向け、重点課題の調査・準備を進めています。</p>
+                    </div>
+                </div>
+                <div class="activity-item activity-future">
+                    <div class="activity-date">
+                        <span class="activity-month">1/27-29</span>
+                        <span class="activity-year">2026</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-inspection">視察</div>
+                        <h4>行政視察（鳥取県米子市・日吉津村）</h4>
+                        <p>先進自治体の取り組みを学び、三郷市への施策提案に活かします。</p>
+                    </div>
+                </div>
+                <div class="activity-item activity-future">
+                    <div class="activity-date">
+                        <span class="activity-month">1/19</span>
+                        <span class="activity-year">2026</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-inspection">視察</div>
+                        <h4>東埼玉資源環境組合（リユース）視察</h4>
+                        <p>8:30三郷駅集合。ごみ処理・リユースの現場を視察。</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-date">
+                        <span class="activity-month">11/12</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-action">提出</div>
+                        <h4>市長への「重要要望事項」提出</h4>
+                        <p>会派として市政への重要要望を取りまとめ、市長に提出しました。</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-date">
+                        <span class="activity-month">10/15</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-inspection">視察</div>
+                        <h4>三郷市消防本部視察</h4>
+                        <p>指令室見学・高所救助体験。市民の安全を守る現場を学びました。</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-date">
+                        <span class="activity-month">10/9</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag">研修</div>
+                        <h4>全国都市問題会議（宇都宮）参加</h4>
+                        <p>全国の自治体関係者と都市課題について議論・情報交換。</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-date">
+                        <span class="activity-month">10/1</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-action">広聴</div>
+                        <h4>市民の声募集開始</h4>
+                        <p>10日間で多くのご意見をいただきました。届いた声は議会活動に活かしています。</p>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-date">
+                        <span class="activity-month">9/29</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-inspection">視察</div>
+                        <h4>瑞沼学校給食センター視察</h4>
+                        <p>初のYouTubeリポートを公開。給食の現場をお伝えしました。</p>
+                    </div>
+                </div>
+                <div class="activity-item activity-start">
+                    <div class="activity-date">
+                        <span class="activity-month">8/11</span>
+                        <span class="activity-year">2025</span>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-tag activity-tag-important">任期開始</div>
+                        <h4>市議会議員1期目スタート・会派「創政MISATO」結成</h4>
+                        <p>三郷市議会議員としての任期が始まりました。同日、志を同じくする仲間と会派を結成。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AREA -->
+    <section class="area-section" id="area">
+        <p class="eyebrow text-center">District</p>
+        <h2 class="headline-medium text-center">
+            議員を選ぶ範囲。
+        </h2>
+        <p class="body-text text-center text-gray mt-16">三郷市議会は全市が1つの選挙区</p>
+
+        <div class="area-container">
+            <div class="area-map">
+                <div class="area-shape">
+                    <span class="area-city-name">三郷市</span>
+                    <span class="area-station">三郷駅</span>
+                    <span class="area-station area-station-2">三郷中央駅</span>
+                    <span class="area-station area-station-3">新三郷駅</span>
+                </div>
+            </div>
+            <div class="area-info">
+                <div class="area-stat">
+                    <div class="area-stat-number">14万人+</div>
+                    <div class="area-stat-label">三郷市人口</div>
+                </div>
+                <div class="area-stat">
+                    <div class="area-stat-number">1</div>
+                    <div class="area-stat-label">選挙区</div>
+                </div>
+                <div class="area-stat">
+                    <div class="area-stat-number">24</div>
+                    <div class="area-stat-label">定数</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="area-note">
+            <p><strong>なぜ全市で1区？</strong><br>
+            市議会議員選挙は、市全体から代表を選ぶ「大選挙区制」。<br>
+            どこに住んでいても、24人全員の候補者に投票できます。</p>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCHEDULE -->
+    <section class="schedule-section" id="schedule">
+        <div class="schedule-inner">
+            <p class="eyebrow text-center">Schedule</p>
+            <h2 class="headline-medium text-center">
+                議会って、<br>いつあるの？
+            </h2>
+            <p class="body-text text-center text-gray mt-16">定例会は年4回。誰でも傍聴できます。</p>
+
+            <div class="schedule-year">
+                <div class="schedule-year-label">年間スケジュール</div>
+                <div class="schedule-grid">
+                    <div class="schedule-item">
+                        <div class="schedule-month">3月</div>
+                        <div class="schedule-name">3月定例会</div>
+                        <div class="schedule-desc">新年度予算を審議。1年で最も重要な議会。</div>
+                        <div class="schedule-tag schedule-tag-main">予算審議</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-month">6月</div>
+                        <div class="schedule-name">6月定例会</div>
+                        <div class="schedule-desc">補正予算、条例改正などを審議。</div>
+                        <div class="schedule-tag">補正予算</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-month">9月</div>
+                        <div class="schedule-name">9月定例会</div>
+                        <div class="schedule-desc">前年度の決算を認定。補正予算も審議。</div>
+                        <div class="schedule-tag schedule-tag-main">決算審査</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-month">12月</div>
+                        <div class="schedule-name">12月定例会</div>
+                        <div class="schedule-desc">補正予算、条例改正などを審議。</div>
+                        <div class="schedule-tag">補正予算</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="schedule-info">
+                <div class="schedule-info-item">
+                    <div class="schedule-info-icon">見</div>
+                    <div class="schedule-info-content">
+                        <h4>傍聴するには？</h4>
+                        <p>本会議は予約不要。当日、市役所4階の議会事務局で受付するだけ。委員会は事前連絡推奨。</p>
+                    </div>
+                </div>
+                <div class="schedule-info-item">
+                    <div class="schedule-info-icon">配</div>
+                    <div class="schedule-info-content">
+                        <h4>ネット中継は？</h4>
+                        <p>本会議はライブ配信あり。過去の録画も視聴可能。自宅から議会の様子を見られます。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- TIMELINE -->
+    <section class="timeline-section" id="timeline">
+        <p class="eyebrow text-center">Updates</p>
+        <h2 class="headline-medium text-center">
+            2025年、<br>
+            議会で決まったこと。
+        </h2>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2025.12</div>
+                <div class="timeline-content">
+                    <h3>12月定例会、補正予算・条例改正を審議</h3>
+                    <p>令和7年度補正予算案、各種条例改正案などを審議・可決。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.09</div>
+                <div class="timeline-content">
+                    <h3>9月定例会、補正予算28件を可決</h3>
+                    <p>市道7路線の舗装修繕に4,300万円を計上。インフラ整備を推進。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.07</div>
+                <div class="timeline-content">
+                    <h3>市議選、投票率56.12%を記録</h3>
+                    <p>定数24に33人が立候補。当落ライン29票差の大接戦。前回比+19.47pt。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.06</div>
+                <div class="timeline-content">
+                    <h3>6月定例会、防災施設工事など19件可決</h3>
+                    <p>南部地域拠点防災コミュニティ施設、市役所空調設備改修を承認。</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025.03</div>
+                <div class="timeline-content">
+                    <h3>過去最高625億円の予算を可決</h3>
+                    <p>戦後80年「被爆ピアノコンサート」、上下水道の耐震化などを盛り込む。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOTING -->
+    <section class="voting-section section-full" id="voting">
+        <div class="voting-inner">
+            <p class="eyebrow">Voter Turnout</p>
+            <h2 class="headline-medium">
+                投票率、<br>
+                上がっています。
+            </h2>
+
+            <div class="voting-chart">
+                <div class="voting-row">
+                    <div class="voting-year">2025</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 56.12%"></div>
+                    </div>
+                    <div class="voting-value">56.12%</div>
+                </div>
+                <div class="voting-row">
+                    <div class="voting-year">2021</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 36.65%"></div>
+                    </div>
+                    <div class="voting-value">36.65%</div>
+                </div>
+                <div class="voting-row">
+                    <div class="voting-year">2017</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 38.2%"></div>
+                    </div>
+                    <div class="voting-value">38.2%</div>
+                </div>
+            </div>
+
+            <div class="voting-highlight">
+                <div class="voting-big-number">+19.47</div>
+                <p class="voting-big-label">ポイント上昇（前回比）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTION -->
+    <section class="action-section" id="action">
+        <p class="eyebrow text-center">Take Action</p>
+        <h2 class="headline-medium text-center">
+            参加は、<br>
+            難しくない。
+        </h2>
+
+        <div class="action-grid">
+            <div class="action-card">
+                <h3>傍聴する</h3>
+                <p>本会議は誰でも無料で傍聴できます。手続きも簡単。</p>
+                <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/gikainittei/index.html" target="_blank" class="link">議会日程を確認</a>
+            </div>
+            <div class="action-card">
+                <h3>中継を見る</h3>
+                <p>自宅からスマホで、本会議のライブ視聴が可能です。</p>
+                <a href="https://smart.discussvision.net/smart/tenant/misato/WebView/rd/council_1.html" target="_blank" class="link">議会中継へ</a>
+            </div>
+            <div class="action-card">
+                <h3>声を届ける</h3>
+                <p>各議員の連絡先は公開されています。直接意見を届けられます。</p>
+                <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/gikaisoshiki/giinmeibo/index.html" target="_blank" class="link">議員名簿を見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING CTA -->
+    <div class="floating-cta">
+        <a href="https://lin.ee/hVyTVEm" target="_blank" class="floating-cta-btn floating-cta-line">
+            LINE で最新情報を受け取る
+        </a>
+        <button class="floating-cta-btn floating-cta-scroll" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="ページトップへ戻る">
+            ↑
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/" target="_blank">三郷市議会公式</a>
+            <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/gikaisoshiki/giinmeibo/index.html" target="_blank">議員名簿</a>
+            <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/gikainittei/index.html" target="_blank">議会日程</a>
+            <a href="https://www.city.misato.lg.jp/shiseijoho/shigikai/gijiroku/index.html" target="_blank">議事録</a>
+        </div>
+        <p class="footer-copy">データは2026年1月時点の公開情報に基づいています</p>
+        <p class="footer-copy">制作：鈴木優作（三郷市議会議員・創政MISATO）</p>
+    </footer>
+
+    <script>
+        // ========================================
+        // REFINED ANIMATION ENGINE
+        // ========================================
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Trigger counter animation for numbers
+                    if (entry.target.classList.contains('count-up')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        const animatedClasses = '.fade-in, .fade-in-left, .fade-in-right, .scale-in, .flip-in, .zoom-blur-in, .drop-in, .elastic-pop, .reveal-section, .progress-animate, .underline-grow, .count-up';
+        document.querySelectorAll(animatedClasses).forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========================================
+        // SMOOTH COUNTER ANIMATION
+        // ========================================
+        function animateCounter(element) {
+            const target = parseFloat(element.dataset.target);
+            const suffix = element.dataset.suffix || '';
+            const decimal = element.dataset.decimal === 'true';
+            const duration = 1500;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease out cubic
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = target * easeOut;
+
+                if (decimal) {
+                    element.textContent = current.toFixed(1) + suffix;
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString() + suffix;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // ========================================
+        // SUBTLE 3D CARD TILT
+        // ========================================
+        function initTiltCards() {
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+
+                    card.style.setProperty('--rotateX', `${rotateX}deg`);
+                    card.style.setProperty('--rotateY', `${rotateY}deg`);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--rotateX', '0deg');
+                    card.style.setProperty('--rotateY', '0deg');
+                });
+            });
+        }
+
+        // ========================================
+        // SCROLL-BASED TRACKING (Subtle Parallax)
+        // ========================================
+        let ticking = false;
+
+        function updateScrollEffects() {
+            const scrolled = window.pageYOffset;
+            const viewportHeight = window.innerHeight;
+
+            // Subtle parallax for tracked elements
+            document.querySelectorAll('.scroll-track').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+                    const offset = (progress - 0.5) * 20;
+                    el.style.transform = `translateY(${offset}px)`;
+                }
+            });
+
+            // Subtle movement for headlines based on scroll position
+            document.querySelectorAll('.headline-large, .headline-medium').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+                    const opacity = Math.min(1, progress * 1.5);
+                    el.style.opacity = opacity;
+                }
+            });
+
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        });
+
+        // ========================================
+        // MOUSE TRAIL (Subtle)
+        // ========================================
+        function initMouseTrail() {
+            const trail = [];
+            const trailLength = 8;
+
+            for (let i = 0; i < trailLength; i++) {
+                const dot = document.createElement('div');
+                dot.style.cssText = `
+                    position: fixed;
+                    width: ${8 - i * 0.8}px;
+                    height: ${8 - i * 0.8}px;
+                    background: rgba(30, 58, 95, ${0.4 - i * 0.04});
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9998;
+                    transition: transform 0.08s linear;
+                `;
+                document.body.appendChild(dot);
+                trail.push({ el: dot, x: 0, y: 0 });
+            }
+
+            let mouseX = 0, mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateTrail() {
+                let x = mouseX;
+                let y = mouseY;
+
+                trail.forEach((dot, i) => {
+                    dot.x += (x - dot.x) * 0.4;
+                    dot.y += (y - dot.y) * 0.4;
+
+                    dot.el.style.left = dot.x - parseFloat(dot.el.style.width) / 2 + 'px';
+                    dot.el.style.top = dot.y - parseFloat(dot.el.style.height) / 2 + 'px';
+
+                    x = dot.x;
+                    y = dot.y;
+                });
+
+                requestAnimationFrame(animateTrail);
+            }
+
+            animateTrail();
+        }
+
+        // ========================================
+        // INITIALIZE
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Mouse trail
+            initMouseTrail();
+
+            // Tilt cards
+            initTiltCards();
+
+            // Headlines
+            document.querySelectorAll('.headline-large').forEach((el, i) => {
+                el.classList.add('zoom-blur-in');
+                observer.observe(el);
+            });
+
+            document.querySelectorAll('.headline-medium').forEach((el, i) => {
+                el.classList.add('fade-in', 'underline-grow');
+                observer.observe(el);
+            });
+
+            // Quiz cards
+            document.querySelectorAll('.quiz-card').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${(i % 6) + 1}`, 'tilt-card');
+                observer.observe(el);
+            });
+
+            // Impact items
+            document.querySelectorAll('.impact-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 4) + 1}`);
+                observer.observe(el);
+            });
+
+            // Budget familiar items
+            document.querySelectorAll('.budget-familiar-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 3) + 1}`);
+                observer.observe(el);
+            });
+
+            // Faction items
+            document.querySelectorAll('.faction-item').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${(i % 6) + 1}`);
+                observer.observe(el);
+            });
+
+            // Seats
+            document.querySelectorAll('.seat').forEach((el, i) => {
+                el.classList.add('scale-in');
+                el.style.transitionDelay = `${i * 0.02}s`;
+                observer.observe(el);
+            });
+
+            // Committee items
+            document.querySelectorAll('.committee-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 6) + 1}`);
+                observer.observe(el);
+            });
+
+            // Process steps
+            document.querySelectorAll('.process-step').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Area cards
+            document.querySelectorAll('.area-card').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 5) + 1}`, 'tilt-card');
+                observer.observe(el);
+            });
+
+            // Voice categories
+            document.querySelectorAll('.voices-category').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Timeline items
+            document.querySelectorAll('.timeline-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 5) + 1}`);
+                observer.observe(el);
+            });
+
+            // Activity items
+            document.querySelectorAll('.activity-item').forEach((el, i) => {
+                el.classList.add('fade-in-right', `stagger-${(i % 6) + 1}`);
+                observer.observe(el);
+            });
+
+            // Schedule items
+            document.querySelectorAll('.schedule-item').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Inspection steps
+            document.querySelectorAll('.inspection-step').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Inspection examples
+            document.querySelectorAll('.inspection-example-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 4) + 1}`);
+                observer.observe(el);
+            });
+
+            // Author vision items
+            document.querySelectorAll('.author-vision-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 6) + 1}`);
+                observer.observe(el);
+            });
+
+            // Author connect cards
+            document.querySelectorAll('.author-connect-card').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${i + 1}`, 'tilt-card');
+                observer.observe(el);
+            });
+
+            // Schedule info
+            document.querySelectorAll('.schedule-info-item').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Role cards
+            document.querySelectorAll('.role-card').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${(i % 3) + 1}`);
+                observer.observe(el);
+            });
+
+            // Voting bars
+            document.querySelectorAll('.voting-bar').forEach(el => {
+                const targetWidth = el.style.width;
+                el.dataset.targetWidth = targetWidth;
+                el.style.width = '0';
+                el.classList.add('progress-animate');
+
+                const barObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                el.style.width = el.dataset.targetWidth;
+                            }, 100);
+                            barObserver.unobserve(el);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                barObserver.observe(el);
+            });
+
+            // Hero numbers
+            document.querySelectorAll('.hero-number').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Schedule flow items
+            document.querySelectorAll('.schedule-flow-item').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Budget bar segments
+            document.querySelectorAll('.budget-segment').forEach((el, i) => {
+                el.classList.add('scale-in', `stagger-${i + 1}`);
+                observer.observe(el);
+            });
+
+            // Action cards
+            document.querySelectorAll('.action-card').forEach((el, i) => {
+                el.classList.add('fade-in', `stagger-${i + 1}`, 'tilt-card');
+                observer.observe(el);
+            });
+        });
+
+        // ========================================
+        // Smooth scroll
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========================================
+        // MY AFFILIATION REVEAL ON SCROLL (Subtle)
+        // ========================================
+        const myAffiliationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('revealed');
+                    }, 200);
+                }
+            });
+        }, {
+            threshold: 0.5,
+            rootMargin: '-80px'
+        });
+
+        document.querySelectorAll('.faction-highlight, .committee-highlight, .area-card-highlight').forEach(el => {
+            myAffiliationObserver.observe(el);
+        });
+
+        // ========================================
+        // Floating CTA
+        // ========================================
+        const floatingCta = document.querySelector('.floating-cta');
+        let lastScrollY = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > 400) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+            lastScrollY = currentScrollY;
+        });
+
+        // ========================================
+        // Mobile Navigation
+        // ========================================
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>
