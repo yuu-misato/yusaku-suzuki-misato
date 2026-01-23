@@ -1535,6 +1535,10 @@
 
       currentPage = pageIndex;
 
+      // Reset scroll position of new page to top
+      const newPageEl = pages[currentPage];
+      newPageEl.scrollTop = 0;
+
       // Update page stack
       updatePageStack();
 
