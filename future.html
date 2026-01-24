@@ -651,10 +651,21 @@
         }
 
         .population-year-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--navy);
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
             margin-bottom: 16px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .population-year-label.current {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+        }
+
+        .population-year-label.future {
+            background: linear-gradient(135deg, #6b8299 0%, #8fa4b8 100%);
         }
 
         .population-bars {
@@ -977,6 +988,8 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .station-card.visible {
@@ -1052,11 +1065,15 @@
         }
 
         .station-card-solves {
-            margin-top: 16px;
+            margin-top: auto;
             padding: 12px;
             background: rgba(30, 58, 95, 0.08);
             border-radius: 8px;
             text-align: left;
+        }
+
+        .station-card-details {
+            flex-grow: 1;
         }
 
         .station-card-solves h4 {
@@ -3081,6 +3098,368 @@
                 transform: translateX(0);
             }
         }
+
+        /* ========================================
+           届いている声セクション（concerns）
+        ======================================== */
+        .concerns-section {
+            background: linear-gradient(180deg, #f5f5f7 0%, #e8e8ed 100%);
+            padding: 100px 24px;
+        }
+
+        .concerns-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .concerns-bubbles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 48px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .concern-bubble {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 12px 18px;
+            font-size: 13px;
+            color: var(--gray-dark);
+            line-height: 1.5;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 280px;
+        }
+
+        .concern-bubble.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .concern-bubble::before {
+            content: '"';
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--navy);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .concerns-counter {
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .concerns-count-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--navy);
+            display: block;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .concerns-reality {
+            margin-top: 48px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white;
+            padding: 40px 48px;
+            border-radius: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .concerns-reality.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .concerns-reality-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .concerns-reality-title {
+            font-size: clamp(22px, 4vw, 28px);
+            font-weight: 600;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .concerns-reality-title span {
+            color: rgba(255,255,255,0.95);
+        }
+
+        .concerns-reality-text {
+            font-size: 15px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .concerns-reality-text strong {
+            color: rgba(255,255,255,0.95);
+        }
+
+        /* ========================================
+           スティッキースクロールセクション
+        ======================================== */
+        .sticky-scroll-container {
+            position: relative;
+            height: 200vh;
+        }
+
+        .sticky-scroll-container.short {
+            height: 150vh;
+        }
+
+        .sticky-section {
+            position: sticky;
+            top: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticky-progress {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .sticky-progress.visible {
+            opacity: 1;
+        }
+
+        .sticky-progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .sticky-progress-dot.active {
+            background: var(--navy);
+            transform: scale(1.3);
+        }
+
+        @media (max-width: 768px) {
+            .sticky-scroll-container {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .sticky-scroll-container.short {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .sticky-section {
+                position: relative;
+                min-height: auto;
+                padding: 60px 16px;
+            }
+
+            .sticky-progress {
+                right: 12px;
+            }
+
+            .sticky-progress-dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .concerns-section {
+                padding: 80px 20px;
+            }
+
+            .concerns-bubbles {
+                gap: 10px;
+            }
+
+            .concern-bubble {
+                font-size: 12px;
+                padding: 10px 14px;
+            }
+
+            .concern-bubble::before {
+                font-size: 22px;
+                top: -6px;
+                left: 8px;
+            }
+
+            .concerns-count-number {
+                font-size: 36px;
+            }
+
+            .concerns-reality {
+                padding: 32px 24px;
+            }
+
+            /* モバイルでは最初から表示 (JSに依存しない) */
+            .concern-bubble {
+                opacity: 1 !important;
+                transform: scale(1) translateY(0) !important;
+            }
+
+            .concerns-reality {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+        }
+
+        /* 財源セクション */
+        .revenue-section {
+            background: white;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .revenue-section .section-inner {
+                padding: 60px 16px !important;
+            }
+
+            .revenue-section h2 {
+                font-size: 24px !important;
+                line-height: 1.4;
+            }
+        }
+
+        /* 土地活用フローチャート レスポンシブ */
+        .tax-flow-container {
+            background: #f8fafc;
+            padding: 40px;
+            border-radius: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tax-flow-title {
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--black);
+        }
+
+        .tax-flow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tax-flow-step {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            min-width: 100px;
+        }
+
+        .tax-flow-step.highlight {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            border: 2px solid var(--navy);
+        }
+
+        .tax-flow-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+
+        .tax-flow-step.highlight .tax-flow-icon {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .tax-flow-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .tax-flow-step.highlight .tax-flow-label {
+            color: white;
+        }
+
+        .tax-flow-arrow {
+            flex-shrink: 0;
+        }
+
+        .tax-flow-result {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .tax-flow-result-box {
+            margin-top: 16px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: white;
+            padding: 24px 32px;
+            border-radius: 16px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .tax-flow-container {
+                padding: 24px 16px;
+            }
+
+            .tax-flow-steps {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .tax-flow-step {
+                width: 100%;
+                max-width: 200px;
+                padding: 16px 20px;
+            }
+
+            .tax-flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .tax-flow-result-box {
+                padding: 20px 24px;
+            }
+
+            .tax-flow-result-box p {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3121,72 +3500,56 @@
         </div>
     </section>
 
-    <!-- 身近な関心事セクション -->
-    <section style="padding: 100px 24px; background: #f5f5f7;" id="concerns">
-        <div class="section-inner">
-            <p class="eyebrow text-center">What Matters Now</p>
-            <h2 class="headline-medium text-center" style="margin-bottom: 16px;">
-                今、みんなが気になっていること
-            </h2>
-            <p class="text-center body-text" style="max-width: 700px; margin: 0 auto 48px;">
-                市民の皆さんから寄せられる声。<br>
-                全部、もっともな要望です。
-            </p>
+    <!-- 身近な関心事セクション（スティッキースクロール） -->
+    <div class="sticky-scroll-container" id="concerns">
+        <section class="concerns-section sticky-section">
+            <div class="concerns-inner">
+                <p class="eyebrow text-center">Citizen Voices</p>
+                <h2 class="headline-medium text-center">今、届いている声。</h2>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto;">
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">👶</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">子育て支援の充実</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">保育園の待機児童解消、学童保育の拡充、医療費助成の拡大...</p>
+                <div class="concerns-bubbles">
+                    <div class="concern-bubble">保育園を増やして待機児童の解消を</div>
+                    <div class="concern-bubble">学童保育の時間を延長してほしい</div>
+                    <div class="concern-bubble">小児科が少なくて困っている</div>
+                    <div class="concern-bubble">介護施設をもっと増やしてほしい</div>
+                    <div class="concern-bubble">高齢者の買い物支援を</div>
+                    <div class="concern-bubble">バスの本数を増やしてほしい</div>
+                    <div class="concern-bubble">道路の凹みを直して</div>
+                    <div class="concern-bubble">歩道を整備してベビーカーが安全に通れるように</div>
+                    <div class="concern-bubble">学校のエアコンを新しくして</div>
+                    <div class="concern-bubble">給食費の無償化を続けてほしい</div>
+                    <div class="concern-bubble">公園の遊具を新しくして</div>
+                    <div class="concern-bubble">屋内で遊べる施設がほしい</div>
+                    <div class="concern-bubble">終バスの時間を延長して</div>
+                    <div class="concern-bubble">駅前に図書館がほしい</div>
+                    <div class="concern-bubble">防犯カメラを増やして</div>
                 </div>
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">👴</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">高齢者サービスの拡充</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">介護施設の増設、買い物支援、移動手段の確保...</p>
-                </div>
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">🛣️</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">道路・インフラの整備</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">渋滞解消、歩道の整備、老朽化した橋や道路の補修...</p>
-                </div>
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">🏫</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">教育環境の向上</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">学校施設の改修、給食の充実、ICT教育の推進...</p>
-                </div>
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">🌳</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">公園・緑地の整備</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">子どもが遊べる公園、犬の散歩ができる緑道...</p>
-                </div>
-                <div style="background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
-                    <div style="font-size: 28px; margin-bottom: 12px;">🚌</div>
-                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black);">公共交通の改善</h4>
-                    <p style="font-size: 14px; color: var(--gray); line-height: 1.6;">バス路線の拡充、終バスの時間延長...</p>
-                </div>
-            </div>
 
-            <!-- 財源の現実 -->
-            <div style="margin-top: 64px; text-align: center;">
-                <div style="display: inline-block; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color: white; padding: 40px 48px; border-radius: 20px; max-width: 800px;">
-                    <p style="font-size: 14px; opacity: 0.8; margin-bottom: 8px;">でも、ここで考えなければならないこと</p>
-                    <h3 style="font-size: clamp(22px, 4vw, 28px); font-weight: 600; margin-bottom: 16px; line-height: 1.4;">
+                <div class="concerns-counter">
+                    <strong class="concerns-count-number">多くの</strong>
+                    <span class="concerns-count-label">声が届いています</span>
+                </div>
+
+                <!-- 財源の現実 -->
+                <div class="concerns-reality">
+                    <p class="concerns-reality-label">でも、ここで考えなければならないこと</p>
+                    <h3 class="concerns-reality-title">
                         これらを実現するには<br>
-                        <span style="color: #fbbf24;">財源</span>が必要です
+                        <span>財源</span>が必要です
                     </h3>
-                    <p style="font-size: 15px; line-height: 1.8; opacity: 0.9;">
+                    <p class="concerns-reality-text">
                         市の予算には限りがあります。<br>
                         「あれもこれも」と言っても、お金がなければ実現できません。<br>
-                        だからこそ、<strong style="color: #fbbf24;">まず市税を増やす</strong>ことを考える必要があるのです。
+                        だからこそ、<strong>まず市税を増やす</strong>ことを考える必要があるのです。
                     </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- 財源を増やすための土地活用セクション -->
-    <section style="padding: 100px 24px; background: white;" id="revenue">
-        <div class="section-inner">
+    <section class="revenue-section" id="revenue">
+        <div class="section-inner" style="padding: 80px 20px;">
             <p class="eyebrow text-center">Revenue Strategy</p>
             <h2 class="headline-medium text-center" style="margin-bottom: 16px;">
                 三郷の「土地」を活かして<br>財源を増やす
@@ -3197,51 +3560,65 @@
             </p>
 
             <!-- 三郷の強み -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto 48px;">
-                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 32px; border-radius: 20px; border: 1px solid #bae6fd;">
-                    <div style="font-size: 32px; margin-bottom: 16px;">🛣️</div>
-                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--navy);">高速道路の結節点</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto 48px;">
+                <div style="background: #f8fafc; padding: 32px; border-radius: 20px; border: 1px solid var(--gray-light);">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--black);">高速道路の結節点</h4>
                     <p style="font-size: 14px; color: var(--gray-dark); line-height: 1.7;">常磐道・外環道・首都高が交差する全国でも稀な交通の要衝。物流企業にとって最高の立地条件。</p>
                 </div>
-                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 32px; border-radius: 20px; border: 1px solid #bae6fd;">
-                    <div style="font-size: 32px; margin-bottom: 16px;">🏭</div>
-                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--navy);">広大な土地ポテンシャル</h4>
+                <div style="background: #f8fafc; padding: 32px; border-radius: 20px; border: 1px solid var(--gray-light);">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--black);">広大な土地ポテンシャル</h4>
                     <p style="font-size: 14px; color: var(--gray-dark); line-height: 1.7;">市街化調整区域や遊休地がまだ多く残る。計画的な土地利用で大きな可能性を秘めている。</p>
                 </div>
-                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 32px; border-radius: 20px; border: 1px solid #bae6fd;">
-                    <div style="font-size: 32px; margin-bottom: 16px;">🚆</div>
-                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--navy);">都心への好アクセス</h4>
+                <div style="background: #f8fafc; padding: 32px; border-radius: 20px; border: 1px solid var(--gray-light);">
+                    <div style="width: 56px; height: 56px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="2" fill="white"/></svg>
+                    </div>
+                    <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 12px; color: var(--black);">都心への好アクセス</h4>
                     <p style="font-size: 14px; color: var(--gray-dark); line-height: 1.7;">JR武蔵野線・つくばエクスプレスで都心まで30分圏内。企業のサテライトオフィスにも最適。</p>
                 </div>
             </div>
 
             <!-- 市税の仕組み -->
-            <div style="background: #f8fafc; padding: 40px; border-radius: 24px; max-width: 900px; margin: 0 auto;">
-                <h4 style="font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 24px; color: var(--black);">土地活用が市税を増やす仕組み</h4>
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;">
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-                        <div style="font-size: 24px; margin-bottom: 8px;">🏢</div>
-                        <p style="font-size: 13px; font-weight: 600; color: var(--navy);">企業誘致</p>
+            <div class="tax-flow-container">
+                <h4 class="tax-flow-title">土地活用が市税を増やす仕組み</h4>
+                <div class="tax-flow-steps">
+                    <div class="tax-flow-step">
+                        <div class="tax-flow-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01"/></svg>
+                        </div>
+                        <p class="tax-flow-label">企業誘致</p>
                     </div>
-                    <div style="font-size: 24px; color: var(--accent);">→</div>
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-                        <div style="font-size: 24px; margin-bottom: 8px;">💼</div>
-                        <p style="font-size: 13px; font-weight: 600; color: var(--navy);">雇用創出</p>
+                    <svg class="tax-flow-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    <div class="tax-flow-step">
+                        <div class="tax-flow-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <p class="tax-flow-label">雇用創出</p>
                     </div>
-                    <div style="font-size: 24px; color: var(--accent);">→</div>
-                    <div style="background: white; padding: 20px 24px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-                        <div style="font-size: 24px; margin-bottom: 8px;">🏠</div>
-                        <p style="font-size: 13px; font-weight: 600; color: var(--navy);">定住人口増</p>
+                    <svg class="tax-flow-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    <div class="tax-flow-step">
+                        <div class="tax-flow-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                        </div>
+                        <p class="tax-flow-label">定住人口増</p>
                     </div>
-                    <div style="font-size: 24px; color: var(--accent);">→</div>
-                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 20px 24px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 2px solid #f59e0b;">
-                        <div style="font-size: 24px; margin-bottom: 8px;">💰</div>
-                        <p style="font-size: 13px; font-weight: 600; color: #b45309;">市税収入UP</p>
+                    <svg class="tax-flow-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                    <div class="tax-flow-step highlight">
+                        <div class="tax-flow-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <p class="tax-flow-label">市税収入UP</p>
                     </div>
                 </div>
-                <div style="margin-top: 24px; text-align: center;">
-                    <div style="font-size: 24px; color: var(--accent);">↓</div>
-                    <div style="margin-top: 16px; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color: white; padding: 24px 32px; border-radius: 16px; display: inline-block;">
+                <div class="tax-flow-result">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                    <div class="tax-flow-result-box">
                         <p style="font-size: 16px; font-weight: 600;">子育て・高齢者・インフラに<br>もっと投資できる</p>
                     </div>
                 </div>
@@ -3481,7 +3858,7 @@
                 <h3 class="population-title">三郷市の世代構成：今と20年後</h3>
                 <div class="population-compare">
                     <div class="population-year">
-                        <p class="population-year-label">2026年（現在）</p>
+                        <p class="population-year-label current">2026年（現在）</p>
                         <div class="population-bars">
                             <div class="population-bar">
                                 <span class="population-bar-label">高齢者<br>65歳以上</span>
@@ -3507,7 +3884,7 @@
                     <div class="population-arrow">→</div>
 
                     <div class="population-year">
-                        <p class="population-year-label">2045年（20年後）</p>
+                        <p class="population-year-label future">2045年（20年後）</p>
                         <div class="population-bars">
                             <div class="population-bar">
                                 <span class="population-bar-label">高齢者<br>65歳以上</span>
@@ -3730,7 +4107,7 @@
                         <svg viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
                     </div>
                     <h4>ゾーン計画・アクセス計画の明確化</h4>
-                    <p>駅ごとの乗降ニーズを明確にしたまちづくり。商業ゾーン、居住ゾーン、物流ゾーンを駅を起点に再設計し、各エリアからのアクセス動線を最適化する。これが、暮らす人々にとってより豊かな環境につながる。</p>
+                    <p>駅ごとの乗降ニーズを明確にしたまちづくり。商業ゾーン、居住ゾーン、物流ゾーンを駅を起点に再設計し、各エリアからのアクセス動線を最適化する。駅を起点にモビリティ（BRT・自動運転バス等）を拡充することで、三郷市南部やピアラシティエリアの利便性も大きく向上する。</p>
                 </div>
 
                 <div class="why-item fade-in">
@@ -3809,8 +4186,8 @@
                     <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7;">三郷駅前にカフェやコワーキング。小さな拠点が生まれ始める。</p>
                 </div>
                 <div class="fade-in" style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 28px;">
-                    <h3 style="color: white; font-size: 18px; margin-bottom: 12px;">コミュニティバス増便</h3>
-                    <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7;">駅と住宅街を結ぶ路線が充実。車がなくても暮らせる街へ。</p>
+                    <h3 style="color: white; font-size: 18px; margin-bottom: 12px;">MaaS社会実験スタート</h3>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7;">バス・タクシー・シェアサイクルをアプリで一括検索・予約・決済。駅から住宅街、商業施設までシームレスに移動できる実証実験を開始。</p>
                 </div>
             </div>
         </div>
@@ -4987,6 +5364,79 @@
 
             window.addEventListener('scroll', checkScroll);
             checkScroll();
+        })();
+
+        // ========================================
+        // 届いている声 フェードインエフェクト
+        // ========================================
+        (function initConcernsSection() {
+            const scrollContainer = document.getElementById('concerns');
+            if (!scrollContainer) return;
+
+            const bubbles = scrollContainer.querySelectorAll('.concern-bubble');
+            const realitySection = scrollContainer.querySelector('.concerns-reality');
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile) {
+                // モバイルでは即座に全て表示
+                bubbles.forEach(bubble => bubble.classList.add('visible'));
+                if (realitySection) realitySection.classList.add('visible');
+            } else {
+                // デスクトップではIntersectionObserverでアニメーション
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Animate bubbles with delay
+                            bubbles.forEach((bubble, i) => {
+                                setTimeout(() => {
+                                    bubble.classList.add('visible');
+                                }, i * 80);
+                            });
+                            // Show reality section after bubbles
+                            setTimeout(() => {
+                                if (realitySection) realitySection.classList.add('visible');
+                            }, bubbles.length * 80 + 300);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                observer.observe(scrollContainer);
+            }
+        })();
+
+        // ========================================
+        // 財源セクション フェードインエフェクト
+        // ========================================
+        (function initRevenueSection() {
+            const revenueSection = document.getElementById('revenue');
+            if (!revenueSection) return;
+
+            const cards = revenueSection.querySelectorAll('[style*="background: #f8fafc"]');
+
+            // Initialize card styles
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animate cards with delay
+                        cards.forEach((card, i) => {
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, i * 150);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(revenueSection);
         })();
     </script>
 
