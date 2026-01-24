@@ -1591,6 +1591,17 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 24px;
+            align-items: stretch;
+        }
+
+        .dx-grid > .dx-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .dx-grid > .dx-card .dx-card-list {
+            margin-top: auto;
         }
 
         @media (max-width: 768px) {
@@ -1725,50 +1736,230 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        .staff-vision-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            align-items: center;
+        /* サイクルインフォグラフィック */
+        .cycle-infographic {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
         }
 
-        .staff-vision-step {
+        .cycle-container {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 17px;
-            color: var(--gray-dark);
-            line-height: 1.7;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
         }
 
-        .staff-vision-step-num {
+        .cycle-item {
+            width: 200px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cycle-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cycle-item:nth-child(1) { transition-delay: 0.1s; }
+        .cycle-item:nth-child(2) { transition-delay: 0.3s; }
+        .cycle-item:nth-child(3) { transition-delay: 0.5s; }
+        .cycle-item:nth-child(4) { transition-delay: 0.7s; }
+
+        .cycle-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 16px;
+            background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(26, 42, 58, 0.3);
+            position: relative;
+        }
+
+        .cycle-icon::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px dashed var(--navy);
+            opacity: 0.3;
+        }
+
+        .cycle-icon svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--white);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .cycle-num {
+            position: absolute;
+            top: -8px;
+            right: -8px;
             width: 32px;
             height: 32px;
-            background: var(--navy);
+            background: var(--accent);
             color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            font-weight: 600;
-            flex-shrink: 0;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        .staff-vision-arrow {
-            font-size: 24px;
+        .cycle-label {
+            font-size: 15px;
+            font-weight: 600;
             color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .cycle-desc {
+            font-size: 13px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+        }
+
+        .cycle-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.4s ease;
+        }
+
+        .cycle-arrow.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .cycle-arrow:nth-of-type(2) { transition-delay: 0.2s; }
+        .cycle-arrow:nth-of-type(4) { transition-delay: 0.4s; }
+        .cycle-arrow:nth-of-type(6) { transition-delay: 0.6s; }
+
+        .cycle-arrow svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--navy);
+            stroke-width: 2;
+            fill: none;
             opacity: 0.5;
         }
 
-        .staff-vision-goal {
-            margin-top: 32px;
-            padding: 24px;
+        /* 循環を示す中央メッセージ */
+        .cycle-center-message {
+            text-align: center;
+            margin-top: 48px;
+            padding: 32px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+            border-radius: 20px;
+            border: 2px solid rgba(26, 42, 58, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease 0.9s;
+        }
+
+        .cycle-center-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cycle-center-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
             background: var(--navy);
-            color: var(--white);
-            border-radius: 16px;
-            font-size: 20px;
-            font-weight: 600;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cycle-center-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--white);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .cycle-center-message h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .cycle-center-message p {
+            font-size: 15px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 循環矢印アニメーション */
+        @keyframes rotateArrow {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .cycle-center-icon svg {
+            animation: rotateArrow 3s ease-in-out infinite;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .cycle-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cycle-item {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .cycle-arrow {
+                transform: rotate(90deg);
+            }
+
+            .cycle-arrow.visible {
+                transform: rotate(90deg) scale(1);
+            }
+        }
+
+        /* 旧スタイル（非表示） */
+        .staff-vision-flow {
+            display: none;
+        }
+
+        .staff-vision-step {
+            display: none;
+        }
+
+        .staff-vision-step-num {
+            display: none;
+        }
+
+        .staff-vision-arrow {
+            display: none;
+        }
+
+        .staff-vision-goal {
+            display: none;
         }
 
         .staff-grid {
@@ -3421,7 +3612,7 @@
                         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
                     </div>
                     <h4>団地の大規模土地活用</h4>
-                    <p>30年後、鉄筋コンクリート造の団地は建て替え時期を迎える。この大規模な土地区画を、未来世代への投資として戦略的に活用できる。</p>
+                    <p>建て替え時期を見据えた長期的な土地活用ビジョンを今から検討しておく。みさと団地はUR管轄のため市が直接介入しにくいが、だからこそ早期から市としての方針を明確にし、URとの協議に備えることが重要。</p>
                 </div>
 
                 <div class="why-item fade-in">
@@ -4041,25 +4232,97 @@
                 </h2>
             </div>
 
-            <div class="staff-vision fade-in">
-                <div class="staff-vision-flow">
-                    <div class="staff-vision-step">
-                        <span class="staff-vision-step-num">1</span>
-                        <span>この立地を活かした都市計画を作り込み</span>
+            <!-- 好循環サイクル インフォグラフィック -->
+            <div class="cycle-infographic">
+                <div class="cycle-container">
+                    <!-- Step 1: 行政DX -->
+                    <div class="cycle-item fade-in">
+                        <div class="cycle-icon">
+                            <span class="cycle-num">1</span>
+                            <svg viewBox="0 0 24 24">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-label">行政DX</div>
+                        <div class="cycle-desc">業務効率の高い<br>組織をつくる</div>
                     </div>
-                    <span class="staff-vision-arrow">↓</span>
-                    <div class="staff-vision-step">
-                        <span class="staff-vision-step-num">2</span>
-                        <span>テクノロジーによって税収を高め</span>
+
+                    <div class="cycle-arrow fade-in">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
                     </div>
-                    <span class="staff-vision-arrow">↓</span>
-                    <div class="staff-vision-step">
-                        <span class="staff-vision-step-num">3</span>
-                        <span>職員の給与を東京都の水準まで底上げする</span>
+
+                    <!-- Step 2: 税収確保 -->
+                    <div class="cycle-item fade-in">
+                        <div class="cycle-icon">
+                            <span class="cycle-num">2</span>
+                            <svg viewBox="0 0 24 24">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-label">税収の確保</div>
+                        <div class="cycle-desc">物流・自動運転・AI<br>企業を呼び込む</div>
+                    </div>
+
+                    <div class="cycle-arrow fade-in">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+
+                    <!-- Step 3: 職員処遇改善 -->
+                    <div class="cycle-item fade-in">
+                        <div class="cycle-icon">
+                            <span class="cycle-num">3</span>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <polyline points="23 6 23 12 17 12"/>
+                                <line x1="17" y1="6" x2="23" y2="12"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-label">職員の処遇向上</div>
+                        <div class="cycle-desc">給与を東京都水準へ<br>優秀な人材が集まる</div>
+                    </div>
+
+                    <div class="cycle-arrow fade-in">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+
+                    <!-- Step 4: 市民サービス向上 -->
+                    <div class="cycle-item fade-in">
+                        <div class="cycle-icon" style="background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%); box-shadow: 0 8px 32px rgba(46, 125, 50, 0.4);">
+                            <span class="cycle-num" style="background: #4CAF50;">4</span>
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </div>
+                        <div class="cycle-label" style="color: #2E7D32;">市民サービス向上</div>
+                        <div class="cycle-desc">行政が充実すれば<br><strong>市民の暮らしが豊かに</strong></div>
                     </div>
                 </div>
-                <div class="staff-vision-goal">
-                    地域の方々が「このまちの職員」と働きやすくなる
+
+                <!-- 中央メッセージ -->
+                <div class="cycle-center-message fade-in">
+                    <div class="cycle-center-icon">
+                        <svg viewBox="0 0 24 24">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <polyline points="1 20 1 14 7 14"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                    </div>
+                    <h3>この好循環が、三郷を変える</h3>
+                    <p>
+                        職員の給与を上げることは、単なる待遇改善ではありません。<br>
+                        <strong>税収を増やし、優秀な人材を確保し、市民サービスを向上させる</strong>——<br>
+                        この循環こそが、最終的に市民の皆さんの暮らしを豊かにします。
+                    </p>
                 </div>
             </div>
 

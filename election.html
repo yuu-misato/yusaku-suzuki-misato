@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三郷市の選挙</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;400;600;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray: #6e6e73;
+            --gray-light: #d2d2d7;
+            --white: #fbfbfd;
+            --accent: #0071e3;
+            --navy: #1e3a5f;
+            --navy-light: #2a4a73;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Disable pointer cursor globally */
+        *, *::before, *::after {
+            cursor: default !important;
+        }
+
+        /* ========================================
+           共通スタイル
+        ======================================== */
+        section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-full {
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--gray);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .headline-large {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        .headline-medium {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .body-text {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--gray-dark);
+        }
+
+        .body-text-large {
+            font-size: 21px;
+            line-height: 1.6;
+            color: var(--gray-dark);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-gray {
+            color: var(--gray);
+        }
+
+        .mt-16 { margin-top: 16px; }
+        .mt-24 { margin-top: 24px; }
+        .mt-48 { margin-top: 48px; }
+
+        .link {
+            display: inline-flex;
+            align-items: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--navy);
+            text-decoration: none;
+            transition: transform 0.2s ease-out;
+        }
+
+        .link::after {
+            content: ' →';
+            transition: transform 0.2s;
+        }
+
+        /* ========================================
+           NAVIGATION
+        ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-home {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        /* ========================================
+           HERO
+        ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 48px;
+            padding-bottom: 120px;
+            position: relative;
+        }
+
+        .hero .eyebrow {
+            font-size: 14px;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+        }
+
+        .hero .body-text-large {
+            max-width: 600px;
+            margin: 24px auto 0;
+        }
+
+        .hero-disclaimer {
+            display: inline-block;
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 24px;
+            padding: 8px 16px;
+            background: rgba(0,0,0,0.04);
+            border-radius: 20px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: var(--navy);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            font-size: 20px;
+            animation: bounce-arrow 1.5s ease-in-out infinite;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--navy), transparent);
+            border-radius: 1px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(8px); opacity: 0.5; }
+        }
+
+        /* ========================================
+           VOTING SECTION
+        ======================================== */
+        .voting-section {
+            background: var(--navy);
+            color: var(--white);
+            padding: 160px 24px;
+        }
+
+        .voting-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .voting-section .eyebrow {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .voting-section .headline-medium {
+            color: var(--white);
+        }
+
+        .voting-chart {
+            margin-top: 60px;
+        }
+
+        .voting-row {
+            display: grid;
+            grid-template-columns: 60px 1fr 80px;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .voting-year {
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            text-align: left;
+        }
+
+        .voting-bar-wrapper {
+            height: 32px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .voting-bar {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            border-radius: 16px;
+            transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .voting-value {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .voting-highlight {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 24px;
+        }
+
+        .voting-big-number {
+            font-size: 96px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .voting-big-label {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 8px;
+        }
+
+        /* ========================================
+           ELECTION TYPES
+        ======================================== */
+        .election-types {
+            padding: 160px 24px;
+            background: #f5f5f7;
+        }
+
+        .election-types-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .election-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .election-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .election-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .election-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .election-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .election-card p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .election-card-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .election-card-meta-item {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .election-card-meta-item strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        /* ========================================
+           HISTORY
+        ======================================== */
+        .history-section {
+            padding: 160px 24px;
+        }
+
+        .history-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .history-timeline {
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 100px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gray-light);
+        }
+
+        .history-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 40px;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--gray-light);
+            position: relative;
+        }
+
+        .history-item::after {
+            content: '';
+            position: absolute;
+            left: 94px;
+            top: 36px;
+            width: 12px;
+            height: 12px;
+            background: var(--navy);
+            border-radius: 50%;
+        }
+
+        .history-year {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .history-content h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .history-content p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .history-stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+        }
+
+        .history-stat {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .history-stat strong {
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           HOW TO VOTE
+        ======================================== */
+        .howto-section {
+            padding: 160px 24px;
+            background: #f5f5f7;
+        }
+
+        .howto-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .howto-steps {
+            margin-top: 60px;
+        }
+
+        .howto-step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 32px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .howto-step:last-child {
+            border-bottom: none;
+        }
+
+        .howto-number {
+            width: 80px;
+            height: 80px;
+            background: var(--navy);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+        }
+
+        .howto-content h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .howto-content p {
+            font-size: 15px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        .howto-note {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* ========================================
+           NEXT ELECTION
+        ======================================== */
+        .next-section {
+            padding: 160px 24px;
+            background: var(--navy);
+            color: var(--white);
+        }
+
+        .next-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .next-section .eyebrow {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .next-countdown {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 20px;
+        }
+
+        .countdown-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 8px;
+        }
+
+        .next-info {
+            margin-top: 48px;
+            padding: 32px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+        }
+
+        .next-info p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        footer {
+            padding: 48px 24px;
+            text-align: center;
+            background: #f5f5f7;
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+
+        /* ========================================
+           FLOATING CTA
+        ======================================== */
+        .floating-cta {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .floating-cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s ease-out;
+        }
+
+        .floating-cta-line {
+            background: #06C755;
+            color: white;
+        }
+
+        .floating-cta-scroll {
+            background: var(--navy);
+            color: white;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+        @media (max-width: 768px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero {
+                padding-bottom: 140px;
+            }
+
+            .scroll-indicator {
+                bottom: 24px;
+            }
+
+            .scroll-indicator::after {
+                height: 30px;
+            }
+
+            .voting-big-number {
+                font-size: 56px;
+            }
+
+            .election-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .history-timeline::before {
+                left: 50px;
+            }
+
+            .history-item {
+                grid-template-columns: 50px 1fr;
+                gap: 24px;
+            }
+
+            .history-item::after {
+                left: 44px;
+            }
+
+            .howto-step {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .howto-number {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+            }
+
+            .next-countdown {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .countdown-number {
+                font-size: 48px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .floating-cta {
+                bottom: 16px;
+                right: 16px;
+            }
+
+            .floating-cta-btn {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+        }
+
+        /* ========================================
+           ANIMATIONS
+        ======================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.1s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.2s; }
+
+        /* Number shimmer effect */
+        .voting-big-number, .countdown-number {
+            background: linear-gradient(90deg, #fff 0%, #a8c4e0 50%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Smooth scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f5f5f7;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--navy), #3d6a9f);
+            border-radius: 4px;
+        }
+
+        section {
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .election-card, .history-item, .howto-step, .countdown-item {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .child-visible {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-home">← 公式サイト</a>
+        <div class="nav-links">
+            <a href="#voting">投票率</a>
+            <a href="#types">選挙の種類</a>
+            <a href="#history">過去の選挙</a>
+            <a href="#howto">投票方法</a>
+            <a href="#next">次の選挙</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <p class="eyebrow">三郷市の選挙</p>
+        <h1 class="headline-large">
+            あなたの一票が、<br>
+            街をつくる。
+        </h1>
+        <p class="hero-disclaimer">
+            非公式 / 鈴木優作（市議会議員）作成
+        </p>
+        <p class="body-text-large mt-24">
+            三郷市の選挙に関する情報をまとめました。<br>
+            投票は、民主主義への参加です。
+        </p>
+        <div class="scroll-indicator">Scroll</div>
+    </section>
+
+    <!-- VOTING TURNOUT -->
+    <section class="voting-section section-full" id="voting">
+        <div class="voting-inner">
+            <p class="eyebrow">Voter Turnout</p>
+            <h2 class="headline-medium">
+                投票率、<br>
+                上がっています。
+            </h2>
+
+            <div class="voting-chart">
+                <div class="voting-row">
+                    <div class="voting-year">2025</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="voting-value">56.12%</div>
+                </div>
+                <div class="voting-row">
+                    <div class="voting-year">2021</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="voting-value">36.65%</div>
+                </div>
+                <div class="voting-row">
+                    <div class="voting-year">2017</div>
+                    <div class="voting-bar-wrapper">
+                        <div class="voting-bar" style="width: 0%"></div>
+                    </div>
+                    <div class="voting-value">38.2%</div>
+                </div>
+            </div>
+
+            <div class="voting-highlight">
+                <div class="voting-big-number">+19.47</div>
+                <p class="voting-big-label">ポイント上昇（前回比）</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ELECTION TYPES -->
+    <section class="election-types" id="types">
+        <div class="election-types-inner">
+            <p class="eyebrow text-center">Election Types</p>
+            <h2 class="headline-medium text-center">
+                三郷市で行われる選挙。
+            </h2>
+
+            <div class="election-grid">
+                <div class="election-card">
+                    <div class="election-card-icon">市</div>
+                    <h3>市議会議員選挙</h3>
+                    <p>市議会の議員を選ぶ選挙。市の予算や条例を審議する代表を決めます。</p>
+                    <div class="election-card-meta">
+                        <div class="election-card-meta-item">
+                            <strong>24人</strong>
+                            定数
+                        </div>
+                        <div class="election-card-meta-item">
+                            <strong>4年</strong>
+                            任期
+                        </div>
+                    </div>
+                </div>
+
+                <div class="election-card">
+                    <div class="election-card-icon">長</div>
+                    <h3>市長選挙</h3>
+                    <p>市の行政のトップを選ぶ選挙。市政の方針を決める首長を決めます。</p>
+                    <div class="election-card-meta">
+                        <div class="election-card-meta-item">
+                            <strong>1人</strong>
+                            定数
+                        </div>
+                        <div class="election-card-meta-item">
+                            <strong>4年</strong>
+                            任期
+                        </div>
+                    </div>
+                </div>
+
+                <div class="election-card">
+                    <div class="election-card-icon">県</div>
+                    <h3>県議会議員選挙</h3>
+                    <p>埼玉県議会の議員を選ぶ選挙。三郷市選挙区から代表を送ります。</p>
+                    <div class="election-card-meta">
+                        <div class="election-card-meta-item">
+                            <strong>2人</strong>
+                            三郷市定数
+                        </div>
+                        <div class="election-card-meta-item">
+                            <strong>4年</strong>
+                            任期
+                        </div>
+                    </div>
+                </div>
+
+                <div class="election-card">
+                    <div class="election-card-icon">国</div>
+                    <h3>国政選挙</h3>
+                    <p>衆議院・参議院議員を選ぶ選挙。国の法律や予算を決める代表を選びます。</p>
+                    <div class="election-card-meta">
+                        <div class="election-card-meta-item">
+                            <strong>埼玉14区</strong>
+                            小選挙区
+                        </div>
+                        <div class="election-card-meta-item">
+                            <strong>埼玉県</strong>
+                            比例・選挙区
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="history-section" id="history">
+        <div class="history-inner">
+            <p class="eyebrow text-center">Election History</p>
+            <h2 class="headline-medium text-center">
+                過去の選挙結果。
+            </h2>
+
+            <div class="history-timeline">
+                <div class="history-item">
+                    <div class="history-year">2025年4月</div>
+                    <div class="history-content">
+                        <h3>三郷市議会議員選挙</h3>
+                        <p>定数24に対し27名が立候補。投票率は56.12%と前回から大幅上昇。</p>
+                        <div class="history-stats">
+                            <span class="history-stat">投票率 <strong>56.12%</strong></span>
+                            <span class="history-stat">候補者 <strong>27人</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-year">2021年4月</div>
+                    <div class="history-content">
+                        <h3>三郷市議会議員選挙</h3>
+                        <p>定数24に対し30名が立候補。コロナ禍での選挙となりました。</p>
+                        <div class="history-stats">
+                            <span class="history-stat">投票率 <strong>36.65%</strong></span>
+                            <span class="history-stat">候補者 <strong>30人</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-year">2017年4月</div>
+                    <div class="history-content">
+                        <h3>三郷市議会議員選挙</h3>
+                        <p>定数24に対し28名が立候補。新人候補も多数挑戦。</p>
+                        <div class="history-stats">
+                            <span class="history-stat">投票率 <strong>38.2%</strong></span>
+                            <span class="history-stat">候補者 <strong>28人</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO VOTE -->
+    <section class="howto-section" id="howto">
+        <div class="howto-inner">
+            <p class="eyebrow text-center">How to Vote</p>
+            <h2 class="headline-medium text-center">
+                投票の方法。
+            </h2>
+
+            <div class="howto-steps">
+                <div class="howto-step">
+                    <div class="howto-number">1</div>
+                    <div class="howto-content">
+                        <h3>投票所入場券を確認</h3>
+                        <p>選挙の前に、自宅に投票所入場券が届きます。届かない場合や紛失した場合も、身分証明書があれば投票できます。</p>
+                        <div class="howto-note">
+                            入場券がなくても、本人確認ができれば投票可能です
+                        </div>
+                    </div>
+                </div>
+
+                <div class="howto-step">
+                    <div class="howto-number">2</div>
+                    <div class="howto-content">
+                        <h3>投票所へ行く</h3>
+                        <p>入場券に記載された投票所へ。投票日当日は午前7時から午後8時まで投票できます。</p>
+                        <div class="howto-note">
+                            期日前投票も可能です（市役所など）
+                        </div>
+                    </div>
+                </div>
+
+                <div class="howto-step">
+                    <div class="howto-number">3</div>
+                    <div class="howto-content">
+                        <h3>投票用紙に記入</h3>
+                        <p>投票用紙を受け取り、候補者名または政党名を記入します。記入台は仕切られており、プライバシーが守られます。</p>
+                    </div>
+                </div>
+
+                <div class="howto-step">
+                    <div class="howto-number">4</div>
+                    <div class="howto-content">
+                        <h3>投票箱に入れる</h3>
+                        <p>記入した投票用紙を投票箱に入れて完了です。所要時間は数分程度です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEXT ELECTION -->
+    <section class="next-section section-full" id="next">
+        <div class="next-inner">
+            <p class="eyebrow">Next Election</p>
+            <h2 class="headline-medium">
+                次の選挙。
+            </h2>
+
+            <div class="next-countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="countdown-year">2029</div>
+                    <div class="countdown-label">年</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">4</div>
+                    <div class="countdown-label">月予定</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number">市議選</div>
+                    <div class="countdown-label">種別</div>
+                </div>
+            </div>
+
+            <div class="next-info">
+                <p>次回の三郷市議会議員選挙は2029年4月に予定されています。<br>
+                その前に国政選挙や県議選が行われる可能性があります。<br>
+                選挙の日程が決まり次第、このページで情報を更新します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING CTA -->
+    <div class="floating-cta">
+        <a href="https://line.me/R/ti/p/@963tbayc" target="_blank" class="floating-cta-btn floating-cta-line">
+            三郷市最新情報
+        </a>
+        <button class="floating-cta-btn floating-cta-scroll" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="ページトップへ戻る">
+            ↑
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-copy">データは2026年1月時点の公開情報に基づいています</p>
+        <p class="footer-copy">制作：鈴木優作（三郷市議会議員・創政MISATO）</p>
+    </footer>
+
+    <script>
+        // ========================================
+        // ANIMATION ENGINE
+        // ========================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '-50px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ========================================
+        // VOTING BAR ANIMATION
+        // ========================================
+        const votingBars = [
+            { bar: document.querySelectorAll('.voting-bar')[0], target: 56.12 },
+            { bar: document.querySelectorAll('.voting-bar')[1], target: 36.65 },
+            { bar: document.querySelectorAll('.voting-bar')[2], target: 38.2 }
+        ];
+
+        const votingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    votingBars.forEach(({ bar, target }, i) => {
+                        setTimeout(() => {
+                            bar.style.width = target + '%';
+                        }, i * 200);
+                    });
+                    votingObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        votingObserver.observe(document.querySelector('.voting-section'));
+
+        // ========================================
+        // SCROLL REVEAL
+        // ========================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const children = entry.target.querySelectorAll('.election-card, .history-item, .howto-step, .countdown-item');
+                    children.forEach((child, i) => {
+                        setTimeout(() => {
+                            child.classList.add('child-visible');
+                        }, i * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '-50px' });
+
+        document.querySelectorAll('section').forEach(section => revealObserver.observe(section));
+
+        // ========================================
+        // FLOATING PARTICLES
+        // ========================================
+        (function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1;
+                opacity: 0.4;
+            `;
+            document.body.prepend(canvas);
+
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = 0, mouseY = 0;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.5;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+                update() {
+                    const dx = mouseX - this.x;
+                    const dy = mouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        const force = (150 - dist) / 150;
+                        this.x -= dx * force * 0.02;
+                        this.y -= dy * force * 0.02;
+                    }
+
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(30, 58, 95, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 40; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach((p1, i) => {
+                    particles.slice(i + 1).forEach(p2 => {
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.strokeStyle = `rgba(30, 58, 95, ${0.1 * (1 - dist / 120)})`;
+                            ctx.stroke();
+                        }
+                    });
+                });
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ========================================
+        // SCROLL PROGRESS
+        // ========================================
+        const progress = document.createElement('div');
+        progress.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1e3a5f, #3d6a9f);
+            z-index: 10001;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.1s ease-out;
+        `;
+        document.body.appendChild(progress);
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            progress.style.transform = `scaleX(${scrollPercent})`;
+        });
+
+        // ========================================
+        // FLOATING CTA
+        // ========================================
+        const floatingCta = document.querySelector('.floating-cta');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        });
+
+        // ========================================
+        // RIPPLE EFFECT
+        // ========================================
+        document.addEventListener('click', (e) => {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                width: 0;
+                height: 0;
+                border-radius: 50%;
+                background: rgba(30, 58, 95, 0.3);
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                z-index: 9999;
+                animation: ripple-expand 0.6s ease-out forwards;
+            `;
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-expand {
+                to {
+                    width: 200px;
+                    height: 200px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

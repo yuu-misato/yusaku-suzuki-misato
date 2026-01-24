@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三郷中央駅 - 三郷市の中心核へ | 未来都市三郷</title>
+    <meta name="description" content="三郷中央駅を三郷市の中心核として再設計。行政・医療・教育のワンストップ拠点、BRT導入、TX延伸による東京直通。">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@200;400;600;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray: #6e6e73;
+            --gray-light: #d2d2d7;
+            --white: #fbfbfd;
+            --navy: #1e3a5f;
+            --navy-light: #2a4a73;
+            --station-color: #0071e3;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .nav-home {
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-back {
+            color: var(--station-color);
+            text-decoration: none;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-back svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background: linear-gradient(180deg, #e8f4fd 0%, var(--white) 100%);
+        }
+
+        .station-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: var(--station-color);
+            color: white;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .station-badge svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            max-width: 800px;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--gray-dark);
+            margin-top: 24px;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--station-color);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Current State */
+        .current-section {
+            background: #f5f5f7;
+        }
+
+        .current-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .current-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 28px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .current-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .current-card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 113, 227, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .current-card-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--station-color);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .current-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .current-card p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Vision */
+        .vision-section {
+            background: var(--white);
+        }
+
+        .vision-intro {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            text-align: center;
+            font-size: 17px;
+            color: var(--gray-dark);
+            line-height: 2;
+        }
+
+        .vision-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .vision-timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--station-color) 0%, var(--gray-light) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            background: var(--station-color);
+            border-radius: 50%;
+            border: 3px solid var(--white);
+            box-shadow: 0 0 0 2px var(--station-color);
+        }
+
+        .timeline-phase {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--station-color);
+            margin-bottom: 8px;
+        }
+
+        .timeline-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .timeline-item p {
+            font-size: 15px;
+            color: var(--gray-dark);
+            line-height: 1.8;
+        }
+
+        .timeline-details {
+            margin-top: 16px;
+            padding: 20px;
+            background: #f5f5f7;
+            border-radius: 12px;
+        }
+
+        .timeline-details ul {
+            list-style: none;
+            font-size: 14px;
+            color: var(--gray-dark);
+        }
+
+        .timeline-details li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline-details li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: var(--station-color);
+            border-radius: 50%;
+        }
+
+        /* Imagine */
+        .imagine-section {
+            background: linear-gradient(180deg, #f5f5f7 0%, var(--white) 100%);
+        }
+
+        .imagine-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .imagine-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .imagine-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--station-color);
+        }
+
+        .imagine-card p {
+            font-size: 16px;
+            color: var(--gray-dark);
+            line-height: 2;
+        }
+
+        .imagine-quote {
+            margin-top: 24px;
+            padding: 24px;
+            background: rgba(0, 113, 227, 0.05);
+            border-left: 4px solid var(--station-color);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .imagine-quote p {
+            font-size: 15px;
+            font-style: italic;
+            color: var(--gray-dark);
+        }
+
+        /* Impact */
+        .impact-section {
+            background: var(--station-color);
+            color: white;
+            text-align: center;
+        }
+
+        .impact-section .eyebrow {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .impact-section .section-title {
+            color: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .impact-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .impact-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .impact-number {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .impact-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* CTA */
+        .cta-section {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(24px, 4vw, 36px);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .cta-text {
+            font-size: 16px;
+            color: var(--gray-dark);
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn-primary {
+            background: var(--station-color);
+            color: white;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 113, 227, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background: #f5f5f7;
+            color: var(--black);
+        }
+
+        .cta-btn-secondary:hover {
+            background: #e8e8ed;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-home">鈴木優作</a>
+        <a href="/future.html" class="nav-back">
+            <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            未来都市三郷
+        </a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="station-badge">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            つくばエクスプレス
+        </div>
+        <h1>三郷中央駅を<br>三郷市の中心核に</h1>
+        <p class="hero-subtitle">
+            行政・医療・教育のワンストップ拠点。<br>
+            BRT導入で市内全域からアクセス可能に。<br>
+            TX延伸で東京駅直通へ。
+        </p>
+    </section>
+
+    <!-- Current State -->
+    <section class="current-section">
+        <div class="section-header">
+            <p class="eyebrow">Current State</p>
+            <h2 class="section-title">三郷中央駅の今</h2>
+        </div>
+
+        <div class="current-grid">
+            <div class="current-card fade-in">
+                <div class="current-card-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h3>TX開通で発展</h3>
+                <p>2005年のつくばエクスプレス開通以降、駅周辺は急速に発展。新しいマンションが立ち並び、若い世代が増加している。</p>
+            </div>
+
+            <div class="current-card fade-in">
+                <div class="current-card-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>若い世代の流入</h3>
+                <p>秋葉原まで20分のアクセスの良さから、子育て世代を中心に人口が増加。市内で最も活気のあるエリア。</p>
+            </div>
+
+            <div class="current-card fade-in">
+                <div class="current-card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
+                <h3>まだ発展途上</h3>
+                <p>ピアラシティなど商業施設は充実しているが、行政機能、医療拠点としてはまだ不十分。ポテンシャルを活かしきれていない。</p>
+            </div>
+
+            <div class="current-card fade-in">
+                <div class="current-card-icon">
+                    <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                </div>
+                <h3>アクセスの課題</h3>
+                <p>TX沿線以外の地域からのアクセスが不便。南部エリアや新三郷方面から来るには車が必須。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="vision-section">
+        <div class="section-header">
+            <p class="eyebrow">Future Vision</p>
+            <h2 class="section-title">こうなったら面白い</h2>
+        </div>
+
+        <p class="vision-intro">
+            三郷中央駅を、単なる「住宅街の駅」から<br>
+            <strong>三郷市の中心核</strong>へとアップデートする。<br>
+            市民生活に必要な機能が、ここに集約される未来。
+        </p>
+
+        <div class="vision-timeline">
+            <div class="timeline-item fade-in">
+                <p class="timeline-phase">Phase 1：アクセス革命</p>
+                <h3>BRT導入で「どこからでも三郷中央へ」</h3>
+                <p>
+                    市内全域から三郷中央駅へ直結するBRT（バス高速輸送システム）を導入。
+                    南部エリア、新三郷方面、みさと団地からも15分以内でアクセス可能に。
+                    車がなくても、高齢者でも、駅前の便利さを享受できる。
+                </p>
+                <div class="timeline-details">
+                    <ul>
+                        <li>専用レーンで渋滞知らずの定時運行</li>
+                        <li>15分間隔の高頻度運行</li>
+                        <li>将来的には自動運転BRTへ移行</li>
+                        <li>駅直結のBRTターミナル整備</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <p class="timeline-phase">Phase 2：機能集約</p>
+                <h3>行政・医療・子育てのワンストップ拠点</h3>
+                <p>
+                    市役所の出張所ではなく、主要な行政機能を三郷中央駅周辺に集約。
+                    総合病院、子育て支援センター、図書館分館を駅直結で配置。
+                    「三郷中央に来れば、大体のことは済む」状態を実現。
+                </p>
+                <div class="timeline-details">
+                    <ul>
+                        <li>行政手続きのデジタル化と対面窓口の両立</li>
+                        <li>予約制クリニックモール</li>
+                        <li>一時預かり対応の子育て支援センター</li>
+                        <li>コワーキングスペース併設の図書館</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item fade-in">
+                <p class="timeline-phase">Phase 3：広域連携</p>
+                <h3>TX延伸で東京駅直通へ</h3>
+                <p>
+                    つくばエクスプレスの東京駅延伸が実現すれば、三郷中央から東京駅まで乗り換えなし。
+                    「東京駅から20分」のブランドが確立し、さらなる人口流入と企業進出が加速。
+                    埼玉東部の玄関口としての地位を確立。
+                </p>
+                <div class="timeline-details">
+                    <ul>
+                        <li>東京駅まで約20分（延伸実現時）</li>
+                        <li>羽田空港アクセスも大幅改善</li>
+                        <li>企業サテライトオフィスの誘致</li>
+                        <li>インバウンド観光の起点に</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Imagine -->
+    <section class="imagine-section">
+        <div class="section-header">
+            <p class="eyebrow">Imagine</p>
+            <h2 class="section-title">想像してみてください</h2>
+        </div>
+
+        <div class="imagine-card fade-in">
+            <h3>朝の通勤風景</h3>
+            <p>
+                みさと団地に住む田中さん（65歳）は、毎朝BRTで三郷中央駅へ。
+                孫を駅直結の保育園に預け、そのまま駅前のクリニックで定期検診。
+                帰りは駅前の図書館で本を借りて、BRTで自宅へ。
+                車の運転ができなくなっても、生活に不安はない。
+            </p>
+            <div class="imagine-quote">
+                <p>「駅前に全部あるから、車がなくても困らないのよ」</p>
+            </div>
+        </div>
+
+        <div class="imagine-card fade-in">
+            <h3>週末の家族の過ごし方</h3>
+            <p>
+                新三郷に住む鈴木さん一家は、週末に三郷中央へ。
+                子供たちは駅前の図書館でプログラミング教室。
+                その間、夫婦は駅直結のカフェで読書タイム。
+                お昼は地元食材を使ったレストランで、午後は子育て支援センターでイベント参加。
+                「三郷中央に来れば一日楽しめる」が当たり前に。
+            </p>
+            <div class="imagine-quote">
+                <p>「越谷レイクタウンまで行かなくても、三郷で十分楽しめる」</p>
+            </div>
+        </div>
+
+        <div class="imagine-card fade-in">
+            <h3>リモートワーカーの日常</h3>
+            <p>
+                東京の会社に勤める佐藤さん（32歳）は、週3日リモートワーク。
+                自宅よりも集中できる駅前のコワーキングスペースを愛用。
+                同じフロアにはスタートアップの若手起業家たち。
+                ランチは地元の商店街で。夕方は駅直結のジムで汗を流す。
+                「東京に住む必要がなくなった」と感じている。
+            </p>
+            <div class="imagine-quote">
+                <p>「三郷の方が生活コストが低くて、QOLは高い」</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact -->
+    <section class="impact-section">
+        <div class="section-header">
+            <p class="eyebrow">Expected Impact</p>
+            <h2 class="section-title">期待される効果</h2>
+        </div>
+
+        <div class="impact-grid">
+            <div class="impact-item fade-in">
+                <p class="impact-number">15分</p>
+                <p class="impact-label">市内どこからでも<br>三郷中央駅へ</p>
+            </div>
+            <div class="impact-item fade-in">
+                <p class="impact-number">1箇所</p>
+                <p class="impact-label">行政・医療・子育て<br>ワンストップ</p>
+            </div>
+            <div class="impact-item fade-in">
+                <p class="impact-number">20分</p>
+                <p class="impact-label">TX延伸後<br>東京駅まで</p>
+            </div>
+            <div class="impact-item fade-in">
+                <p class="impact-number">30年</p>
+                <p class="impact-label">次世代のための<br>持続可能な設計</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">三郷中央を、三郷の中心に</h2>
+            <p class="cta-text">
+                TX沿線の発展を、三郷市全体の発展につなげる。<br>
+                そのために、三郷中央駅を中心核として設計し直す。<br>
+                これが、30年先を見据えたまちづくりです。
+            </p>
+            <div class="cta-buttons">
+                <a href="/future.html" class="cta-btn cta-btn-primary">未来都市三郷トップへ</a>
+                <a href="/station-misato.html" class="cta-btn cta-btn-secondary">三郷駅の構想を見る</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>制作：<a href="https://yusaku-suzuki.com/" style="color: var(--gray-light);">鈴木優作</a>（三郷市議会議員）</p>
+        <div class="footer-links">
+            <a href="/future.html">未来都市三郷</a>
+            <a href="/station-misato.html">三郷駅</a>
+            <a href="/station-shin-misato.html">新三郷駅</a>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in, .current-card, .timeline-item, .imagine-card, .impact-item').forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

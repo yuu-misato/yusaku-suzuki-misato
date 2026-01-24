@@ -821,11 +821,603 @@
             margin-bottom: 60px;
         }
 
+        /* 検索ボックス */
+        .voting-search {
+            max-width: 500px;
+            margin: 32px auto 0;
+            position: relative;
+        }
+
+        .voting-search-input {
+            width: 100%;
+            padding: 16px 20px 16px 52px;
+            font-size: 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 12px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .voting-search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .voting-search-input::placeholder {
+            color: var(--gray);
+        }
+
+        .voting-search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            stroke: var(--gray);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .voting-search-clear {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--gray-light);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .voting-search-clear:hover {
+            background: var(--gray);
+        }
+
+        .voting-search-clear svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--white);
+            stroke-width: 2.5;
+        }
+
+        .voting-search-input:not(:placeholder-shown) + .voting-search-icon + .voting-search-clear {
+            display: flex;
+        }
+
+        .voting-search-results {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gray);
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .voting-item.search-hidden {
+            display: none !important;
+        }
+
+        .voting-session.search-hidden {
+            display: none !important;
+        }
+
+        .voting-section-heading.search-hidden {
+            display: none !important;
+        }
+
+        .voting-grid.search-hidden {
+            display: none !important;
+        }
+
+        .voting-item.search-highlight .voting-item-name {
+            background: linear-gradient(120deg, rgba(0, 113, 227, 0.15) 0%, rgba(0, 113, 227, 0.15) 100%);
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin: -2px -4px;
+        }
+
+        /* カテゴリフィルター */
+        .voting-categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .voting-category-btn {
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-dark);
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .voting-category-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .voting-category-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+
+        .voting-category-btn .category-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+            padding: 0 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .voting-category-btn.active .category-count {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .voting-category-description {
+            text-align: center;
+            margin-top: 20px;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--gray-dark);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .voting-category-description.visible {
+            display: block;
+        }
+
+        .voting-category-description strong {
+            color: var(--navy);
+        }
+
+        @media (max-width: 768px) {
+            .voting-categories {
+                gap: 8px;
+            }
+
+            .voting-category-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* 定例会タブナビゲーション */
+        .voting-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+
+        .voting-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .voting-tab {
+            flex-shrink: 0;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-dark);
+            background: var(--white);
+            border: 2px solid var(--gray-light);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .voting-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .voting-tab.active {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: var(--white);
+        }
+
+        .voting-tab .tab-count {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .voting-tab.active .tab-count {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* タブコンテンツ */
+        .voting-tab-content {
+            display: none;
+        }
+
+        .voting-tab-content.active {
+            display: block;
+        }
+
+        /* 定例会アコーディオン */
+        .voting-accordion {
+            margin-bottom: 16px;
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--gray-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .voting-accordion:hover {
+            border-color: var(--accent);
+        }
+
+        .voting-accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .voting-accordion-header:hover {
+            background: #f8f9fa;
+        }
+
+        .voting-accordion-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .voting-accordion-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--navy);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .voting-accordion.open .voting-accordion-icon {
+            background: var(--accent);
+        }
+
+        .voting-accordion-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--white);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .voting-accordion-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .voting-accordion-subtitle {
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .voting-accordion-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .voting-accordion-badge {
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 20px;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .voting-accordion-badge.has-opposition {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .voting-accordion-count {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .voting-accordion-arrow {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .voting-accordion-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--gray);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .voting-accordion.open .voting-accordion-arrow {
+            transform: rotate(180deg);
+        }
+
+        .voting-accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .voting-accordion.open .voting-accordion-body {
+            max-height: 5000px;
+        }
+
+        .voting-accordion-content {
+            padding: 0 24px 24px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .voting-tabs {
+                margin: 0 -20px 24px;
+                padding: 0 20px 4px;
+            }
+
+            .voting-tab {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+
+            .voting-accordion-header {
+                padding: 16px 20px;
+            }
+
+            .voting-accordion-left {
+                gap: 12px;
+            }
+
+            .voting-accordion-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .voting-accordion-title {
+                font-size: 16px;
+            }
+
+            .voting-accordion-content {
+                padding: 0 20px 20px;
+            }
+
+            .voting-accordion-right {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 8px;
+            }
+
+            .voting-accordion-badge {
+                font-size: 11px;
+                padding: 4px 10px;
+            }
+        }
+
+        /* 会期日程表 */
+        .schedule-box {
+            margin: 24px 0;
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .schedule-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .schedule-table th {
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--gray);
+            border-bottom: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .schedule-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .schedule-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .schedule-badge-honkaigi {
+            background: var(--accent);
+        }
+
+        .schedule-badge-iinkai {
+            background: #34c759;
+        }
+
+        .schedule-badge-kyukai {
+            background: #8e8e93;
+        }
+
+        .schedule-desc {
+            color: var(--gray);
+        }
+
+        /* モバイル: 会期日程表をカード形式に */
+        @media (max-width: 768px) {
+            .schedule-box {
+                padding: 16px;
+            }
+
+            .schedule-table {
+                display: block;
+            }
+
+            .schedule-table thead {
+                display: none;
+            }
+
+            .schedule-table tbody {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .schedule-table tr {
+                display: block;
+                background: var(--white) !important;
+                border-radius: 12px;
+                padding: 16px;
+                border: 1px solid rgba(0,0,0,0.06);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            }
+
+            .schedule-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 0;
+                border-bottom: none;
+            }
+
+            .schedule-table td:first-child {
+                display: none;
+            }
+
+            .schedule-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                font-size: 11px;
+                color: var(--gray);
+                text-transform: uppercase;
+            }
+
+            .schedule-table td:nth-child(2) {
+                font-size: 18px;
+                font-weight: 700;
+                color: var(--navy);
+                justify-content: flex-start;
+                gap: 8px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--gray-light);
+                margin-bottom: 8px;
+            }
+
+            .schedule-table td:nth-child(2)::before {
+                display: none;
+            }
+
+            .schedule-table td:nth-child(3) {
+                position: absolute;
+                top: 16px;
+                right: 80px;
+                padding: 0;
+            }
+
+            .schedule-table td:nth-child(3)::before {
+                display: none;
+            }
+
+            .schedule-table tr {
+                position: relative;
+            }
+
+            .schedule-table td:nth-child(4) {
+                position: absolute;
+                top: 12px;
+                right: 16px;
+                padding: 0;
+            }
+
+            .schedule-table td:nth-child(4)::before {
+                display: none;
+            }
+
+            .schedule-table td:nth-child(5)::before {
+                content: "開始";
+            }
+
+            .schedule-table td:nth-child(6) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .schedule-table td:nth-child(6)::before {
+                content: "内容";
+            }
+
+            .schedule-desc {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+        }
+
         .voting-summary {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            margin-bottom: 60px;
+            margin-bottom: 32px;
         }
 
         .voting-summary-card {
@@ -2154,6 +2746,55 @@
                 <p style="margin-top: 12px; font-size: 13px; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 113, 227, 0.08); padding: 8px 16px; border-radius: 20px;">
                     <span style="display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: var(--accent); color: white; border-radius: 4px; font-weight: 600; font-size: 14px;">+</span> をクリックすると議案の概要が見られます
                 </p>
+
+                <!-- 検索ボックス -->
+                <div class="voting-search">
+                    <input type="text" class="voting-search-input" id="votingSearchInput" placeholder="議案名や内容で検索（例：補正予算、条例、請願）">
+                    <svg class="voting-search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <button class="voting-search-clear" id="votingSearchClear" type="button">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="voting-search-results" id="votingSearchResults"></div>
+
+                <!-- カテゴリフィルター -->
+                <div class="voting-categories" id="votingCategories">
+                    <button class="voting-category-btn active" data-category="all">
+                        すべて
+                        <span class="category-count" data-count="all">46</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="budget">
+                        予算
+                        <span class="category-count" data-count="budget">0</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="settlement">
+                        決算
+                        <span class="category-count" data-count="settlement">0</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="ordinance">
+                        条例
+                        <span class="category-count" data-count="ordinance">0</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="petition">
+                        請願
+                        <span class="category-count" data-count="petition">0</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="personnel">
+                        人事・選挙
+                        <span class="category-count" data-count="personnel">0</span>
+                    </button>
+                    <button class="voting-category-btn" data-category="other">
+                        その他
+                        <span class="category-count" data-count="other">0</span>
+                    </button>
+                </div>
+                <div class="voting-category-description" id="votingCategoryDesc"></div>
             </div>
 
             <!-- サマリー -->
@@ -2172,105 +2813,92 @@
                 </div>
             </div>
 
-            <!-- 9月定例会 -->
-            <div class="voting-session">
-                <div class="voting-session-header">
-                    <div>
-                        <h3 class="voting-session-title">令和7年 9月定例会</h3>
-                        <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">前年度の決算を認定。補正予算も審議。</p>
+            <!-- タブナビゲーション -->
+            <div class="voting-tabs" id="votingTabs">
+                <button class="voting-tab active" data-tab="all">
+                    すべて
+                </button>
+                <button class="voting-tab" data-tab="r7-12">
+                    R7 12月
+                    <span class="tab-count">20</span>
+                </button>
+                <button class="voting-tab" data-tab="r7-9">
+                    R7 9月
+                    <span class="tab-count">26</span>
+                </button>
+            </div>
+
+            <!-- 定例会リスト -->
+            <div class="voting-sessions-list">
+                <!-- 9月定例会アコーディオン -->
+                <div class="voting-accordion" data-session="r7-9">
+                    <div class="voting-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <div class="voting-accordion-left">
+                            <div class="voting-accordion-icon">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div>
+                                <div class="voting-accordion-title">令和7年 9月定例会</div>
+                                <div class="voting-accordion-subtitle">一般会計補正予算、決算認定などを審議</div>
+                            </div>
+                        </div>
+                        <div class="voting-accordion-right">
+                            <span class="voting-accordion-badge">26賛成・0反対</span>
+                            <span class="voting-accordion-count">26件</span>
+                            <div class="voting-accordion-arrow">
+                                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                        </div>
                     </div>
-                    <div style="text-align: right;">
-                        <span class="voting-session-badge">全議案賛成</span>
-                        <span style="display: block; font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 4px;">決算審査</span>
-                    </div>
-                </div>
+                    <div class="voting-accordion-body">
+                        <div class="voting-accordion-content voting-session" data-session-content="r7-9">
 
                 <!-- 会期日程表 -->
-                <div style="margin: 24px 0; background: #f5f5f7; border-radius: 12px; padding: 20px; overflow-x: auto;">
-                    <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--text);">会期日程表</h4>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px;">
+                <div class="schedule-box">
+                    <h4 class="schedule-title">会期日程表</h4>
+                    <table class="schedule-table">
                         <thead>
-                            <tr style="border-bottom: 2px solid rgba(0,0,0,0.1);">
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">日次</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">月日</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">曜日</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">会議別</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">開始時刻</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">説明</th>
+                            <tr>
+                                <th>日次</th>
+                                <th>月日</th>
+                                <th>曜日</th>
+                                <th>会議別</th>
+                                <th>開始時刻</th>
+                                <th>説明</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">1</td>
-                                <td style="padding: 10px 8px;">9/1</td>
-                                <td style="padding: 10px 8px;">月</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開会、開議、諸般の報告、会議録署名議員の指名、会期の決定、議案の上程・説明、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">2</td>
-                                <td style="padding: 10px 8px;">9/2</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、議案質疑、委員会付託、一部採決、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">5</td>
-                                <td style="padding: 10px 8px;">9/5</td>
-                                <td style="padding: 10px 8px;">金</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、委員長報告、質疑、討論・採決、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">8</td>
-                                <td style="padding: 10px 8px;">9/8</td>
-                                <td style="padding: 10px 8px;">月</td>
-                                <td style="padding: 10px 8px;"><span style="background: #34c759; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">委員会</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">各常任委員会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">9</td>
-                                <td style="padding: 10px 8px;">9/9</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: #34c759; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">委員会</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">各常任委員会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">16</td>
-                                <td style="padding: 10px 8px;">9/16</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、委員長報告、質疑、討論・採決、一般質問、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">17</td>
-                                <td style="padding: 10px 8px;">9/17</td>
-                                <td style="padding: 10px 8px;">水</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">18</td>
-                                <td style="padding: 10px 8px;">9/18</td>
-                                <td style="padding: 10px 8px;">木</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、散会</td>
+                            <tr>
+                                <td data-label="日次">1</td>
+                                <td data-label="月日">9/1</td>
+                                <td data-label="曜日">月</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">開会、開議、諸般の報告、会期の決定、議案の上程・説明</span></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px 8px;">19</td>
-                                <td style="padding: 10px 8px;">9/19</td>
-                                <td style="padding: 10px 8px;">金</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、閉会</td>
+                                <td data-label="日次">2</td>
+                                <td data-label="月日">9/2</td>
+                                <td data-label="曜日">火</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">議案質疑、委員会付託、一部採決</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">8-9</td>
+                                <td data-label="月日">9/8-9</td>
+                                <td data-label="曜日">月火</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-iinkai">委員会</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">各常任委員会</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">16-19</td>
+                                <td data-label="月日">9/16-19</td>
+                                <td data-label="曜日">火-金</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">委員長報告、討論・採決、一般質問、閉会</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -2754,123 +3382,95 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                        </div><!-- /.voting-accordion-content -->
+                    </div><!-- /.voting-accordion-body -->
+                </div><!-- /.voting-accordion 9月 -->
 
-            <!-- 12月定例会 -->
-            <div class="voting-session">
-                <div class="voting-session-header">
-                    <div>
-                        <h3 class="voting-session-title">令和7年 12月定例会</h3>
-                        <p style="font-size: 13px; color: var(--gray); margin-top: 4px;">補正予算、条例改正などを審議。</p>
+                <!-- 12月定例会アコーディオン -->
+                <div class="voting-accordion open" data-session="r7-12">
+                    <div class="voting-accordion-header" onclick="this.parentElement.classList.toggle('open')">
+                        <div class="voting-accordion-left">
+                            <div class="voting-accordion-icon">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            </div>
+                            <div>
+                                <div class="voting-accordion-title">令和7年 12月定例会</div>
+                                <div class="voting-accordion-subtitle">補正予算、条例改正などを審議</div>
+                            </div>
+                        </div>
+                        <div class="voting-accordion-right">
+                            <span class="voting-accordion-badge has-opposition">17賛成・3反対</span>
+                            <span class="voting-accordion-count">20件</span>
+                            <div class="voting-accordion-arrow">
+                                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                        </div>
                     </div>
-                    <div style="text-align: right;">
-                        <span class="voting-session-badge">17賛成・3反対</span>
-                        <span style="display: block; font-size: 11px; color: var(--accent); font-weight: 600; margin-top: 4px;">補正予算</span>
-                    </div>
-                </div>
+                    <div class="voting-accordion-body">
+                        <div class="voting-accordion-content voting-session" data-session-content="r7-12">
 
                 <!-- 会期日程表 -->
-                <div style="margin: 24px 0; background: #f5f5f7; border-radius: 12px; padding: 20px; overflow-x: auto;">
-                    <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--text);">会期日程表</h4>
-                    <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 600px;">
+                <div class="schedule-box">
+                    <h4 class="schedule-title">会期日程表</h4>
+                    <table class="schedule-table">
                         <thead>
-                            <tr style="border-bottom: 2px solid rgba(0,0,0,0.1);">
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">日次</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">月日</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">曜日</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">会議別</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">開始時刻</th>
-                                <th style="padding: 10px 8px; text-align: left; font-weight: 600; color: var(--gray);">説明</th>
+                            <tr>
+                                <th>日次</th>
+                                <th>月日</th>
+                                <th>曜日</th>
+                                <th>会議別</th>
+                                <th>開始時刻</th>
+                                <th>説明</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">1</td>
-                                <td style="padding: 10px 8px;">12/1</td>
-                                <td style="padding: 10px 8px;">月</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開会、開議、諸般の報告、会議録署名議員の指名、会期の決定、議案の上程・説明、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">2</td>
-                                <td style="padding: 10px 8px;">12/2</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: #999; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">休会</span></td>
-                                <td style="padding: 10px 8px;">-</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">（議案調査）</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">3</td>
-                                <td style="padding: 10px 8px;">12/3</td>
-                                <td style="padding: 10px 8px;">水</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、議案質疑、委員会付託、一部採決、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">4</td>
-                                <td style="padding: 10px 8px;">12/4</td>
-                                <td style="padding: 10px 8px;">木</td>
-                                <td style="padding: 10px 8px;"><span style="background: #34c759; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">委員会</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">総務常任委員会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">5</td>
-                                <td style="padding: 10px 8px;">12/5</td>
-                                <td style="padding: 10px 8px;">金</td>
-                                <td style="padding: 10px 8px;"><span style="background: #999; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">休会</span></td>
-                                <td style="padding: 10px 8px;">-</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">会派会議</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">9</td>
-                                <td style="padding: 10px 8px;">12/9</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、委員長報告、質疑、討論・採決、一般質問、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">10</td>
-                                <td style="padding: 10px 8px;">12/10</td>
-                                <td style="padding: 10px 8px;">水</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">11</td>
-                                <td style="padding: 10px 8px;">12/11</td>
-                                <td style="padding: 10px 8px;">木</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <td style="padding: 10px 8px;">12</td>
-                                <td style="padding: 10px 8px;">12/12</td>
-                                <td style="padding: 10px 8px;">金</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">一般質問、市政に対する追加議案の上程・説明、質疑、委員会付託、散会</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.06); background: rgba(0,0,0,0.02);">
-                                <td style="padding: 10px 8px;">15</td>
-                                <td style="padding: 10px 8px;">12/15</td>
-                                <td style="padding: 10px 8px;">月</td>
-                                <td style="padding: 10px 8px;"><span style="background: #34c759; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">委員会</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">各常任委員会（追加議案審査）</td>
+                            <tr>
+                                <td data-label="日次">1</td>
+                                <td data-label="月日">12/1</td>
+                                <td data-label="曜日">月</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">開会、諸般の報告、会期の決定、議案の上程・説明</span></td>
                             </tr>
                             <tr>
-                                <td style="padding: 10px 8px;">16</td>
-                                <td style="padding: 10px 8px;">12/16</td>
-                                <td style="padding: 10px 8px;">火</td>
-                                <td style="padding: 10px 8px;"><span style="background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px;">本会議</span></td>
-                                <td style="padding: 10px 8px;">午前10時</td>
-                                <td style="padding: 10px 8px; color: var(--gray);">開議、委員長報告、質疑、討論・採決、閉会</td>
+                                <td data-label="日次">3</td>
+                                <td data-label="月日">12/3</td>
+                                <td data-label="曜日">水</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">議案質疑、委員会付託、一部採決</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">4</td>
+                                <td data-label="月日">12/4</td>
+                                <td data-label="曜日">木</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-iinkai">委員会</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">総務常任委員会</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">9-12</td>
+                                <td data-label="月日">12/9-12</td>
+                                <td data-label="曜日">火-金</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">委員長報告、討論・採決、一般質問</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">15</td>
+                                <td data-label="月日">12/15</td>
+                                <td data-label="曜日">月</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-iinkai">委員会</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">各常任委員会（追加議案審査）</span></td>
+                            </tr>
+                            <tr>
+                                <td data-label="日次">16</td>
+                                <td data-label="月日">12/16</td>
+                                <td data-label="曜日">火</td>
+                                <td data-label="会議"><span class="schedule-badge schedule-badge-honkaigi">本会議</span></td>
+                                <td data-label="開始">午前10時</td>
+                                <td data-label="内容"><span class="schedule-desc">委員長報告、討論・採決、閉会</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -3276,12 +3876,29 @@
                             <div class="voting-item-detail-content">
                                 <h5>請願の概要</h5>
                                 <p>加齢による難聴者が補聴器を購入する際、市が費用の一部を助成する制度の創設を求める請願。</p>
-                                <h5 style="margin-top: 16px;">反対理由</h5>
+
+                                <h5 style="margin-top: 20px;">請願者の思いへの理解</h5>
                                 <p>
-                                    加齢とともに聞こえづらくなる不安、会話が億劫になる辛さは、ご本人にしかわからない苦しみだと思います。補聴器があれば生活の質が大きく向上することも理解しています。その上で、現時点で市単独の助成制度を新設することには慎重な立場をとりました。<br><br>
-                                    <strong>1. 補助対象の線引きの難しさ：</strong>補聴器を補助するなら、同じく加齢で必要になるメガネはどうするのか。医療機関を介さない購入まで補助対象にすると、際限なく範囲が広がる恐れがあります。<br><br>
-                                    <strong>2. 持続可能な制度設計が必要：</strong>対象者が広範囲に及び、継続的な財政負担が発生。子育て支援、防災、インフラ整備等との優先順位を考慮し、補助の範囲を明確にした制度設計が不可欠です。<br><br>
-                                    <strong>3. 国・県の動向を注視：</strong>全国的な課題であり、国や県レベルでの制度設計が先行されるべき。市単独で先行すると、後に国制度との調整が複雑になる恐れがあります。
+                                    「聞こえ」の悩みによる孤独感や不安が、生活の質を著しく下げてしまうことは十分に理解しております。声を上げてくださったことに敬意を表します。その上で、以下の理由から現時点での助成制度創設には慎重な立場をとりました。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">反対理由①：福祉の公平性</h5>
+                                <p>
+                                    政治の役割は、特定の不便さだけでなく、すべての市民が抱える多様な困難を公平に見つめ、限られた福祉財源を適切に配分することです。<br><br>
+                                    <strong>他器具・他疾患との整合性：</strong>加齢により日常生活に不便を感じる要素は、聴力以外にも視力（眼鏡）、咀嚼能力（義歯）、歩行能力（歩行補助具）など多岐にわたります。これらはいずれも生活の質に直結する切実な課題ですが、現在、市単独での全世代的な購入補助は行われていません。補聴器のみを特例として助成対象とすることは、他の疾患や加齢による困難を抱える方々との間で、福祉の公平性を損なう恐れがあります。<br><br>
+                                    <strong>公的な基準の尊重：</strong>市は現在、「重度心身障害者医療費支給に関する条例」の改正など、国や県が定めた客観的な基準に基づき、真に優先順位の高い支援を必要とする方々への制度維持を適正に行っています。こうした国レベルで確立された「公平な枠組み」を維持することこそが、自治体における福祉の根幹であると判断いたします。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">反対理由②：支援の質の確保</h5>
+                                <p>
+                                    福祉としての支援は、単に物品を届けることではなく、それが実際にその方の生活を支えるまでを見届けることにあると考えます。<br><br>
+                                    <strong>「使いこなすための支援」の欠如：</strong>補聴器は、個々の聴力に合わせて数ヶ月かけて脳を音に慣らす専門的なケア（フィッティングとリハビリ）が不可欠な医療機器です。現在、購入者の約4割が満足に使用できていないという実態は、器具さえあれば解決するという安易な考えの危うさを示しています。<br><br>
+                                    <strong>責任ある制度設計の必要性：</strong>本市において、購入後のリハビリや継続的な専門相談までを包括的に提供できる体制が未整備な現状では、単なる「購入費の一部助成」という関わり方は、真に生活の質を向上させる福祉の役割を果たせているとは言い切れません。こうした中途半端な支援は、むしろ市民の皆様に「これだけで解決する」という誤解を招く懸念があります。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">自治体としてあるべき姿勢</h5>
+                                <p>
+                                    だからこそ市独自の限定的な助成で済ませるのではなく、国に対して、誰もが公平に、かつ専門的なリハビリを含めて利用できる「医療保険の適用」などを強く求めていくことこそが、自治体としての誠実な福祉の姿勢であると考えます。
                                 </p>
                             </div>
                         </div>
@@ -3299,12 +3916,23 @@
                             <div class="voting-item-detail-content">
                                 <h5>請願の概要</h5>
                                 <p>日本政府に対し、核兵器禁止条約への参加を求める意見書を市議会から提出することを求める請願。</p>
-                                <h5 style="margin-top: 16px;">反対理由</h5>
+
+                                <h5 style="margin-top: 20px;">請願者の思いへの理解</h5>
                                 <p>
-                                    唯一の被爆国として、核兵器のない世界を願う気持ちは私も同じです。被爆者の方々の苦しみ、そしてその思いを次世代に伝えていくことの大切さは深く理解しています。その上で、市議会から国に対して条約参加を求める意見書を提出することには反対しました。<br><br>
-                                    <strong>1. 安全保障政策は国の専権事項：</strong>外交・安全保障政策は国政の根幹であり、市議会が判断すべき領域を超えている。<br><br>
-                                    <strong>2. 現実的な安全保障環境：</strong>日米同盟を基軸とした抑止力の維持は現実的に必要。理想と現実のバランスが重要。<br><br>
-                                    <strong>3. 市の役割として適切か：</strong>市議会は市民の安全・安心を守る具体的施策に注力することが本来の役割。
+                                    この請願を提出してくださった方々の、核兵器のない世界を願う強い思いに深く敬意を表します。賛成討論で語られた「非人道性」「ノーベル平和賞受賞」「被爆者の願い」——これらはすべて、私たちが決して忘れてはならない大切な視点です。<br><br>
+                                    唯一の被爆国として、核兵器のない世界を目指すという崇高な目的自体に異論はありません。被爆者の方々の苦しみ、そしてその思いを次世代に伝えていくことの大切さは深く理解しています。その上で、以下の理由から慎重な立場をとりました。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">慎重な立場の理由①：平和への「道筋」についての考え</h5>
+                                <p>
+                                    目指すゴールは同じでも、そこへ至る道筋については慎重に考える必要があると感じています。核保有国と非保有国の対立が深まる中、保有国が一切参加していない本条約に日本が直ちに参加することは、日米同盟に基づく抑止力の信頼性を損なう恐れがあります。<br><br>
+                                    「核の脅威が現実化している」今だからこそ、まずはオブザーバー参加などを通じた「橋渡し」の外交努力を国に求めることが、より現実的な平和への道ではないでしょうか。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">慎重な立場の理由②：自治体の役割について</h5>
+                                <p>
+                                    国防・外交は一自治体の判断を超えた国の専権事項です。市議会として平和を願う気持ちは大切にしつつも、現在の厳しい国際情勢下では「国の外交戦略」として慎重な判断が必要であると考えます。<br><br>
+                                    請願者の皆さまの平和への強い思いは、今後も市政の中で大切にしていきたいと考えています。
                                 </p>
                             </div>
                         </div>
@@ -3322,18 +3950,32 @@
                             <div class="voting-item-detail-content">
                                 <h5>請願の概要</h5>
                                 <p>外国人による土地取得を制限する「外国人土地法」の即時施行を国に求める意見書の提出を求める請願。</p>
-                                <h5 style="margin-top: 16px;">反対理由</h5>
+
+                                <h5 style="margin-top: 20px;">請願者の思いへの理解</h5>
                                 <p>
-                                    国土を守りたい、日本の安全保障を強化したいという思いは共感します。重要施設周辺や国境離島の土地が外国資本に取得されることへの懸念は、多くの国民が抱く当然の不安だと思います。その上で、以下の理由から反対しました。<br><br>
-                                    <strong>1. 法的実効性への疑問：</strong>現行法の枠組みでの即時施行は実効性に課題があり、より包括的な新法制定が望ましい。<br><br>
-                                    <strong>2. 国の専権事項：</strong>外交・安全保障に関わる政策であり、市議会が判断すべき領域を超えている。<br><br>
-                                    <strong>3. 慎重な議論が必要：</strong>国際関係や経済への影響も含め、国レベルでの慎重な議論が必要な事項。
+                                    この請願を提出してくださった方々の、日本の国土を守りたいという強い思いに敬意を表します。賛成討論で語られた「相互主義」「水源地や基地周辺の安全確保」——これらは国民として当然の関心事であり、その問題意識は理解できます。<br><br>
+                                    国土を守りたい、日本の安全保障を強化したいという思いには深く共感いたします。その上で、以下の理由から慎重な立場をとりました。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">慎重な立場の理由①：三郷市における具体的な実害が確認されていない</h5>
+                                <p>
+                                    反対討論にもあった通り、三郷市内や埼玉県内において、外国人による土地取得が原因で市民生活や安全保障に具体的な支障が出ているという客観的な事例は確認されていません。<br><br>
+                                    具体的な被害が確認されていない段階で、大正時代に制定された法律の即時施行を求めることについては、慎重に考える必要があると感じています。
+                                </p>
+
+                                <h5 style="margin-top: 20px;">慎重な立場の理由②：多様な市民が暮らす三郷市として</h5>
+                                <p>
+                                    三郷市には様々な国籍の方々が暮らし、地域社会の一員として貢献されています。「相互主義」という考え方は一見公平ですが、特定の国籍を対象とした規制と受け取られれば、市内で共に暮らす外国籍の方々との関係に影響を及ぼす可能性があります。<br><br>
+                                    国土保全という重要な課題については、市議会から意見書を出すという形ではなく、国レベルでの慎重かつ包括的な議論を見守るべきだと考えます。請願者の皆さまの国を思う気持ちは、今後も大切にしていきたいと考えています。
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                        </div><!-- /.voting-accordion-content -->
+                    </div><!-- /.voting-accordion-body -->
+                </div><!-- /.voting-accordion 12月 -->
+            </div><!-- /.voting-sessions-list -->
 
             <!-- 判断基準 -->
             <div class="voting-criteria">
@@ -3771,6 +4413,438 @@
 
             window.addEventListener('scroll', checkVisibility);
             checkVisibility(); // Check on load
+        })();
+
+        // 見出しの表示/非表示を制御するユーティリティ
+        function updateSectionHeadings() {
+            // 各セッション内の見出し（h4）とサブ見出し（p）とvoting-gridの表示を制御
+            document.querySelectorAll('.voting-session').forEach(session => {
+                // セッション内のすべての要素を取得
+                const children = Array.from(session.children);
+
+                let currentHeading = null;
+                let currentSubHeading = null;
+                let currentGrid = null;
+
+                children.forEach((child, index) => {
+                    // h4見出しの場合
+                    if (child.tagName === 'H4') {
+                        currentHeading = child;
+                        currentSubHeading = null;
+                        return;
+                    }
+
+                    // pサブ見出しの場合（font-size: 12pxで判定）
+                    if (child.tagName === 'P' && child.style.fontSize === '12px') {
+                        currentSubHeading = child;
+                        return;
+                    }
+
+                    // voting-gridの場合
+                    if (child.classList.contains('voting-grid')) {
+                        currentGrid = child;
+                        const items = child.querySelectorAll('.voting-item');
+                        const visibleItems = Array.from(items).filter(item => !item.classList.contains('search-hidden'));
+
+                        // グリッド内に表示される議案があるかどうか
+                        if (visibleItems.length > 0) {
+                            child.classList.remove('search-hidden');
+                            if (currentHeading) currentHeading.classList.remove('search-hidden');
+                            if (currentSubHeading) currentSubHeading.classList.remove('search-hidden');
+                        } else {
+                            child.classList.add('search-hidden');
+                            // 次のグリッドで同じ見出しが使われるかもしれないので、見出しはまだ隠さない
+                        }
+                    }
+                });
+
+                // 2回目のパス：見出しの最終的な表示状態を決定
+                let headingHasVisibleContent = false;
+                children.forEach((child, index) => {
+                    if (child.tagName === 'H4') {
+                        // この見出しの後に表示されるグリッドがあるか確認
+                        headingHasVisibleContent = false;
+                        for (let i = index + 1; i < children.length; i++) {
+                            const nextChild = children[i];
+                            if (nextChild.tagName === 'H4') break; // 次の見出しに到達
+                            if (nextChild.classList.contains('voting-grid') && !nextChild.classList.contains('search-hidden')) {
+                                headingHasVisibleContent = true;
+                                break;
+                            }
+                        }
+                        if (headingHasVisibleContent) {
+                            child.classList.remove('search-hidden');
+                        } else {
+                            child.classList.add('search-hidden');
+                        }
+                    }
+
+                    // サブ見出しも同様に処理
+                    if (child.tagName === 'P' && child.style.fontSize === '12px') {
+                        // この見出しの直後のグリッドが表示されているか確認
+                        const nextSibling = children[index + 1];
+                        if (nextSibling && nextSibling.classList.contains('voting-grid') && !nextSibling.classList.contains('search-hidden')) {
+                            child.classList.remove('search-hidden');
+                        } else {
+                            child.classList.add('search-hidden');
+                        }
+                    }
+                });
+            });
+        }
+
+        // 賛否記録の検索機能
+        (function() {
+            const searchInput = document.getElementById('votingSearchInput');
+            const searchClear = document.getElementById('votingSearchClear');
+            const searchResults = document.getElementById('votingSearchResults');
+            const votingItems = document.querySelectorAll('.voting-item');
+            const votingSessions = document.querySelectorAll('.voting-session');
+
+            if (!searchInput) return;
+
+            function performSearch(query) {
+                const searchTerm = query.toLowerCase().trim();
+
+                if (!searchTerm) {
+                    // 検索クリア時は全て表示
+                    votingItems.forEach(item => {
+                        item.classList.remove('search-hidden', 'search-highlight');
+                    });
+                    votingSessions.forEach(session => {
+                        session.classList.remove('search-hidden');
+                        // 見出しとグリッドも全て表示
+                        session.querySelectorAll('h4, p, .voting-grid').forEach(el => {
+                            el.classList.remove('search-hidden');
+                        });
+                    });
+                    searchResults.textContent = '';
+                    searchClear.style.display = 'none';
+                    return;
+                }
+
+                searchClear.style.display = 'flex';
+                let matchCount = 0;
+
+                // 各セッションごとにマッチをチェック
+                votingSessions.forEach(session => {
+                    const items = session.querySelectorAll('.voting-item');
+                    let sessionHasMatch = false;
+
+                    items.forEach(item => {
+                        const itemName = item.querySelector('.voting-item-name');
+                        const itemDetail = item.querySelector('.voting-item-detail-content');
+
+                        const nameText = itemName ? itemName.textContent.toLowerCase() : '';
+                        const detailText = itemDetail ? itemDetail.textContent.toLowerCase() : '';
+
+                        if (nameText.includes(searchTerm) || detailText.includes(searchTerm)) {
+                            item.classList.remove('search-hidden');
+                            item.classList.add('search-highlight');
+                            sessionHasMatch = true;
+                            matchCount++;
+                        } else {
+                            item.classList.add('search-hidden');
+                            item.classList.remove('search-highlight');
+                        }
+                    });
+
+                    // セッション内にマッチがなければセッション自体を非表示
+                    if (sessionHasMatch) {
+                        session.classList.remove('search-hidden');
+                    } else {
+                        session.classList.add('search-hidden');
+                    }
+                });
+
+                // 見出しの表示/非表示を更新
+                updateSectionHeadings();
+
+                // 検索結果を表示
+                if (matchCount > 0) {
+                    searchResults.textContent = `${matchCount}件の議案が見つかりました`;
+                    searchResults.style.color = 'var(--accent)';
+                } else {
+                    searchResults.textContent = '該当する議案が見つかりませんでした';
+                    searchResults.style.color = 'var(--gray)';
+                }
+            }
+
+            // 入力時に検索実行（デバウンス付き）
+            let debounceTimer;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    performSearch(this.value);
+                }, 200);
+            });
+
+            // クリアボタン
+            searchClear.addEventListener('click', function() {
+                searchInput.value = '';
+                performSearch('');
+                searchInput.focus();
+            });
+
+            // Escapeキーでクリア
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    performSearch('');
+                }
+            });
+        })();
+
+        // カテゴリフィルター機能
+        (function() {
+            const categoryBtns = document.querySelectorAll('.voting-category-btn');
+            const categoryDesc = document.getElementById('votingCategoryDesc');
+            const votingItems = document.querySelectorAll('.voting-item');
+            const votingSessions = document.querySelectorAll('.voting-session');
+            const searchInput = document.getElementById('votingSearchInput');
+            const searchResults = document.getElementById('votingSearchResults');
+
+            if (!categoryBtns.length) return;
+
+            // カテゴリの定義
+            const categories = {
+                all: {
+                    name: 'すべて',
+                    desc: '',
+                    keywords: []
+                },
+                budget: {
+                    name: '予算',
+                    desc: '市の収入と支出の計画。一般会計・特別会計の補正予算を審議します。',
+                    keywords: ['補正予算', '一般会計', '特別会計', '予算']
+                },
+                settlement: {
+                    name: '決算',
+                    desc: '前年度の収入・支出の実績を確認。税金が適切に使われたかをチェックします。',
+                    keywords: ['決算', '認定']
+                },
+                ordinance: {
+                    name: '条例',
+                    desc: '市のルールを定める法律のようなもの。市民生活に直接関わる重要な決まりです。',
+                    keywords: ['条例']
+                },
+                petition: {
+                    name: '請願',
+                    desc: '市民から議会への要望書。採択されると市に実現を求めることができます。',
+                    keywords: ['請願']
+                },
+                personnel: {
+                    name: '人事・選挙',
+                    desc: '各種委員会の委員選任や、議会内の役職選出など。',
+                    keywords: ['選挙', '選任', '同意', '監査委員', '人権擁護委員', '固定資産評価審査委員会']
+                },
+                other: {
+                    name: 'その他',
+                    desc: '報告事項、契約案件、指定管理者の指定、その他の議案。',
+                    keywords: ['報告', '契約', '指定管理', '専決処分', '市道路線']
+                }
+            };
+
+            // 議案のカテゴリを判定
+            function getItemCategory(item) {
+                const itemNumber = item.querySelector('.voting-item-number');
+                const itemName = item.querySelector('.voting-item-name');
+
+                const numText = itemNumber ? itemNumber.textContent : '';
+                const nameText = itemName ? itemName.textContent : '';
+                const fullText = numText + ' ' + nameText;
+
+                // 請願は番号で判定
+                if (numText.includes('請願')) return 'petition';
+
+                // 選挙は番号で判定
+                if (numText.includes('選挙')) return 'personnel';
+
+                // 報告は番号で判定
+                if (numText.includes('報告')) return 'other';
+
+                // 名前からカテゴリを判定
+                for (const [catKey, catData] of Object.entries(categories)) {
+                    if (catKey === 'all' || catKey === 'other') continue;
+
+                    for (const keyword of catData.keywords) {
+                        if (nameText.includes(keyword)) {
+                            return catKey;
+                        }
+                    }
+                }
+
+                return 'other';
+            }
+
+            // カテゴリごとのカウントを計算
+            function updateCategoryCounts() {
+                const counts = {
+                    all: 0,
+                    budget: 0,
+                    settlement: 0,
+                    ordinance: 0,
+                    petition: 0,
+                    personnel: 0,
+                    other: 0
+                };
+
+                votingItems.forEach(item => {
+                    const category = getItemCategory(item);
+                    item.dataset.category = category;
+                    counts[category]++;
+                    counts.all++;
+                });
+
+                // カウント表示を更新
+                Object.keys(counts).forEach(cat => {
+                    const countEl = document.querySelector(`[data-count="${cat}"]`);
+                    if (countEl) {
+                        countEl.textContent = counts[cat];
+                    }
+                });
+            }
+
+            // カテゴリでフィルター
+            function filterByCategory(category) {
+                // 検索をクリア
+                if (searchInput) {
+                    searchInput.value = '';
+                }
+                if (searchResults) {
+                    searchResults.textContent = '';
+                }
+
+                // ボタンのアクティブ状態を更新
+                categoryBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.category === category);
+                });
+
+                // 説明文を更新
+                if (category === 'all') {
+                    categoryDesc.classList.remove('visible');
+                } else {
+                    categoryDesc.innerHTML = `<strong>${categories[category].name}とは：</strong>${categories[category].desc}`;
+                    categoryDesc.classList.add('visible');
+                }
+
+                // フィルタリング
+                let matchCount = 0;
+
+                votingSessions.forEach(session => {
+                    const items = session.querySelectorAll('.voting-item');
+                    let sessionHasMatch = false;
+
+                    // まず見出しとグリッドをリセット
+                    if (category === 'all') {
+                        session.querySelectorAll('h4, p, .voting-grid').forEach(el => {
+                            el.classList.remove('search-hidden');
+                        });
+                    }
+
+                    items.forEach(item => {
+                        const itemCategory = item.dataset.category || getItemCategory(item);
+
+                        if (category === 'all' || itemCategory === category) {
+                            item.classList.remove('search-hidden');
+                            item.classList.add('search-highlight');
+                            sessionHasMatch = true;
+                            matchCount++;
+                        } else {
+                            item.classList.add('search-hidden');
+                            item.classList.remove('search-highlight');
+                        }
+                    });
+
+                    if (sessionHasMatch) {
+                        session.classList.remove('search-hidden');
+                    } else {
+                        session.classList.add('search-hidden');
+                    }
+                });
+
+                // 見出しの表示/非表示を更新
+                if (category !== 'all') {
+                    updateSectionHeadings();
+                }
+
+                // 結果表示（allの場合は非表示）
+                if (searchResults) {
+                    if (category === 'all') {
+                        searchResults.textContent = '';
+                        // ハイライトを外す
+                        votingItems.forEach(item => item.classList.remove('search-highlight'));
+                    } else {
+                        searchResults.textContent = `「${categories[category].name}」に関する議案：${matchCount}件`;
+                        searchResults.style.color = 'var(--accent)';
+                    }
+                }
+            }
+
+            // イベントリスナー
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterByCategory(this.dataset.category);
+                });
+            });
+
+            // 初期化：カテゴリカウントを計算
+            updateCategoryCounts();
+        })();
+
+        // ========================================
+        // VOTING TABS - タブ切り替え機能
+        // ========================================
+        (function initVotingTabs() {
+            const votingTabs = document.getElementById('votingTabs');
+            if (!votingTabs) return;
+
+            const tabs = votingTabs.querySelectorAll('.voting-tab');
+            const accordions = document.querySelectorAll('.voting-accordion');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetSession = this.dataset.tab;
+
+                    // タブのアクティブ状態を更新
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // アコーディオンの表示/非表示を制御
+                    accordions.forEach(accordion => {
+                        const session = accordion.dataset.session;
+
+                        if (targetSession === 'all') {
+                            // すべて表示
+                            accordion.style.display = '';
+                        } else if (session === targetSession) {
+                            // 該当するセッションを表示して開く
+                            accordion.style.display = '';
+                            accordion.classList.add('open');
+                        } else {
+                            // 該当しないセッションを非表示
+                            accordion.style.display = 'none';
+                        }
+                    });
+
+                    // 検索とカテゴリフィルタをリセット
+                    const searchInput = document.getElementById('votingSearch');
+                    if (searchInput) searchInput.value = '';
+
+                    const categoryBtns = document.querySelectorAll('.category-btn');
+                    categoryBtns.forEach(btn => btn.classList.remove('active'));
+                    const allBtn = document.querySelector('.category-btn[data-category="all"]');
+                    if (allBtn) allBtn.classList.add('active');
+
+                    // すべてのアイテムを表示状態に戻す
+                    document.querySelectorAll('.voting-item').forEach(item => {
+                        item.classList.remove('search-hidden');
+                    });
+                    document.querySelectorAll('.voting-grid').forEach(grid => {
+                        grid.style.display = '';
+                    });
+                });
+            });
         })();
     </script>
 </body>

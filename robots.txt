@@ -1,0 +1,49 @@
+# robots.txt for yusaku-suzuki.pages.dev
+# 三郷市議会議員 鈴木優作 公式サイト
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yusaku-suzuki.pages.dev/sitemap.xml
+
+# Allow all crawlers for maximum visibility
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# AI/LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
